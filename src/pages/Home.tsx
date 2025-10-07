@@ -67,7 +67,7 @@ export default function Home({ onNavigate }: HomeProps) {
               alt="ROSELLA"
               className="mx-auto animate-logo-glow"
               style={{
-                height: '120px',
+                height: '200px',
                 width: 'auto',
                 objectFit: 'contain'
               }}
