@@ -41,7 +41,7 @@ export default function Katalog() {
   return (
     <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center text-amber-400 mb-8 sm:mb-12 tracking-wide">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center text-amber-400 mb-8 sm:mb-12 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
           Katalog
         </h1>
 

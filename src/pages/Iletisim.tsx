@@ -9,7 +9,7 @@ export default function Iletisim() {
   return (
     <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold text-center text-amber-400 mb-16 tracking-wide">
+        <h1 className="text-4xl md:text-6xl font-bold text-center text-amber-400 mb-16 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
           İletişim
         </h1>
 

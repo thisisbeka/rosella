@@ -50,7 +50,7 @@ export default function CategoryPage({ categorySlug, title, description }: Categ
     <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold text-amber-400 mb-6 tracking-wide">
+          <h1 className="text-4xl md:text-6xl font-bold text-amber-400 mb-6 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
             {title}
           </h1>
           <p className="text-xl text-amber-100/80 max-w-2xl mx-auto leading-relaxed">

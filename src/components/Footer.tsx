@@ -11,7 +11,7 @@ export default function Footer({ onNavigate }: FooterProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <img
-              src="/07259bd5-b4e6-418b-ab97-bd8c2868bd04.JPG"
+              src="/ROSELLA_mainpage_new.png"
               alt="ROSELLA"
               className="h-20 w-auto object-contain mb-4"
             />

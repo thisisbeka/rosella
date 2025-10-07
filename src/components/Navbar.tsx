@@ -43,7 +43,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             className="hover:opacity-80 transition-opacity duration-300"
           >
             <img
-              src="/07259bd5-b4e6-418b-ab97-bd8c2868bd04.JPG"
+              src="/ROSELLA_mainpage_new.png"
               alt="ROSELLA"
               className="h-16 w-auto object-contain"
             />

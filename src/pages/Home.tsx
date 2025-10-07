@@ -87,7 +87,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
       <section className="py-20 px-4 bg-gradient-to-b from-black to-gray-900">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-amber-400 mb-16 tracking-wide">
+          <h2 className="text-4xl md:text-5xl font-bold text-center text-amber-400 mb-16 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
             Hizmetlerimiz
           </h2>
 
@@ -131,7 +131,7 @@ export default function Home({ onNavigate }: HomeProps) {
       {featuredProducts.length > 0 && (
         <section className="py-20 px-4 bg-gradient-to-b from-gray-900 to-black">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-amber-400 mb-16 tracking-wide">
+            <h2 className="text-4xl md:text-5xl font-bold text-center text-amber-400 mb-16 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
               Öne Çıkan Ürünler
             </h2>
 
