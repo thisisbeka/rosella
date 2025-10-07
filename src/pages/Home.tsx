@@ -61,16 +61,17 @@ export default function Home({ onNavigate }: HomeProps) {
             }} />
           </div>
 
-          <h1 className="luxury-serif text-7xl md:text-9xl font-black mb-6 tracking-[0.15em] animate-slide-up" style={{
-            background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            textShadow: '0 0 40px rgba(251, 191, 36, 0.5)',
-            filter: 'drop-shadow(0 4px 12px rgba(251, 191, 36, 0.4))'
-          }}>
-            ROSELLA
-          </h1>
+          <div className="mb-6 animate-slide-up">
+            <img
+              src="/ROSELLA_mainpage.png"
+              alt="ROSELLA"
+              className="mx-auto max-w-full h-auto"
+              style={{
+                maxHeight: '200px',
+                filter: 'drop-shadow(0 4px 20px rgba(251, 191, 36, 0.5))'
+              }}
+            />
+          </div>
 
           <p className="text-xl md:text-2xl text-amber-100 mb-12 tracking-wide animate-slide-up-delay">
             Herşey bir insanı sevmekle başlar
