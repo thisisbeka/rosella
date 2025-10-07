@@ -54,19 +54,24 @@ export default function Home({ onNavigate }: HomeProps) {
           </div>
         </div>
 
-        <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="mb-8">
-            <Flower2 className="w-28 h-28 text-amber-400 mx-auto mb-3 animate-bloom" style={{
-              filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))'
-            }} />
+        <div className="relative z-10 text-center px-4 max-w-6xl mx-auto">
+          <div className="flex flex-col items-center justify-center mb-8" style={{ height: '900px' }}>
+            <Flower2 className="text-amber-400 animate-bloom"
+              style={{
+                width: '140px',
+                height: '140px',
+                filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))',
+                marginBottom: '30px'
+              }}
+            />
 
-            <div className="animate-slide-up">
+            <div className="animate-slide-up flex-shrink-0">
               <img
                 src="/ROSELLA_mainpage.png"
                 alt="ROSELLA"
                 className="mx-auto animate-logo-glow"
                 style={{
-                  height: '1100px',
+                  height: '700px',
                   width: 'auto',
                   objectFit: 'contain'
                 }}
