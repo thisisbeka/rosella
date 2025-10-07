@@ -55,26 +55,26 @@ export default function Home({ onNavigate }: HomeProps) {
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="mb-12">
-            <Flower2 className="w-20 h-20 text-amber-400 mx-auto mb-6 animate-bloom" style={{
+          <div className="mb-16">
+            <Flower2 className="w-24 h-24 text-amber-400 mx-auto mb-4 animate-bloom" style={{
               filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))'
             }} />
+
+            <div className="animate-slide-up">
+              <img
+                src="/ROSELLA_mainpage.png"
+                alt="ROSELLA"
+                className="mx-auto animate-logo-glow"
+                style={{
+                  height: '200px',
+                  width: 'auto',
+                  objectFit: 'contain'
+                }}
+              />
+            </div>
           </div>
 
-          <div className="mb-8 animate-slide-up">
-            <img
-              src="/ROSELLA_mainpage.png"
-              alt="ROSELLA"
-              className="mx-auto animate-logo-glow"
-              style={{
-                height: '200px',
-                width: 'auto',
-                objectFit: 'contain'
-              }}
-            />
-          </div>
-
-          <p className="text-xl md:text-2xl text-amber-100 mb-12 tracking-wide animate-slide-up-delay">
+          <p className="text-lg md:text-xl text-amber-100 mb-10 tracking-wide animate-slide-up-delay">
             Herşey bir insanı sevmekle başlar
           </p>
 
