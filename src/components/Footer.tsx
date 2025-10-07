@@ -16,7 +16,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               className="h-20 w-auto object-contain mb-4"
             />
             <p className="text-sm leading-relaxed text-amber-100/80">
-              Zarafetin Çiçeklerle Buluştuğu Yer
+              Herşey bir insanı sevmekle başlar
             </p>
           </div>
 
