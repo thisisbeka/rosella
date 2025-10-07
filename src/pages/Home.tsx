@@ -72,9 +72,9 @@ export default function Home({ onNavigate }: HomeProps) {
       </section>
 
       {featuredProducts.length > 0 && (
-        <section className="py-16 px-4 bg-gradient-to-b from-black to-gray-900">
+        <section className="py-12 px-4 bg-gradient-to-b from-black to-gray-900">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-400 mb-12 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-400 mb-10 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
               Öne Çıkan Ürünler
             </h2>
 
