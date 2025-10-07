@@ -65,10 +65,10 @@ export default function Home({ onNavigate }: HomeProps) {
             <img
               src="/ROSELLA_mainpage.png"
               alt="ROSELLA"
-              className="mx-auto max-w-full h-auto"
+              className="mx-auto max-w-full h-auto animate-logo-glow"
               style={{
-                maxHeight: '200px',
-                filter: 'drop-shadow(0 4px 20px rgba(251, 191, 36, 0.5))'
+                maxHeight: '350px',
+                width: 'auto'
               }}
             />
           </div>
