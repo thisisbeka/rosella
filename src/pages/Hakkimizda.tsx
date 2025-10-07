@@ -43,7 +43,7 @@ export default function Hakkimizda() {
           <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-2xl border-2 border-amber-500/20 p-8 text-center hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-2xl transition-all duration-500"></div>
             <div className="relative">
-              <Heart className="w-14 h-14 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-500" />
+              <Heart className="w-14 h-14 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
               <h3 className="text-2xl font-bold text-amber-100 mb-3" style={{fontFamily: 'Cinzel, serif'}}>Tutkuyla</h3>
               <p className="text-amber-100/70 leading-relaxed">Her işimizi sevgiyle ve özenle yapıyoruz</p>
             </div>
@@ -52,7 +52,7 @@ export default function Hakkimizda() {
           <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-2xl border-2 border-amber-500/20 p-8 text-center hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-2xl transition-all duration-500"></div>
             <div className="relative">
-              <Award className="w-14 h-14 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-500" />
+              <Award className="w-14 h-14 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
               <h3 className="text-2xl font-bold text-amber-100 mb-3" style={{fontFamily: 'Cinzel, serif'}}>Kalite</h3>
               <p className="text-amber-100/70 leading-relaxed">Sadece en iyi ürünleri seçiyoruz</p>
             </div>
@@ -61,7 +61,7 @@ export default function Hakkimizda() {
           <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-2xl border-2 border-amber-500/20 p-8 text-center hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-2xl transition-all duration-500"></div>
             <div className="relative">
-              <Users className="w-14 h-14 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-500" />
+              <Users className="w-14 h-14 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
               <h3 className="text-2xl font-bold text-amber-100 mb-3" style={{fontFamily: 'Cinzel, serif'}}>Müşteri Odaklı</h3>
               <p className="text-amber-100/70 leading-relaxed">Memnuniyetiniz bizim önceliğimiz</p>
             </div>
@@ -70,7 +70,7 @@ export default function Hakkimizda() {
           <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-2xl border-2 border-amber-500/20 p-8 text-center hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-2xl transition-all duration-500"></div>
             <div className="relative">
-              <Sparkles className="w-14 h-14 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-500" />
+              <Sparkles className="w-14 h-14 text-amber-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
               <h3 className="text-2xl font-bold text-amber-100 mb-3" style={{fontFamily: 'Cinzel, serif'}}>Özgünlük</h3>
               <p className="text-amber-100/70 leading-relaxed">Her tasarım benzersiz ve özel</p>
             </div>
@@ -87,7 +87,7 @@ export default function Hakkimizda() {
             <div className="relative flex gap-6">
               <div className="flex-shrink-0">
                 <div className="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
-                  <Star className="w-8 h-8 text-amber-400" />
+                  <Star className="w-8 h-8 text-amber-400 animate-logo-glow" />
                 </div>
               </div>
               <div>
@@ -104,7 +104,7 @@ export default function Hakkimizda() {
             <div className="relative flex gap-6">
               <div className="flex-shrink-0">
                 <div className="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
-                  <Clock className="w-8 h-8 text-amber-400" />
+                  <Clock className="w-8 h-8 text-amber-400 animate-logo-glow" />
                 </div>
               </div>
               <div>
@@ -121,7 +121,7 @@ export default function Hakkimizda() {
             <div className="relative flex gap-6">
               <div className="flex-shrink-0">
                 <div className="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
-                  <Shield className="w-8 h-8 text-amber-400" />
+                  <Shield className="w-8 h-8 text-amber-400 animate-logo-glow" />
                 </div>
               </div>
               <div>
@@ -138,7 +138,7 @@ export default function Hakkimizda() {
             <div className="relative flex gap-6">
               <div className="flex-shrink-0">
                 <div className="w-16 h-16 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
-                  <Flower2 className="w-8 h-8 text-amber-400" />
+                  <Flower2 className="w-8 h-8 text-amber-400 animate-logo-glow" />
                 </div>
               </div>
               <div>
