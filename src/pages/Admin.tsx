@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut } from 'lucide-react';
-import { supabase, Product, Category } from '../lib/supabase';
+import { supabase, Product, Category, ProductCategory } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function Admin() {
@@ -22,14 +22,30 @@ export default function Admin() {
     category_id: '',
     is_featured: false,
   });
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [productCategories, setProductCategories] = useState<Record<string, string[]>>({});
 
   useEffect(() => {
     if (user) {
       loadData();
     }
   }, [user]);
+
+  const getProductCategories = async (productId: string): Promise<string[]> => {
+    const { data, error } = await supabase
+      .from('product_categories')
+      .select('category_id')
+      .eq('product_id', productId);
+
+    if (error) {
+      console.error('Error loading product categories:', error);
+      return [];
+    }
+
+    return data.map((pc) => pc.category_id);
+  };
 
   const loadData = async () => {
     try {
@@ -49,6 +65,21 @@ export default function Admin() {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    const loadProductCategories = async () => {
+      const categoryMap: Record<string, string[]> = {};
+      for (const product of products) {
+        const cats = await getProductCategories(product.id);
+        categoryMap[product.id] = cats;
+      }
+      setProductCategories(categoryMap);
+    };
+
+    if (products.length > 0) {
+      loadProductCategories();
+    }
+  }, [products]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,10 +111,12 @@ export default function Admin() {
         description: formData.description,
         price: parseFloat(formData.price),
         image_url: imageUrl,
-        category_id: formData.category_id,
+        category_id: selectedCategories.length > 0 ? selectedCategories[0] : null,
         is_featured: formData.is_featured,
         updated_at: new Date().toISOString(),
       };
+
+      let productId: string;
 
       if (editingProduct) {
         const { error } = await supabase
@@ -92,9 +125,34 @@ export default function Admin() {
           .eq('id', editingProduct.id);
 
         if (error) throw error;
+        productId = editingProduct.id;
+
+        await supabase
+          .from('product_categories')
+          .delete()
+          .eq('product_id', productId);
       } else {
-        const { error } = await supabase.from('products').insert([productData]);
+        const { data: newProduct, error } = await supabase
+          .from('products')
+          .insert([productData])
+          .select()
+          .single();
+
         if (error) throw error;
+        productId = newProduct.id;
+      }
+
+      if (selectedCategories.length > 0) {
+        const categoryEntries = selectedCategories.map((catId) => ({
+          product_id: productId,
+          category_id: catId,
+        }));
+
+        const { error: categoriesError } = await supabase
+          .from('product_categories')
+          .insert(categoryEntries);
+
+        if (categoriesError) throw categoriesError;
       }
 
       await loadData();
@@ -120,7 +178,7 @@ export default function Admin() {
     }
   };
 
-  const handleEdit = (product: Product) => {
+  const handleEdit = async (product: Product) => {
     setEditingProduct(product);
     setFormData({
       name: product.name,
@@ -130,6 +188,9 @@ export default function Admin() {
       category_id: product.category_id || '',
       is_featured: product.is_featured,
     });
+
+    const productCats = await getProductCategories(product.id);
+    setSelectedCategories(productCats);
     setShowForm(true);
   };
 
@@ -142,6 +203,7 @@ export default function Admin() {
       category_id: '',
       is_featured: false,
     });
+    setSelectedCategories([]);
     setImageFile(null);
     setEditingProduct(null);
     setShowForm(false);
@@ -149,6 +211,14 @@ export default function Admin() {
 
   const getCategoryName = (categoryId: string) => {
     return categories.find((c) => c.id === categoryId)?.name || 'Kategori Yok';
+  };
+
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(categoryId)
+        ? prev.filter((id) => id !== categoryId)
+        : [...prev, categoryId]
+    );
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -334,20 +404,26 @@ export default function Admin() {
                 </div>
 
                 <div>
-                  <label className="block text-amber-100 mb-2">Kategori</label>
-                  <select
-                    value={formData.category_id}
-                    onChange={(e) => setFormData({ ...formData, category_id: e.target.value })}
-                    className="w-full px-4 py-3 bg-black/50 border border-amber-500/30 rounded-lg text-amber-100 focus:outline-none focus:border-amber-500"
-                    required
-                  >
-                    <option value="">Kategori Seçin</option>
+                  <label className="block text-amber-100 mb-3">Kategoriler</label>
+                  <div className="space-y-2 max-h-48 overflow-y-auto bg-black/50 border border-amber-500/30 rounded-lg p-4">
                     {categories.map((category) => (
-                      <option key={category.id} value={category.id}>
-                        {category.name}
-                      </option>
+                      <label
+                        key={category.id}
+                        className="flex items-center gap-3 cursor-pointer hover:bg-amber-500/10 p-2 rounded transition-colors"
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedCategories.includes(category.id)}
+                          onChange={() => toggleCategory(category.id)}
+                          className="w-5 h-5 text-amber-500 bg-black/50 border-amber-500/30 rounded focus:ring-amber-500 focus:ring-2"
+                        />
+                        <span className="text-amber-100">{category.name}</span>
+                      </label>
                     ))}
-                  </select>
+                  </div>
+                  {selectedCategories.length === 0 && (
+                    <p className="text-amber-400/70 text-sm mt-2">En az bir kategori seçin</p>
+                  )}
                 </div>
 
                 <div className="flex items-center gap-3">
@@ -366,7 +442,7 @@ export default function Admin() {
                 <div className="flex gap-4 pt-4">
                   <button
                     type="submit"
-                    disabled={isUploading}
+                    disabled={isUploading || selectedCategories.length === 0}
                     className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Check size={20} />
@@ -411,7 +487,20 @@ export default function Admin() {
                   )}
                 </div>
 
-                <p className="text-sm text-amber-100/70 mb-2">{getCategoryName(product.category_id || '')}</p>
+                <div className="flex flex-wrap gap-1 mb-2">
+                  {productCategories[product.id]?.length > 0 ? (
+                    productCategories[product.id].map((catId) => (
+                      <span
+                        key={catId}
+                        className="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded"
+                      >
+                        {getCategoryName(catId)}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-sm text-amber-100/70">Kategori Yok</span>
+                  )}
+                </div>
 
                 <p className="text-2xl font-bold text-amber-400 mb-4">
                   {product.price.toLocaleString('tr-TR')} ₺
