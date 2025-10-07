@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Plus, Trash2, CreditCard as Edit2, X, Check } from 'lucide-react';
+import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut } from 'lucide-react';
 import { supabase, Product, Category } from '../lib/supabase';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Admin() {
+  const { user, loading: authLoading, signIn, signOut } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -21,8 +26,10 @@ export default function Admin() {
   const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
-    loadData();
-  }, []);
+    if (user) {
+      loadData();
+    }
+  }, [user]);
 
   const loadData = async () => {
     try {
@@ -144,6 +151,70 @@ export default function Admin() {
     return categories.find((c) => c.id === categoryId)?.name || 'Kategori Yok';
   };
 
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoginError('');
+    const { error } = await signIn(loginEmail, loginPassword);
+    if (error) {
+      setLoginError('Giriş başarısız. Lütfen bilgilerinizi kontrol edin.');
+    }
+  };
+
+  const handleLogout = async () => {
+    await signOut();
+  };
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen pt-28 flex items-center justify-center bg-gradient-to-b from-black via-gray-900 to-black">
+        <div className="text-amber-100 text-xl">Yükleniyor...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black flex items-center justify-center">
+        <div className="w-full max-w-md">
+          <div className="bg-gradient-to-br from-black to-gray-900 border border-amber-500/30 rounded-2xl p-8">
+            <h1 className="text-3xl font-bold text-amber-400 mb-6 text-center">Admin Girişi</h1>
+            <form onSubmit={handleLogin} className="space-y-4">
+              <div>
+                <label className="block text-amber-100 mb-2">E-posta</label>
+                <input
+                  type="email"
+                  value={loginEmail}
+                  onChange={(e) => setLoginEmail(e.target.value)}
+                  className="w-full px-4 py-3 bg-black/50 border border-amber-500/30 rounded-lg text-amber-100 focus:outline-none focus:border-amber-500"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-amber-100 mb-2">Şifre</label>
+                <input
+                  type="password"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  className="w-full px-4 py-3 bg-black/50 border border-amber-500/30 rounded-lg text-amber-100 focus:outline-none focus:border-amber-500"
+                  required
+                />
+              </div>
+              {loginError && (
+                <div className="text-red-400 text-sm text-center">{loginError}</div>
+              )}
+              <button
+                type="submit"
+                className="w-full px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-lg font-medium transition-all duration-300"
+              >
+                Giriş Yap
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (isLoading) {
     return (
       <div className="min-h-screen pt-28 flex items-center justify-center bg-gradient-to-b from-black via-gray-900 to-black">
@@ -155,17 +226,26 @@ export default function Admin() {
   return (
     <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
           <h1 className="text-4xl md:text-5xl font-bold text-amber-400 tracking-wide">
             Admin Paneli
           </h1>
-          <button
-            onClick={() => setShowForm(true)}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-lg font-medium transition-all duration-300 hover:scale-105"
-          >
-            <Plus size={20} />
-            Yeni Ürün
-          </button>
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowForm(true)}
+              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-lg font-medium transition-all duration-300 hover:scale-105"
+            >
+              <Plus size={20} />
+              Yeni Ürün
+            </button>
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-6 py-3 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 rounded-lg font-medium transition-all duration-300"
+            >
+              <LogOut size={20} />
+              Çıkış
+            </button>
+          </div>
         </div>
 
         {showForm && (

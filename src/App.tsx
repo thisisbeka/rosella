@@ -7,6 +7,7 @@ import CategoryPage from './pages/CategoryPage';
 import Hakkimizda from './pages/Hakkimizda';
 import Iletisim from './pages/Iletisim';
 import Admin from './pages/Admin';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -53,11 +54,13 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-amber-100">
-      <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
-      <main>{renderPage()}</main>
-      <Footer onNavigate={setCurrentPage} />
-    </div>
+    <AuthProvider>
+      <div className="min-h-screen bg-black text-amber-100">
+        <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
+        <main>{renderPage()}</main>
+        <Footer onNavigate={setCurrentPage} />
+      </div>
+    </AuthProvider>
   );
 }
 
