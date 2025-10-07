@@ -17,6 +17,8 @@ export default function Admin() {
     category_id: '',
     is_featured: false,
   });
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -43,13 +45,34 @@ export default function Admin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsUploading(true);
 
     try {
+      let imageUrl = formData.image_url;
+
+      if (imageFile) {
+        const fileExt = imageFile.name.split('.').pop();
+        const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+        const filePath = `${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('product-images')
+          .upload(filePath, imageFile);
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('product-images')
+          .getPublicUrl(filePath);
+
+        imageUrl = publicUrl;
+      }
+
       const productData = {
         name: formData.name,
         description: formData.description,
         price: parseFloat(formData.price),
-        image_url: formData.image_url,
+        image_url: imageUrl,
         category_id: formData.category_id,
         is_featured: formData.is_featured,
         updated_at: new Date().toISOString(),
@@ -72,6 +95,8 @@ export default function Admin() {
     } catch (error) {
       console.error('Error saving product:', error);
       alert('Ürün kaydedilirken bir hata oluştu.');
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -110,6 +135,7 @@ export default function Admin() {
       category_id: '',
       is_featured: false,
     });
+    setImageFile(null);
     setEditingProduct(null);
     setShowForm(false);
   };
@@ -191,14 +217,40 @@ export default function Admin() {
                 </div>
 
                 <div>
-                  <label className="block text-amber-100 mb-2">Resim URL</label>
-                  <input
-                    type="url"
-                    value={formData.image_url}
-                    onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
-                    className="w-full px-4 py-3 bg-black/50 border border-amber-500/30 rounded-lg text-amber-100 focus:outline-none focus:border-amber-500"
-                    required
-                  />
+                  <label className="block text-amber-100 mb-2">Ürün Resmi</label>
+                  <div className="space-y-3">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          setImageFile(file);
+                          setFormData({ ...formData, image_url: '' });
+                        }
+                      }}
+                      className="w-full px-4 py-3 bg-black/50 border border-amber-500/30 rounded-lg text-amber-100 focus:outline-none focus:border-amber-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-amber-500/20 file:text-amber-400 hover:file:bg-amber-500/30 file:cursor-pointer"
+                    />
+                    {imageFile && (
+                      <p className="text-sm text-amber-400">Seçili dosya: {imageFile.name}</p>
+                    )}
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 h-px bg-amber-500/30"></div>
+                      <span className="text-amber-100/50 text-sm">veya</span>
+                      <div className="flex-1 h-px bg-amber-500/30"></div>
+                    </div>
+                    <input
+                      type="url"
+                      placeholder="Resim URL'si girin"
+                      value={formData.image_url}
+                      onChange={(e) => {
+                        setFormData({ ...formData, image_url: e.target.value });
+                        setImageFile(null);
+                      }}
+                      className="w-full px-4 py-3 bg-black/50 border border-amber-500/30 rounded-lg text-amber-100 focus:outline-none focus:border-amber-500"
+                      disabled={!!imageFile}
+                    />
+                  </div>
                 </div>
 
                 <div>
@@ -234,10 +286,11 @@ export default function Admin() {
                 <div className="flex gap-4 pt-4">
                   <button
                     type="submit"
-                    className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-lg font-medium transition-all duration-300"
+                    disabled={isUploading}
+                    className="flex-1 flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Check size={20} />
-                    {editingProduct ? 'Güncelle' : 'Ekle'}
+                    {isUploading ? 'Yükleniyor...' : editingProduct ? 'Güncelle' : 'Ekle'}
                   </button>
                   <button
                     type="button"
