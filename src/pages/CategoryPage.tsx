@@ -30,14 +30,25 @@ export default function CategoryPage({ categorySlug, title, description }: Categ
 
       if (categories && categories.length > 0) {
         const categoryIds = categories.map(cat => cat.id);
-        const { data, error } = await supabase
-          .from('products')
-          .select('*')
-          .in('category_id', categoryIds)
-          .order('created_at', { ascending: false });
 
-        if (error) throw error;
-        setProducts(data || []);
+        const { data: productCategories } = await supabase
+          .from('product_categories')
+          .select('product_id')
+          .in('category_id', categoryIds);
+
+        if (productCategories && productCategories.length > 0) {
+          const productIds = productCategories.map(pc => pc.product_id);
+          const { data, error } = await supabase
+            .from('products')
+            .select('*')
+            .in('id', productIds)
+            .order('created_at', { ascending: false });
+
+          if (error) throw error;
+          setProducts(data || []);
+        } else {
+          setProducts([]);
+        }
       }
     } catch (error) {
       console.error('Error loading products:', error);

@@ -13,6 +13,10 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
     window.open(whatsappUrl, '_blank');
   };
 
+  const discountedPrice = product.discount_percentage
+    ? product.price * (1 - product.discount_percentage / 100)
+    : null;
+
   return (
     <div className="group relative bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20">
       <div className="aspect-square overflow-hidden relative">
@@ -21,6 +25,11 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
+        {product.discount_percentage && (
+          <div className="absolute top-3 left-3 bg-gradient-to-r from-red-600 to-red-500 text-white px-3 py-2 rounded-lg shadow-lg font-bold text-sm z-10 animate-pulse">
+            {product.discount_percentage}% İNDİRİM
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
 
@@ -36,9 +45,20 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
         )}
 
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-          <span className="text-lg sm:text-2xl font-bold text-amber-400">
-            {product.price.toLocaleString('tr-TR')} ₺
-          </span>
+          {product.discount_percentage ? (
+            <div className="flex flex-col gap-1">
+              <span className="text-sm sm:text-base text-amber-100/50 line-through">
+                {product.price.toLocaleString('tr-TR')} ₺
+              </span>
+              <span className="text-lg sm:text-2xl font-bold text-red-400">
+                {discountedPrice?.toLocaleString('tr-TR')} ₺
+              </span>
+            </div>
+          ) : (
+            <span className="text-lg sm:text-2xl font-bold text-amber-400">
+              {product.price.toLocaleString('tr-TR')} ₺
+            </span>
+          )}
 
           <button
             onClick={handleWhatsAppOrder}

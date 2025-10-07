@@ -21,6 +21,7 @@ export default function Admin() {
     image_url: '',
     category_id: '',
     is_featured: false,
+    discount_percentage: '',
   });
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -106,6 +107,8 @@ export default function Admin() {
         imageUrl = publicUrl;
       }
 
+      const discountValue = formData.discount_percentage ? parseInt(formData.discount_percentage) : null;
+
       const productData = {
         name: formData.name,
         description: formData.description,
@@ -113,6 +116,7 @@ export default function Admin() {
         image_url: imageUrl,
         category_id: selectedCategories.length > 0 ? selectedCategories[0] : null,
         is_featured: formData.is_featured,
+        discount_percentage: discountValue,
         updated_at: new Date().toISOString(),
       };
 
@@ -187,6 +191,7 @@ export default function Admin() {
       image_url: product.image_url,
       category_id: product.category_id || '',
       is_featured: product.is_featured,
+      discount_percentage: product.discount_percentage ? product.discount_percentage.toString() : '',
     });
 
     const productCats = await getProductCategories(product.id);
@@ -202,6 +207,7 @@ export default function Admin() {
       image_url: '',
       category_id: '',
       is_featured: false,
+      discount_percentage: '',
     });
     setSelectedCategories([]);
     setImageFile(null);
@@ -426,6 +432,20 @@ export default function Admin() {
                   )}
                 </div>
 
+                <div>
+                  <label className="block text-amber-100 mb-2">İndirim Yüzdesi (%)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    value={formData.discount_percentage}
+                    onChange={(e) => setFormData({ ...formData, discount_percentage: e.target.value })}
+                    placeholder="Örn: 10, 20, 50"
+                    className="w-full px-4 py-3 bg-black/50 border border-amber-500/30 rounded-lg text-amber-100 focus:outline-none focus:border-amber-500"
+                  />
+                  <p className="text-amber-400/70 text-sm mt-1">İndirim yoksa boş bırakın</p>
+                </div>
+
                 <div className="flex items-center gap-3">
                   <input
                     type="checkbox"
@@ -502,9 +522,25 @@ export default function Admin() {
                   )}
                 </div>
 
-                <p className="text-2xl font-bold text-amber-400 mb-4">
-                  {product.price.toLocaleString('tr-TR')} ₺
-                </p>
+                {product.discount_percentage ? (
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-lg text-amber-100/50 line-through">
+                        {product.price.toLocaleString('tr-TR')} ₺
+                      </span>
+                      <span className="px-2 py-1 bg-red-500/20 text-red-400 text-xs font-bold rounded">
+                        {product.discount_percentage}% İNDİRİM
+                      </span>
+                    </div>
+                    <p className="text-2xl font-bold text-amber-400">
+                      {(product.price * (1 - product.discount_percentage / 100)).toLocaleString('tr-TR')} ₺
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-2xl font-bold text-amber-400 mb-4">
+                    {product.price.toLocaleString('tr-TR')} ₺
+                  </p>
+                )}
 
                 <div className="flex gap-2">
                   <button

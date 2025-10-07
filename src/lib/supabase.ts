@@ -20,6 +20,7 @@ export interface Product {
   image_url: string;
   category_id: string;
   is_featured: boolean;
+  discount_percentage: number | null;
   created_at: string;
   updated_at: string;
 }

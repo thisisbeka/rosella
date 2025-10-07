@@ -16,16 +16,27 @@ export default function Katalog() {
 
   const loadData = async () => {
     try {
-      const [productsResult, categoriesResult] = await Promise.all([
+      const [productsResult, categoriesResult, productCategoriesResult] = await Promise.all([
         supabase.from('products').select('*').order('created_at', { ascending: false }),
         supabase.from('categories').select('*').order('name'),
+        supabase.from('product_categories').select('*'),
       ]);
 
       if (productsResult.error) throw productsResult.error;
       if (categoriesResult.error) throw categoriesResult.error;
+      if (productCategoriesResult.error) throw productCategoriesResult.error;
 
       setProducts(productsResult.data || []);
       setCategories(categoriesResult.data || []);
+
+      const productCategoryMap: Record<string, string[]> = {};
+      (productCategoriesResult.data || []).forEach((pc: any) => {
+        if (!productCategoryMap[pc.product_id]) {
+          productCategoryMap[pc.product_id] = [];
+        }
+        productCategoryMap[pc.product_id].push(pc.category_id);
+      });
+      setProductCategoryMap(productCategoryMap);
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -33,10 +44,17 @@ export default function Katalog() {
     }
   };
 
+  const [productCategoryMap, setProductCategoryMap] = useState<Record<string, string[]>>({});
+
   const filteredProducts =
     selectedCategory === 'all'
       ? products
-      : products.filter((p) => p.category_id === selectedCategory);
+      : selectedCategory === 'discount'
+      ? products.filter((p) => p.discount_percentage && p.discount_percentage > 0)
+      : products.filter((p) => {
+          const categoryIds = productCategoryMap[p.id] || [];
+          return categoryIds.includes(selectedCategory);
+        });
 
   return (
     <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
@@ -55,6 +73,16 @@ export default function Katalog() {
             }`}
           >
             Tümü
+          </button>
+          <button
+            onClick={() => setSelectedCategory('discount')}
+            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 ${
+              selectedCategory === 'discount'
+                ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg shadow-red-500/50'
+                : 'bg-black/60 text-red-100 border border-red-500/30 hover:border-red-500/60'
+            }`}
+          >
+            İndirimli Ürünler
           </button>
           {categories.map((category) => (
             <button
