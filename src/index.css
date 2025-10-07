@@ -124,6 +124,21 @@
   .animate-logo-glow {
     animation: logo-glow 4s ease-in-out infinite;
   }
+
+  @keyframes sparkle {
+    0%, 100% {
+      opacity: 0.2;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+  }
+
+  .animate-sparkle {
+    animation: sparkle 3s ease-in-out infinite;
+  }
 }
 
 ::-webkit-scrollbar {
