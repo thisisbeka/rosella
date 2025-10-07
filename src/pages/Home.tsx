@@ -61,14 +61,15 @@ export default function Home({ onNavigate }: HomeProps) {
             }} />
           </div>
 
-          <div className="mb-6 animate-slide-up">
+          <div className="mb-8 animate-slide-up">
             <img
               src="/ROSELLA_mainpage.png"
               alt="ROSELLA"
-              className="mx-auto max-w-full h-auto animate-logo-glow"
+              className="mx-auto animate-logo-glow"
               style={{
-                maxHeight: '350px',
-                width: 'auto'
+                height: '120px',
+                width: 'auto',
+                objectFit: 'contain'
               }}
             />
           </div>
