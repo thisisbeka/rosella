@@ -41,14 +41,14 @@ export default function Katalog() {
   return (
     <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold text-center text-amber-400 mb-12 tracking-wide">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center text-amber-400 mb-8 sm:mb-12 tracking-wide">
           Katalog
         </h1>
 
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 mb-8 sm:mb-12">
           <button
             onClick={() => setSelectedCategory('all')}
-            className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 ${
               selectedCategory === 'all'
                 ? 'bg-gradient-to-r from-amber-600 to-amber-500 text-white shadow-lg shadow-amber-500/50'
                 : 'bg-black/60 text-amber-100 border border-amber-500/30 hover:border-amber-500/60'
@@ -60,7 +60,7 @@ export default function Katalog() {
             <button
               key={category.id}
               onClick={() => setSelectedCategory(category.id)}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 ${
                 selectedCategory === category.id
                   ? 'bg-gradient-to-r from-amber-600 to-amber-500 text-white shadow-lg shadow-amber-500/50'
                   : 'bg-black/60 text-amber-100 border border-amber-500/30 hover:border-amber-500/60'
@@ -72,13 +72,13 @@ export default function Katalog() {
         </div>
 
         {isLoading ? (
-          <div className="text-center text-amber-100 text-xl">Yükleniyor...</div>
+          <div className="text-center text-amber-100 text-lg sm:text-xl">Yükleniyor...</div>
         ) : filteredProducts.length === 0 ? (
-          <div className="text-center text-amber-100/70 text-xl">
+          <div className="text-center text-amber-100/70 text-lg sm:text-xl">
             Bu kategoride henüz ürün bulunmamaktadır.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {filteredProducts.map((product) => (
               <ProductCard
                 key={product.id}

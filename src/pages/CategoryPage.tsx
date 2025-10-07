@@ -3,7 +3,7 @@ import { supabase, Product } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
 
 interface CategoryPageProps {
-  categorySlug: string;
+  categorySlug: string | string[];
   title: string;
   description: string;
 }
@@ -21,17 +21,19 @@ export default function CategoryPage({ categorySlug, title, description }: Categ
   const loadProducts = async () => {
     setIsLoading(true);
     try {
-      const { data: category } = await supabase
+      const slugs = Array.isArray(categorySlug) ? categorySlug : [categorySlug];
+
+      const { data: categories } = await supabase
         .from('categories')
         .select('id')
-        .eq('slug', categorySlug)
-        .maybeSingle();
+        .in('slug', slugs);
 
-      if (category) {
+      if (categories && categories.length > 0) {
+        const categoryIds = categories.map(cat => cat.id);
         const { data, error } = await supabase
           .from('products')
           .select('*')
-          .eq('category_id', category.id)
+          .in('category_id', categoryIds)
           .order('created_at', { ascending: false });
 
         if (error) throw error;
@@ -57,13 +59,13 @@ export default function CategoryPage({ categorySlug, title, description }: Categ
         </div>
 
         {isLoading ? (
-          <div className="text-center text-amber-100 text-xl">Yükleniyor...</div>
+          <div className="text-center text-amber-100 text-lg sm:text-xl">Yükleniyor...</div>
         ) : products.length === 0 ? (
-          <div className="text-center text-amber-100/70 text-xl">
+          <div className="text-center text-amber-100/70 text-lg sm:text-xl">
             Bu kategoride henüz ürün bulunmamaktadır.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {products.map((product) => (
               <ProductCard
                 key={product.id}

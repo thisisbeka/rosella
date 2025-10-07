@@ -20,7 +20,7 @@ function App() {
       case 'cicekler':
         return (
           <CategoryPage
-            categorySlug="cicekler"
+            categorySlug={['buket', 'orkide', 'saksi', 'vip-cicekler']}
             title="Çiçekler"
             description="Her anınıza özel, taze ve zarif çiçek aranjmanları"
           />
