@@ -4,7 +4,11 @@ import ProductCard from '../components/ProductCard';
 
 const WHATSAPP_NUMBER = '902247770177';
 
-export default function Katalog() {
+interface KatalogProps {
+  initialCategorySlug?: string | null;
+}
+
+export default function Katalog({ initialCategorySlug }: KatalogProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
@@ -13,6 +17,17 @@ export default function Katalog() {
   useEffect(() => {
     loadData();
   }, []);
+
+  useEffect(() => {
+    if (initialCategorySlug && categories.length > 0) {
+      const category = categories.find(c => c.slug === initialCategorySlug);
+      if (category) {
+        setSelectedCategory(category.id);
+      } else if (initialCategorySlug === 'all') {
+        setSelectedCategory('all');
+      }
+    }
+  }, [initialCategorySlug, categories]);
 
   const loadData = async () => {
     try {

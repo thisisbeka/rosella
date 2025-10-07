@@ -11,6 +11,7 @@ import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
+  const [selectedCategorySlug, setSelectedCategorySlug] = useState<string | null>(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -19,9 +20,12 @@ function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <Home onNavigate={setCurrentPage} />;
+        return <Home onNavigate={(page, categorySlug) => {
+          setCurrentPage(page);
+          setSelectedCategorySlug(categorySlug || null);
+        }} />;
       case 'katalog':
-        return <Katalog />;
+        return <Katalog initialCategorySlug={selectedCategorySlug} />;
       case 'cicekler':
         return (
           <CategoryPage
@@ -53,14 +57,20 @@ function App() {
       case 'admin':
         return <Admin />;
       default:
-        return <Home onNavigate={setCurrentPage} />;
+        return <Home onNavigate={(page, categorySlug) => {
+          setCurrentPage(page);
+          setSelectedCategorySlug(categorySlug || null);
+        }} />;
     }
   };
 
   return (
     <AuthProvider>
       <div className="min-h-screen bg-black text-amber-100">
-        <Navbar currentPage={currentPage} onNavigate={setCurrentPage} />
+        <Navbar currentPage={currentPage} onNavigate={(page, categorySlug) => {
+          setCurrentPage(page);
+          setSelectedCategorySlug(categorySlug || null);
+        }} />
         <main>{renderPage()}</main>
         <Footer onNavigate={setCurrentPage} />
       </div>

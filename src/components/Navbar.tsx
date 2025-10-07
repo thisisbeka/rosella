@@ -3,7 +3,7 @@ import { Menu, X } from 'lucide-react';
 
 interface NavbarProps {
   currentPage: string;
-  onNavigate: (page: string) => void;
+  onNavigate: (page: string, categorySlug?: string) => void;
 }
 
 export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
