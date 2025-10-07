@@ -1,6 +1,9 @@
-import { Heart, Award, Users, Sparkles, Star, Clock, Shield, Flower2 } from 'lucide-react';
+import { useState } from 'react';
+import { Heart, Award, Users, Sparkles, Star, Clock, Shield, Flower2, ChevronDown } from 'lucide-react';
 
 export default function Hakkimizda() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
       <div className="max-w-6xl mx-auto">
@@ -23,16 +26,27 @@ export default function Hakkimizda() {
                 seçeneklerinin büyüsünü sizlerle buluşturuyoruz. Zarafet, kalite ve özgünlük
                 ilkelerimizle hareket ederek, her müşterimize özel tasarımlar sunuyoruz.
               </p>
-              <p className="text-sm md:text-base text-amber-100/80 leading-relaxed">
-                Çiçeklerimiz, teraryumlarımız, çikolatalarımız ve organizasyon hizmetlerimizle
-                sevdiklerinize en özel hediyeyi vermenizi sağlıyoruz. Her ürünümüz özenle seçilmiş
-                ve kaliteli malzemelerle hazırlanmıştır.
-              </p>
-              <p className="text-sm md:text-base text-amber-100/80 leading-relaxed">
-                Düğünlerinizden nişanlarınıza, doğum günlerinizden özel günlerinize kadar her
-                organizasyonunuzda yanınızdayız. Hayalinizdeki etkinliği gerçekleştirmek için
-                profesyonel ekibimizle hizmetinizdeyiz.
-              </p>
+
+              <div className={`space-y-4 overflow-hidden transition-all duration-500 ${isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                <p className="text-sm md:text-base text-amber-100/80 leading-relaxed">
+                  Çiçeklerimiz, teraryumlarımız, çikolatalarımız ve organizasyon hizmetlerimizle
+                  sevdiklerinize en özel hediyeyi vermenizi sağlıyoruz. Her ürünümüz özenle seçilmiş
+                  ve kaliteli malzemelerle hazırlanmıştır.
+                </p>
+                <p className="text-sm md:text-base text-amber-100/80 leading-relaxed">
+                  Düğünlerinizden nişanlarınıza, doğum günlerinizden özel günlerinize kadar her
+                  organizasyonunuzda yanınızdayız. Hayalinizdeki etkinliği gerçekleştirmek için
+                  profesyonel ekibimizle hizmetinizdeyiz.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 transition-colors duration-300 font-medium mt-2"
+              >
+                <span className="text-sm md:text-base">{isExpanded ? 'Daha Az' : 'Daha Fazla'}</span>
+                <ChevronDown className={`w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+              </button>
             </div>
           </div>
         </div>
