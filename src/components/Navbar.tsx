@@ -29,15 +29,15 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   ];
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-        isScrolled
-          ? 'bg-black/60 backdrop-blur-xl border-b border-amber-500/20'
-          : 'bg-black/40 backdrop-blur-lg'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+    <nav className="fixed top-0 w-full z-50 px-4 sm:px-6 lg:px-8 pt-4">
+      <div
+        className={`max-w-7xl mx-auto transition-all duration-500 rounded-full ${
+          isScrolled
+            ? 'bg-black/80 backdrop-blur-xl shadow-lg shadow-amber-500/10'
+            : 'bg-black/50 backdrop-blur-lg'
+        }`}
+      >
+        <div className="flex justify-between items-center h-20 px-6 lg:px-8">
           <button
             onClick={() => onNavigate('home')}
             className="hover:opacity-80 transition-opacity duration-300"
@@ -77,7 +77,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-black/95 backdrop-blur-xl border-t border-amber-500/20">
+        <div className="lg:hidden bg-black/95 backdrop-blur-xl border-t border-amber-500/20 rounded-b-3xl overflow-hidden">
           <ul className="flex flex-col py-4">
             {navItems.map((item) => (
               <li key={item.page}>

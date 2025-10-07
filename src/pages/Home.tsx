@@ -56,12 +56,12 @@ export default function Home({ onNavigate }: HomeProps) {
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <div className="mb-12 animate-fade-in">
-            <img
-              src="/07259bd5-b4e6-418b-ab97-bd8c2868bd04.JPG"
-              alt="ROSELLA"
-              className="w-full max-w-2xl mx-auto object-contain animate-slide-up"
-            />
+            <Sparkles className="w-16 h-16 text-amber-400 mx-auto mb-6 animate-pulse" />
           </div>
+
+          <h1 className="text-6xl md:text-8xl font-bold text-amber-400 mb-6 tracking-[0.2em] animate-slide-up">
+            ROSELLA
+          </h1>
 
           <p className="text-xl md:text-2xl text-amber-100 mb-12 tracking-wide animate-slide-up-delay">
             Zarafetin Çiçeklerle Buluştuğu Yer
