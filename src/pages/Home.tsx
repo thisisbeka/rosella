@@ -54,32 +54,33 @@ export default function Home({ onNavigate }: HomeProps) {
           </div>
         </div>
 
-        <div className="relative z-10 text-center px-4 w-full flex flex-col items-center">
-          <div className="flex flex-col items-center justify-center mb-12 max-w-full">
-            <Flower2 className="text-amber-400 animate-bloom flex-shrink-0"
+        <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center mb-10">
+            <Flower2
+              className="text-amber-400 animate-bloom flex-shrink-0"
               style={{
-                width: '120px',
-                height: '120px',
-                filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))',
-                marginBottom: '20px'
+                width: '80px',
+                height: '80px',
+                filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))'
               }}
             />
 
-            <div className="animate-slide-up flex-shrink-0 max-w-full">
+            <div className="animate-slide-up flex-shrink-0" style={{ marginTop: '25px' }}>
               <img
                 src="/ROSELLA_mainpage.png"
                 alt="ROSELLA"
-                className="mx-auto animate-logo-glow max-w-full"
+                className="mx-auto animate-logo-glow"
                 style={{
-                  height: 'min(60vh, 750px)',
-                  width: 'auto',
+                  width: '600px',
+                  maxWidth: '90vw',
+                  height: 'auto',
                   objectFit: 'contain'
                 }}
               />
             </div>
           </div>
 
-          <p className="text-base md:text-lg text-amber-100 mb-8 tracking-wide animate-slide-up-delay">
+          <p className="text-base md:text-lg text-amber-100 mb-8 tracking-wide animate-slide-up-delay max-w-xl">
             Herşey bir insanı sevmekle başlar
           </p>
 
