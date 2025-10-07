@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Sparkles, Flower2, Gift, Calendar } from 'lucide-react';
+import { Flower2, Gift, Calendar } from 'lucide-react';
 import { supabase, Product } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
 
@@ -55,11 +55,20 @@ export default function Home({ onNavigate }: HomeProps) {
         </div>
 
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-          <div className="mb-12 animate-fade-in">
-            <Sparkles className="w-16 h-16 text-amber-400 mx-auto mb-6 animate-pulse" />
+          <div className="mb-12">
+            <Flower2 className="w-20 h-20 text-amber-400 mx-auto mb-6 animate-bloom" style={{
+              filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))'
+            }} />
           </div>
 
-          <h1 className="text-6xl md:text-8xl font-bold text-amber-400 mb-6 tracking-[0.2em] animate-slide-up">
+          <h1 className="luxury-serif text-7xl md:text-9xl font-black mb-6 tracking-[0.15em] animate-slide-up" style={{
+            background: 'linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            textShadow: '0 0 40px rgba(251, 191, 36, 0.5)',
+            filter: 'drop-shadow(0 4px 12px rgba(251, 191, 36, 0.4))'
+          }}>
             ROSELLA
           </h1>
 
@@ -75,11 +84,6 @@ export default function Home({ onNavigate }: HomeProps) {
           </button>
         </div>
 
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-amber-400 rounded-full flex items-start justify-center p-2">
-            <div className="w-1.5 h-2 bg-amber-400 rounded-full" />
-          </div>
-        </div>
       </section>
 
       <section className="py-20 px-4 bg-gradient-to-b from-black to-gray-900">

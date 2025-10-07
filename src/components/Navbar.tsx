@@ -31,10 +31,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   return (
     <nav className="fixed top-0 w-full z-50 px-4 sm:px-6 lg:px-8 pt-4">
       <div
-        className={`max-w-7xl mx-auto transition-all duration-500 rounded-full ${
+        className={`max-w-7xl mx-auto transition-all duration-500 rounded-full border-2 ${
           isScrolled
-            ? 'bg-black/80 backdrop-blur-xl shadow-lg shadow-amber-500/10'
-            : 'bg-black/50 backdrop-blur-lg'
+            ? 'bg-black/70 backdrop-blur-3xl shadow-2xl shadow-amber-500/30 border-amber-500/40'
+            : 'bg-black/40 backdrop-blur-2xl border-amber-500/20 shadow-xl shadow-amber-500/20'
         }`}
       >
         <div className="flex justify-between items-center h-20 px-6 lg:px-8">
