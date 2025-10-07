@@ -64,7 +64,7 @@ export default function Home({ onNavigate }: HomeProps) {
           </h1>
 
           <p className="text-xl md:text-2xl text-amber-100 mb-12 tracking-wide animate-slide-up-delay">
-            Zarafetin Çiçeklerle Buluştuğu Yer
+            Herşey bir insanı sevmekle başlar
           </p>
 
           <button
