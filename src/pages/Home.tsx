@@ -55,17 +55,18 @@ export default function Home({ onNavigate }: HomeProps) {
         </div>
 
         <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
-          <div className="flex flex-col items-center justify-center mb-0">
+          <div className="flex flex-col items-center justify-center">
             <Flower2
               className="text-amber-400 animate-bloom flex-shrink-0"
               style={{
                 width: '80px',
                 height: '80px',
-                filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))'
+                filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))',
+                marginBottom: '-20px'
               }}
             />
 
-            <div className="animate-slide-up flex-shrink-0" style={{ marginTop: '0px' }}>
+            <div className="animate-slide-up flex-shrink-0" style={{ marginTop: '0px', marginBottom: '-30px' }}>
               <img
                 src="/ROSELLA_mainpage.png"
                 alt="ROSELLA"
