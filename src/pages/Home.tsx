@@ -61,7 +61,7 @@ export default function Home({ onNavigate }: HomeProps) {
               style={{
                 width: '80px',
                 height: '80px',
-                filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))',
+                filter: 'drop-shadow(0 0 15px rgba(212, 175, 55, 0.8))',
                 marginBottom: '-120px'
               }}
             />
