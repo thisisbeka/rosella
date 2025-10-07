@@ -38,8 +38,8 @@ export default function Iletisim() {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-amber-100 mb-1">E-posta</h3>
-                  <a href="mailto:sosellacicek@gmail.com" className="text-amber-100/70 hover:text-amber-400 transition-colors">
-                    sosellacicek@gmail.com
+                  <a href="mailto:rosellacicek@gmail.com" className="text-amber-100/70 hover:text-amber-400 transition-colors">
+                    rosellacicek@gmail.com
                   </a>
                 </div>
               </div>

@@ -38,20 +38,6 @@ export default function Home({ onNavigate }: HomeProps) {
     <div className="min-h-screen">
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
-          <div className="absolute inset-0 opacity-30">
-            {[...Array(50)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-1 h-1 bg-amber-400 rounded-full animate-sparkle"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${2 + Math.random() * 3}s`,
-                }}
-              />
-            ))}
-          </div>
         </div>
 
         <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
