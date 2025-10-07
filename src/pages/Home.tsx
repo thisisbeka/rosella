@@ -58,7 +58,7 @@ export default function Home({ onNavigate }: HomeProps) {
           </div>
 
           <p className="text-base md:text-lg text-amber-100 mb-8 tracking-wide animate-slide-up-delay max-w-xl">
-            Her Şey Bir İnsanı Sevmekle Başlar…
+            "Her Şey Bir İnsanı Sevmekle Başlar…"
           </p>
 
           <button
