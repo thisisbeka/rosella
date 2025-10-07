@@ -56,7 +56,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
         <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center">
-            <div className="animate-slide-up flex-shrink-0" style={{ marginBottom: '-90px' }}>
+            <div className="animate-slide-up flex-shrink-0" style={{ marginBottom: '-70px' }}>
               <img
                 src="/ROSELLA_mainpage_new.png"
                 alt="ROSELLA"
