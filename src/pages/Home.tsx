@@ -66,7 +66,7 @@ export default function Home({ onNavigate }: HomeProps) {
               }}
             />
 
-            <div className="animate-slide-up flex-shrink-0" style={{ marginTop: '0px', marginBottom: '-120px' }}>
+            <div className="animate-slide-up flex-shrink-0" style={{ marginTop: '0px', marginBottom: '-90px' }}>
               <img
                 src="/ROSELLA_mainpage.png"
                 alt="ROSELLA"
