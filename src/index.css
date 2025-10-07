@@ -139,6 +139,39 @@
   .animate-sparkle {
     animation: sparkle 3s ease-in-out infinite;
   }
+
+  @keyframes bubble-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) translateY(-20px);
+    }
+    60% {
+      transform: scale(1.05) translateY(0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  @keyframes menu-bubble-expand {
+    0% {
+      opacity: 0;
+      transform: scale(0.9) translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .animate-bubble-in {
+    animation: bubble-in 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .animate-menu-bubble {
+    animation: menu-bubble-expand 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
 }
 
 ::-webkit-scrollbar {

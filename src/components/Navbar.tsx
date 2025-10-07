@@ -81,33 +81,41 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
       {isMobileMenuOpen && (
         <div
-          className="lg:hidden mt-2 rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50"
+          className="lg:hidden mt-4 rounded-3xl overflow-hidden animate-menu-bubble"
           style={{
-            background: 'rgba(0, 0, 0, 0.5)',
-            backdropFilter: 'blur(40px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+            background: 'rgba(0, 0, 0, 0.4)',
+            backdropFilter: 'blur(60px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(60px) saturate(180%)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05)',
           }}
         >
-          <ul className="flex flex-col py-4">
+          <div className="p-4 space-y-3">
             {navItems.map((item, index) => (
-              <li key={item.page}>
-                <button
-                  onClick={() => {
-                    onNavigate(item.page);
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className={`w-full text-left px-6 py-3 text-amber-100 hover:text-amber-300 transition-all duration-300 font-medium ${
-                    currentPage === item.page ? 'text-amber-400 bg-amber-500/10' : 'hover:bg-white/5'
-                  }`}
-                  style={{
-                    borderTop: index > 0 ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
-                  }}
-                >
-                  {item.name}
-                </button>
-              </li>
+              <button
+                key={item.page}
+                onClick={() => {
+                  onNavigate(item.page);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`w-full text-center px-6 py-4 rounded-full font-medium text-base tracking-wide transition-all duration-300 animate-bubble-in ${
+                  currentPage === item.page
+                    ? 'bg-gradient-to-r from-amber-500/30 to-amber-600/30 text-amber-300 shadow-lg shadow-amber-500/20'
+                    : 'bg-white/5 text-amber-100 hover:bg-gradient-to-r hover:from-amber-500/20 hover:to-amber-600/20 hover:text-amber-300 hover:shadow-lg hover:shadow-amber-500/10'
+                }`}
+                style={{
+                  animationDelay: `${index * 50}ms`,
+                  backdropFilter: 'blur(20px)',
+                  WebkitBackdropFilter: 'blur(20px)',
+                  border: currentPage === item.page
+                    ? '1px solid rgba(251, 191, 36, 0.3)'
+                    : '1px solid rgba(255, 255, 255, 0.05)',
+                }}
+              >
+                {item.name}
+              </button>
             ))}
-          </ul>
+          </div>
         </div>
       )}
     </nav>
