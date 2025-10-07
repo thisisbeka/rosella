@@ -16,7 +16,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               className="h-20 w-auto object-contain mb-4"
             />
             <p className="text-sm leading-relaxed text-amber-100/80">
-              Her Şey Bir İnsanı Sevmekle Başlar…
+              "Her Şey Bir İnsanı Sevmekle Başlar…"
             </p>
           </div>
 
