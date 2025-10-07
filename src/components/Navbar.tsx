@@ -40,9 +40,13 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
         <div className="flex justify-between items-center h-20">
           <button
             onClick={() => onNavigate('home')}
-            className="text-3xl font-bold tracking-[0.2em] text-amber-400 hover:text-amber-300 transition-colors duration-300"
+            className="hover:opacity-80 transition-opacity duration-300"
           >
-            ROSELLA
+            <img
+              src="/07259bd5-b4e6-418b-ab97-bd8c2868bd04.JPG"
+              alt="ROSELLA"
+              className="h-16 w-auto object-contain"
+            />
           </button>
 
           <ul className="hidden lg:flex gap-8 text-base">
