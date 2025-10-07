@@ -74,16 +74,6 @@ export default function Katalog() {
           >
             Tümü
           </button>
-          <button
-            onClick={() => setSelectedCategory('discount')}
-            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 ${
-              selectedCategory === 'discount'
-                ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg shadow-red-500/50'
-                : 'bg-black/60 text-red-100 border border-red-500/30 hover:border-red-500/60'
-            }`}
-          >
-            İndirimli Ürünler
-          </button>
           {categories.map((category) => (
             <button
               key={category.id}
@@ -97,6 +87,16 @@ export default function Katalog() {
               {category.name}
             </button>
           ))}
+          <button
+            onClick={() => setSelectedCategory('discount')}
+            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 ${
+              selectedCategory === 'discount'
+                ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg shadow-red-500/50'
+                : 'bg-black/60 text-red-100 border border-red-500/30 hover:border-red-500/60'
+            }`}
+          >
+            İndirimli Ürünler
+          </button>
         </div>
 
         {isLoading ? (
