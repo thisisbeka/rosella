@@ -62,11 +62,11 @@ export default function Home({ onNavigate }: HomeProps) {
                 width: '80px',
                 height: '80px',
                 filter: 'drop-shadow(0 0 15px rgba(251, 191, 36, 0.8))',
-                marginBottom: '-240px'
+                marginBottom: '-120px'
               }}
             />
 
-            <div className="animate-slide-up flex-shrink-0" style={{ marginTop: '0px', marginBottom: '-360px' }}>
+            <div className="animate-slide-up flex-shrink-0" style={{ marginTop: '0px', marginBottom: '-180px' }}>
               <img
                 src="/ROSELLA_mainpage.png"
                 alt="ROSELLA"
