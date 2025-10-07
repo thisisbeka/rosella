@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Instagram, Facebook, Shield } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Shield } from 'lucide-react';
 
 interface FooterProps {
   onNavigate?: (page: string) => void;
@@ -25,15 +25,26 @@ export default function Footer({ onNavigate }: FooterProps) {
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-sm">
                 <Phone size={18} className="text-amber-400" />
-                <span>+90 5XX XXX XX XX</span>
+                <a href="tel:+902247770177" className="hover:text-amber-400 transition-colors">
+                  0224 777 01 77
+                </a>
               </li>
               <li className="flex items-center gap-3 text-sm">
                 <Mail size={18} className="text-amber-400" />
-                <span>info@rosella.com</span>
+                <a href="mailto:sosellacicek@gmail.com" className="hover:text-amber-400 transition-colors">
+                  sosellacicek@gmail.com
+                </a>
               </li>
               <li className="flex items-start gap-3 text-sm">
                 <MapPin size={18} className="text-amber-400 mt-1" />
-                <span>İstanbul, Türkiye</span>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Turgutalp,+Mimar+Sinan+Cd.+No:12,+16400+İnegöl/Bursa,+Türkiye"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-amber-400 transition-colors"
+                >
+                  Turgutalp, Mimar Sinan Cd. No:12, 16400 İnegöl/Bursa, Türkiye
+                </a>
               </li>
             </ul>
           </div>
@@ -42,20 +53,12 @@ export default function Footer({ onNavigate }: FooterProps) {
             <h4 className="text-lg font-semibold text-amber-400 mb-4">Sosyal Medya</h4>
             <div className="flex gap-4">
               <a
-                href="https://instagram.com"
+                href="https://instagram.com/rosellacicekcikolata"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 hover:text-amber-300 transition-all duration-300"
               >
                 <Instagram size={20} />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 hover:text-amber-300 transition-all duration-300"
-              >
-                <Facebook size={20} />
               </a>
             </div>
           </div>

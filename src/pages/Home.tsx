@@ -7,7 +7,7 @@ interface HomeProps {
   onNavigate: (page: string) => void;
 }
 
-const WHATSAPP_NUMBER = '905XXXXXXXXX';
+const WHATSAPP_NUMBER = '902247770177';
 
 export default function Home({ onNavigate }: HomeProps) {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);

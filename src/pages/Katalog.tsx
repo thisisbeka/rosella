@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase, Product, Category } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
 
-const WHATSAPP_NUMBER = '905XXXXXXXXX';
+const WHATSAPP_NUMBER = '902247770177';
 
 export default function Katalog() {
   const [products, setProducts] = useState<Product[]>([]);

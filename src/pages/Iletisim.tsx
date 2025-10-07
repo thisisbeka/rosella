@@ -3,7 +3,7 @@ import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
 export default function Iletisim() {
   const handleWhatsApp = () => {
     const message = 'Merhaba, bilgi almak istiyorum.';
-    window.open(`https://wa.me/905XXXXXXXXX?text=${encodeURIComponent(message)}`, '_blank');
+    window.open(`https://wa.me/902247770177?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
@@ -26,7 +26,9 @@ export default function Iletisim() {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-amber-100 mb-1">Telefon</h3>
-                  <p className="text-amber-100/70">+90 5XX XXX XX XX</p>
+                  <a href="tel:+902247770177" className="text-amber-100/70 hover:text-amber-400 transition-colors">
+                    0224 777 01 77
+                  </a>
                 </div>
               </div>
 
@@ -36,7 +38,9 @@ export default function Iletisim() {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-amber-100 mb-1">E-posta</h3>
-                  <p className="text-amber-100/70">info@rosella.com</p>
+                  <a href="mailto:sosellacicek@gmail.com" className="text-amber-100/70 hover:text-amber-400 transition-colors">
+                    sosellacicek@gmail.com
+                  </a>
                 </div>
               </div>
 
@@ -46,7 +50,14 @@ export default function Iletisim() {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium text-amber-100 mb-1">Adres</h3>
-                  <p className="text-amber-100/70">İstanbul, Türkiye</p>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Turgutalp,+Mimar+Sinan+Cd.+No:12,+16400+İnegöl/Bursa,+Türkiye"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-amber-100/70 hover:text-amber-400 transition-colors"
+                  >
+                    Turgutalp, Mimar Sinan Cd. No:12, 16400 İnegöl/Bursa, Türkiye
+                  </a>
                 </div>
               </div>
 

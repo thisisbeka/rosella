@@ -8,7 +8,7 @@ interface CategoryPageProps {
   description: string;
 }
 
-const WHATSAPP_NUMBER = '905XXXXXXXXX';
+const WHATSAPP_NUMBER = '902247770177';
 
 export default function CategoryPage({ categorySlug, title, description }: CategoryPageProps) {
   const [products, setProducts] = useState<Product[]>([]);
