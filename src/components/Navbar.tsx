@@ -31,11 +31,14 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   return (
     <nav className="fixed top-0 w-full z-50 px-4 sm:px-6 lg:px-8 pt-4">
       <div
-        className={`max-w-7xl mx-auto transition-all duration-500 rounded-full border-2 ${
+        className={`max-w-7xl mx-auto transition-all duration-500 rounded-full border ${
           isScrolled
-            ? 'bg-black/50 backdrop-blur-3xl shadow-2xl shadow-amber-500/30 border-amber-500/40'
-            : 'bg-black/20 backdrop-blur-2xl border-amber-500/20 shadow-xl shadow-amber-500/20'
+            ? 'bg-black/30 backdrop-blur-[40px] backdrop-saturate-[180%] shadow-2xl shadow-black/50 border-white/20'
+            : 'bg-black/20 backdrop-blur-[60px] backdrop-saturate-[180%] border-white/10 shadow-xl shadow-black/30'
         }`}
+        style={{
+          WebkitBackdropFilter: isScrolled ? 'blur(40px) saturate(180%)' : 'blur(60px) saturate(180%)',
+        }}
       >
         <div className="flex justify-between items-center h-20 px-6 lg:px-8">
           <button
@@ -54,13 +57,13 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
               <li key={item.page}>
                 <button
                   onClick={() => onNavigate(item.page)}
-                  className={`relative text-amber-100 hover:text-amber-400 transition-all duration-300 tracking-wide ${
+                  className={`relative text-amber-100 hover:text-amber-300 transition-all duration-300 tracking-wide font-medium ${
                     currentPage === item.page ? 'text-amber-400' : ''
                   }`}
                 >
                   {item.name}
                   {currentPage === item.page && (
-                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-amber-400 rounded-full" />
+                    <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent rounded-full" />
                   )}
                 </button>
               </li>
@@ -77,18 +80,28 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-black/95 backdrop-blur-xl border-t border-amber-500/20 rounded-b-3xl overflow-hidden">
+        <div
+          className="lg:hidden mt-2 rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50"
+          style={{
+            background: 'rgba(0, 0, 0, 0.5)',
+            backdropFilter: 'blur(40px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+          }}
+        >
           <ul className="flex flex-col py-4">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <li key={item.page}>
                 <button
                   onClick={() => {
                     onNavigate(item.page);
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`w-full text-left px-6 py-3 text-amber-100 hover:text-amber-400 hover:bg-amber-500/10 transition-all duration-300 ${
-                    currentPage === item.page ? 'text-amber-400 bg-amber-500/10' : ''
+                  className={`w-full text-left px-6 py-3 text-amber-100 hover:text-amber-300 transition-all duration-300 font-medium ${
+                    currentPage === item.page ? 'text-amber-400 bg-amber-500/10' : 'hover:bg-white/5'
                   }`}
+                  style={{
+                    borderTop: index > 0 ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
+                  }}
                 >
                   {item.name}
                 </button>

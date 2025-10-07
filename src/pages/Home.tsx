@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Flower2, Gift, Calendar } from 'lucide-react';
+import { Flower2, Gift, Calendar, Crown, Flower } from 'lucide-react';
 import { supabase, Product } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
 
@@ -91,37 +91,59 @@ export default function Home({ onNavigate }: HomeProps) {
             Hizmetlerimiz
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             <button
               onClick={() => onNavigate('cicekler')}
-              className="group p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
             >
-              <Flower2 className="w-16 h-16 text-amber-400 mx-auto mb-6 group-hover:scale-110 transition-transform duration-500" />
-              <h3 className="text-2xl font-semibold text-amber-100 mb-4">Çiçekler</h3>
-              <p className="text-amber-100/70 leading-relaxed">
+              <Flower2 className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çiçekler</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
                 Her anınıza özel, taze ve zarif çiçek aranjmanları
               </p>
             </button>
 
             <button
               onClick={() => onNavigate('cikolata')}
-              className="group p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
             >
-              <Gift className="w-16 h-16 text-amber-400 mx-auto mb-6 group-hover:scale-110 transition-transform duration-500" />
-              <h3 className="text-2xl font-semibold text-amber-100 mb-4">Çikolata & Teraryum</h3>
-              <p className="text-amber-100/70 leading-relaxed">
+              <Gift className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çikolata & Teraryum</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
                 Özel günleriniz için unutulmaz hediye seçenekleri
               </p>
             </button>
 
             <button
               onClick={() => onNavigate('organizasyon')}
-              className="group p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
             >
-              <Calendar className="w-16 h-16 text-amber-400 mx-auto mb-6 group-hover:scale-110 transition-transform duration-500" />
-              <h3 className="text-2xl font-semibold text-amber-100 mb-4">Organizasyon</h3>
-              <p className="text-amber-100/70 leading-relaxed">
+              <Calendar className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Organizasyon</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
                 Düğün, nişan ve özel etkinlikleriniz için profesyonel hizmet
+              </p>
+            </button>
+
+            <button
+              onClick={() => onNavigate('vip-cicekler')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
+            >
+              <Crown className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Vip Çiçekler</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                En seçkin ve prestijli çiçek aranjmanları
+              </p>
+            </button>
+
+            <button
+              onClick={() => onNavigate('celenk')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20 col-span-2 md:col-span-1"
+            >
+              <Flower className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çelenk</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                Veda törenleriniz için anlamlı çelenk düzenlemeleri
               </p>
             </button>
           </div>
