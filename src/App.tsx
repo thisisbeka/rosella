@@ -17,20 +17,52 @@ function App() {
         return <Home onNavigate={setCurrentPage} />;
       case 'katalog':
         return <Katalog />;
-      case 'cicekler':
+      case 'buket':
         return (
           <CategoryPage
-            categorySlug="cicekler"
-            title="Çiçekler"
-            description="Her anınıza özel, taze ve zarif çiçek aranjmanları"
+            categorySlug="buket"
+            title="Buket"
+            description="Özel anlarınız için zarif buketler"
+          />
+        );
+      case 'saksi':
+        return (
+          <CategoryPage
+            categorySlug="saksi"
+            title="Saksı"
+            description="Evlerinize yeşillik katacak saksı çiçekleri"
+          />
+        );
+      case 'orkide':
+        return (
+          <CategoryPage
+            categorySlug="orkide"
+            title="Orkide"
+            description="Zarafet ve incelik simgesi orkideler"
+          />
+        );
+      case 'teraryum':
+        return (
+          <CategoryPage
+            categorySlug="teraryum"
+            title="Teraryum"
+            description="Mini bahçeleriniz için teraryumlar"
+          />
+        );
+      case 'cicek-cikolata':
+        return (
+          <CategoryPage
+            categorySlug="cicek-cikolata"
+            title="Çiçek & Çikolata"
+            description="Çiçek ve çikolata bir arada"
           />
         );
       case 'cikolata':
         return (
           <CategoryPage
             categorySlug="cikolata"
-            title="Çikolata & Teraryum"
-            description="Özel günleriniz için unutulmaz hediye seçenekleri"
+            title="Çikolata"
+            description="Özel günleriniz için lezzetli çikolatalar"
           />
         );
       case 'organizasyon':
@@ -39,6 +71,22 @@ function App() {
             categorySlug="organizasyon"
             title="Organizasyon"
             description="Düğün, nişan ve özel etkinlikleriniz için profesyonel hizmet"
+          />
+        );
+      case 'vip-cicekler':
+        return (
+          <CategoryPage
+            categorySlug="vip-cicekler"
+            title="Vip Çiçekler"
+            description="Lüks ve özel çiçek düzenlemeleri"
+          />
+        );
+      case 'celenk':
+        return (
+          <CategoryPage
+            categorySlug="celenk"
+            title="Çelenk"
+            description="Anma ve saygı duruşlarınız için çelenkler"
           />
         );
       case 'hakkimizda':

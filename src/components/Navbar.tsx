@@ -20,10 +20,15 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
   const navItems = [
     { name: 'Ana Sayfa', page: 'home' },
-    { name: 'Katalog', page: 'katalog' },
-    { name: 'Çiçekler', page: 'cicekler' },
+    { name: 'Buket', page: 'buket' },
+    { name: 'Saksı', page: 'saksi' },
+    { name: 'Orkide', page: 'orkide' },
+    { name: 'Teraryum', page: 'teraryum' },
+    { name: 'Çiçek & Çikolata', page: 'cicek-cikolata' },
     { name: 'Çikolata', page: 'cikolata' },
     { name: 'Organizasyon', page: 'organizasyon' },
+    { name: 'Vip Çiçekler', page: 'vip-cicekler' },
+    { name: 'Çelenk', page: 'celenk' },
     { name: 'Hakkımızda', page: 'hakkimizda' },
     { name: 'İletişim', page: 'iletisim' },
   ];
