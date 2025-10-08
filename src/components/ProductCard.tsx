@@ -18,8 +18,8 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
     : null;
 
   return (
-    <div className="group relative bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20">
-      <div className="aspect-square overflow-hidden relative">
+    <div className="group relative bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl overflow-visible border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20 hover:z-20">
+      <div className="aspect-square overflow-hidden relative rounded-t-2xl">
         <img
           src={product.image_url}
           alt={product.name}
@@ -33,15 +33,22 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
 
-      <div className="p-3 sm:p-6">
+      <div className="p-3 sm:p-6 relative">
         <h3 className="text-base sm:text-xl font-semibold text-amber-100 mb-1 sm:mb-2 line-clamp-2 group-hover:text-amber-400 transition-colors duration-300">
           {product.name}
         </h3>
 
         {product.description && (
-          <p className="text-xs sm:text-sm text-amber-100/70 mb-3 sm:mb-4 line-clamp-2 leading-relaxed">
-            {product.description}
-          </p>
+          <div className="relative mb-3 sm:mb-4">
+            <p className="text-xs sm:text-sm text-amber-100/70 line-clamp-2 leading-relaxed group-hover:line-clamp-none transition-all duration-500">
+              {product.description}
+            </p>
+            <div className="absolute inset-0 bg-gradient-to-br from-black/95 to-black/90 backdrop-blur-md rounded-lg p-3 sm:p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 shadow-2xl border border-amber-500/30 -inset-2 z-10">
+              <p className="text-xs sm:text-sm text-amber-100 leading-relaxed">
+                {product.description}
+              </p>
+            </div>
+          </div>
         )}
 
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
