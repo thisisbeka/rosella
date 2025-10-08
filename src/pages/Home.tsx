@@ -44,7 +44,7 @@ export default function Home({ onNavigate }: HomeProps) {
           <div className="flex flex-col items-center justify-center">
             <div className="animate-slide-up flex-shrink-0" style={{ marginBottom: '-70px' }}>
               <img
-                src="/ROSELLA_mainpage_new.png"
+                src="/ROSELLA_mainpage_new_2.png"
                 alt="ROSELLA"
                 className="mx-auto animate-logo-glow"
                 style={{
