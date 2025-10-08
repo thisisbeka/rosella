@@ -40,10 +40,11 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
 
         {product.description && (
           <div className="relative mb-3 sm:mb-4">
-            <p className="text-xs sm:text-sm text-amber-100/70 line-clamp-2 leading-relaxed group-hover:line-clamp-none transition-all duration-500">
+            <p className="text-xs sm:text-sm text-amber-100/70 line-clamp-2 leading-relaxed">
               {product.description}
             </p>
-            <div className="absolute inset-0 bg-gradient-to-br from-black/95 to-black/90 backdrop-blur-md rounded-lg p-3 sm:p-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 shadow-2xl border border-amber-500/30 -inset-2 z-10">
+            <div className="absolute left-0 right-0 bottom-full mb-2 bg-gradient-to-br from-black/98 to-black/95 backdrop-blur-md rounded-xl p-4 sm:p-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-500 shadow-2xl border border-amber-500/40 z-30 max-h-64 overflow-y-auto">
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-amber-500/40"></div>
               <p className="text-xs sm:text-sm text-amber-100 leading-relaxed">
                 {product.description}
               </p>
