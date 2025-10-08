@@ -64,7 +64,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
           <button
             onClick={() => onNavigate('katalog')}
-            className="px-12 py-4 bg-gradient-to-br from-amber-700/40 to-amber-600/30 backdrop-blur-sm rounded-full text-lg font-semibold text-amber-100 border border-amber-500/30 hover:border-amber-500/60 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30 animate-slide-up-delay-2"
+            className="px-12 py-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/50 animate-slide-up-delay-2"
           >
             Katalog İncele
           </button>
