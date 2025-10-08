@@ -37,7 +37,7 @@ export default function Home({ onNavigate }: HomeProps) {
   return (
     <div className="min-h-screen">
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
+        <div className="absolute inset-0 bg-black">
         </div>
 
         <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
