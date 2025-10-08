@@ -47,12 +47,12 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             />
           </button>
 
-          <ul className="hidden lg:flex gap-2 text-base">
+          <ul className="hidden lg:flex gap-2 text-base items-center">
             {navItems.map((item) => (
               <li key={item.page}>
                 <button
                   onClick={() => onNavigate(item.page)}
-                  className={`relative px-5 py-2.5 rounded-full transition-all duration-500 ease-out tracking-wide font-medium liquid-glass-bubble ${
+                  className={`relative px-5 py-2.5 rounded-full transition-all duration-500 ease-out tracking-wide font-medium liquid-glass-bubble whitespace-nowrap ${
                     currentPage === item.page
                       ? 'liquid-glass-bubble-active text-amber-100'
                       : 'text-amber-100/80 hover:liquid-glass-bubble-hover'
@@ -66,7 +66,12 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-amber-200 hover:text-amber-100 transition-all duration-300 p-2 rounded-full liquid-glass-bubble-hover"
+            className="lg:hidden text-amber-200 hover:text-amber-100 transition-all duration-300 p-2 rounded-full relative z-[60]"
+            style={{
+              background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 100%)',
+              border: '1px solid rgba(255, 255, 255, 0.12)',
+              boxShadow: '0 4px 16px 0 rgba(0, 0, 0, 0.25), inset 0 1px 1px 0 rgba(255, 255, 255, 0.15)'
+            }}
           >
             {isMobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
@@ -78,7 +83,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           <div
             className="fixed inset-0 bg-black/50 backdrop-blur-md lg:hidden"
             onClick={() => setIsMobileMenuOpen(false)}
-            style={{ top: 0, left: 0, right: 0, bottom: 0, zIndex: -1 }}
+            style={{ top: 0, left: 0, right: 0, bottom: 0, zIndex: 40 }}
           />
           <div className="lg:hidden mt-4 liquid-glass-mobile animate-menu-bubble">
             <div className="p-3 space-y-2">
