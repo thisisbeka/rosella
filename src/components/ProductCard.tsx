@@ -26,8 +26,8 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         {product.discount_percentage && (
-          <div className="absolute top-3 left-3 bg-gradient-to-r from-red-600 to-red-500 text-white px-3 py-2 rounded-lg shadow-lg font-bold text-sm z-10 animate-pulse">
-            {product.discount_percentage}% İNDİRİM
+          <div className="absolute top-2 left-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-2 py-1 rounded-lg shadow-lg font-semibold text-xs z-10 animate-pulse">
+            %{product.discount_percentage} İNDİRİM
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
