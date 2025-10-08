@@ -51,8 +51,7 @@ export default function Home({ onNavigate }: HomeProps) {
                   width: '600px',
                   maxWidth: '90vw',
                   height: 'auto',
-                  objectFit: 'contain',
-                  filter: 'brightness(0.75)'
+                  objectFit: 'contain'
                 }}
               />
             </div>
