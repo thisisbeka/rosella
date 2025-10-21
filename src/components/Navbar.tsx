@@ -48,6 +48,8 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             <img
               src="/ROSELLA_mainpage_new_2.png"
               alt="ROSELLA"
+              loading="eager"
+              fetchpriority="high"
               className="h-16 w-auto object-contain"
             />
           </button>
@@ -84,7 +86,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           <div
             className="fixed inset-0 bg-black/40 backdrop-blur-sm lg:hidden"
             onClick={() => setIsMobileMenuOpen(false)}
-            style={{ top: 0, left: 0, right: 0, bottom: 0, zIndex: -1 }}
+            style={{ top: 0, left: 0, right: 0, bottom: 0, zIndex: 40 }}
           />
           <div
             className="lg:hidden mt-4 rounded-3xl overflow-hidden animate-menu-bubble"

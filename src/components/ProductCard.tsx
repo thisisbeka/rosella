@@ -18,12 +18,13 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
     : null;
 
   return (
-    <div className="group relative bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20 hover:z-20">
+    <div className="group relative bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform">
       <div className="aspect-square overflow-hidden relative">
         <img
           src={product.image_url}
           alt={product.name}
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 will-change-transform"
         />
         {product.discount_percentage && (
           <div className="absolute top-2 left-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-2 py-1 rounded-lg shadow-lg font-semibold text-xs z-10 animate-pulse">

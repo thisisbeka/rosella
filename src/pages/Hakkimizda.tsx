@@ -56,37 +56,37 @@ export default function Hakkimizda() {
         </h2>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
-          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
             <div className="relative">
-              <Heart className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
+              <Heart className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Tutkuyla</h3>
               <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">Her işimizi sevgiyle yapıyoruz</p>
             </div>
           </div>
 
-          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
             <div className="relative">
-              <Award className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
+              <Award className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Kalite</h3>
               <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">En iyi ürünleri seçiyoruz</p>
             </div>
           </div>
 
-          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
             <div className="relative">
-              <Users className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
+              <Users className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Müşteri Odaklı</h3>
               <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">Memnuniyetiniz önceliğimiz</p>
             </div>
           </div>
 
-          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
             <div className="relative">
-              <Sparkles className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
+              <Sparkles className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Özgünlük</h3>
               <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">Benzersiz tasarımlar</p>
             </div>
@@ -98,12 +98,12 @@ export default function Hakkimizda() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
             <div className="relative flex gap-4 md:gap-5">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
-                  <Star className="w-6 h-6 md:w-7 md:h-7 text-amber-400 animate-logo-glow" />
+                  <Star className="w-6 h-6 md:w-7 md:h-7 text-amber-400" />
                 </div>
               </div>
               <div>
@@ -115,12 +115,12 @@ export default function Hakkimizda() {
             </div>
           </div>
 
-          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
             <div className="relative flex gap-4 md:gap-5">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
-                  <Clock className="w-6 h-6 md:w-7 md:h-7 text-amber-400 animate-logo-glow" />
+                  <Clock className="w-6 h-6 md:w-7 md:h-7 text-amber-400" />
                 </div>
               </div>
               <div>
@@ -132,12 +132,12 @@ export default function Hakkimizda() {
             </div>
           </div>
 
-          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
             <div className="relative flex gap-4 md:gap-5">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
-                  <Shield className="w-6 h-6 md:w-7 md:h-7 text-amber-400 animate-logo-glow" />
+                  <Shield className="w-6 h-6 md:w-7 md:h-7 text-amber-400" />
                 </div>
               </div>
               <div>
@@ -149,12 +149,12 @@ export default function Hakkimizda() {
             </div>
           </div>
 
-          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/30">
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
             <div className="relative flex gap-4 md:gap-5">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
-                  <Flower2 className="w-6 h-6 md:w-7 md:h-7 text-amber-400 animate-logo-glow" />
+                  <Flower2 className="w-6 h-6 md:w-7 md:h-7 text-amber-400" />
                 </div>
               </div>
               <div>

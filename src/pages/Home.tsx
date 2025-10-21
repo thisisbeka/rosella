@@ -46,12 +46,15 @@ export default function Home({ onNavigate }: HomeProps) {
               <img
                 src="/ROSELLA_mainpage_new_2.png"
                 alt="ROSELLA"
+                loading="eager"
+                fetchpriority="high"
                 className="mx-auto animate-logo-glow"
                 style={{
                   width: '600px',
                   maxWidth: '90vw',
                   height: 'auto',
-                  objectFit: 'contain'
+                  objectFit: 'contain',
+                  willChange: 'transform'
                 }}
               />
             </div>
@@ -63,7 +66,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
           <button
             onClick={() => onNavigate('katalog')}
-            className="px-12 py-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/50 animate-slide-up-delay-2"
+            className="px-12 py-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/50 animate-slide-up-delay-2 will-change-transform"
           >
             Katalog İncele
           </button>
@@ -104,9 +107,9 @@ export default function Home({ onNavigate }: HomeProps) {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             <button
               onClick={() => onNavigate('cicekler')}
-              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
             >
-              <Flower2 className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
+              <Flower2 className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çiçekler</h3>
               <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
                 Her anınıza özel, taze ve zarif çiçek aranjmanları
@@ -115,9 +118,9 @@ export default function Home({ onNavigate }: HomeProps) {
 
             <button
               onClick={() => onNavigate('katalog', 'all')}
-              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
             >
-              <Gift className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
+              <Gift className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çikolata & Teraryum</h3>
               <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
                 Özel günleriniz için unutulmaz hediye seçenekleri
@@ -126,9 +129,9 @@ export default function Home({ onNavigate }: HomeProps) {
 
             <button
               onClick={() => onNavigate('katalog', 'organizasyon')}
-              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
             >
-              <Calendar className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
+              <Calendar className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Organizasyon</h3>
               <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
                 Düğün, nişan ve özel etkinlikleriniz için profesyonel hizmet
@@ -137,9 +140,9 @@ export default function Home({ onNavigate }: HomeProps) {
 
             <button
               onClick={() => onNavigate('katalog', 'vip-cicekler')}
-              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20"
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
             >
-              <Crown className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
+              <Crown className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Vip Çiçekler</h3>
               <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
                 En seçkin ve prestijli çiçek aranjmanları
@@ -148,9 +151,9 @@ export default function Home({ onNavigate }: HomeProps) {
 
             <button
               onClick={() => onNavigate('katalog', 'celenk')}
-              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/20 col-span-2 md:col-span-1"
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 col-span-2 md:col-span-1 will-change-transform"
             >
-              <Flower className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-500 animate-logo-glow" />
+              <Flower className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çelenk</h3>
               <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
                 Veda törenleriniz için anlamlı çelenк düzenlemeleri

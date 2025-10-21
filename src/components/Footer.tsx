@@ -13,6 +13,7 @@ export default function Footer({ onNavigate }: FooterProps) {
             <img
               src="/ROSELLA_mainpage_new_2.png"
               alt="ROSELLA"
+              loading="lazy"
               className="h-20 w-auto object-contain mb-4"
             />
             <p className="text-sm leading-relaxed text-amber-100/80">
