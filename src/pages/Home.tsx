@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Flower2, Gift, Calendar, Crown, Flower } from 'lucide-react';
 import { supabase, Product } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
+import { WavyBackground } from '@/components/ui/wavy-background';
 
 interface HomeProps {
   onNavigate: (page: string, categorySlug?: string) => void;
@@ -36,10 +37,15 @@ export default function Home({ onNavigate }: HomeProps) {
 
   return (
     <div className="min-h-screen">
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
-        </div>
-
+      <WavyBackground
+        containerClassName="relative h-screen flex items-center justify-center overflow-hidden"
+        colors={["#f5f5dc", "#ffd700", "#f0e68c", "#daa520", "#f5deb3"]}
+        waveWidth={60}
+        backgroundFill="#000000"
+        blur={15}
+        speed="slow"
+        waveOpacity={0.3}
+      >
         <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center">
             <div className="animate-slide-up flex-shrink-0" style={{ marginBottom: '-70px' }}>
@@ -71,8 +77,7 @@ export default function Home({ onNavigate }: HomeProps) {
             Katalog İncele
           </button>
         </div>
-
-      </section>
+      </WavyBackground>
 
       {featuredProducts.length > 0 && (
         <section className="py-12 px-4 bg-gradient-to-b from-black to-gray-900">
