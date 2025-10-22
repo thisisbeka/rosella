@@ -89,13 +89,12 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
             style={{ top: 0, left: 0, right: 0, bottom: 0, zIndex: 40 }}
           />
           <div
-            className="lg:hidden mt-4 rounded-3xl overflow-hidden animate-menu-bubble"
+            className="lg:hidden mt-4 rounded-3xl overflow-hidden animate-menu-bubble relative"
             style={{
-              background: 'rgba(0, 0, 0, 0.15)',
-              backdropFilter: 'blur(60px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(60px) saturate(180%)',
-              border: '1px solid rgba(255, 255, 255, 0.08)',
-              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.03)',
+              background: 'rgba(0, 0, 0, 0.95)',
+              border: '1px solid rgba(251, 191, 36, 0.2)',
+              boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.5)',
+              zIndex: 50,
             }}
           >
             <div className="p-4 space-y-3">
@@ -106,10 +105,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                     onNavigate(item.page);
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`w-full text-center px-6 py-4 rounded-full font-medium text-base tracking-wide transition-all duration-300 animate-bubble-in ${
+                  className={`w-full text-center px-6 py-4 rounded-full font-semibold text-base tracking-wide transition-all duration-300 animate-bubble-in ${
                     currentPage === item.page
-                      ? 'bg-gradient-to-r from-amber-600 to-amber-500 text-white shadow-lg shadow-amber-500/30'
-                      : 'bg-gradient-to-r from-amber-700/60 to-amber-600/50 text-amber-100 hover:from-amber-600 hover:to-amber-500 hover:text-white hover:shadow-lg hover:shadow-amber-500/30'
+                      ? 'bg-gradient-to-r from-amber-600 to-amber-500 text-white shadow-lg shadow-amber-500/50'
+                      : 'bg-amber-500/20 text-amber-100 hover:bg-gradient-to-r hover:from-amber-600 hover:to-amber-500 hover:text-white hover:shadow-lg hover:shadow-amber-500/30'
                   }`}
                   style={{
                     animationDelay: `${index * 50}ms`,
