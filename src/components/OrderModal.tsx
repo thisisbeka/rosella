@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 
 interface OrderModalProps {
@@ -32,8 +33,6 @@ export default function OrderModal({ isOpen, onClose, productName, productPrice,
     deliveryTime: '',
   });
 
-  if (!isOpen) return null;
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
@@ -46,7 +45,9 @@ export default function OrderModal({ isOpen, onClose, productName, productPrice,
     });
   };
 
-  return (
+  if (!isOpen) return null;
+
+  return createPortal(
     <div
       className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-lg"
       onClick={onClose}
@@ -223,6 +224,7 @@ export default function OrderModal({ isOpen, onClose, productName, productPrice,
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
