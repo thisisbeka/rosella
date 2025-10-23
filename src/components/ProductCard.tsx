@@ -16,29 +16,28 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
       ? product.price * (1 - product.discount_percentage / 100)
       : product.price;
 
-    const message = `🌹 *ROSELLA Sipariş Detayları* 🌹
-
-📦 *Ürün Bilgisi:*
+    const message = `*ROSELLA Sipariş Detayları* 
+ *Ürün Bilgisi:*
 • Ürün: ${product.name}
 • Fiyat: ${finalPrice.toLocaleString('tr-TR')} ₺
 • Ürün Linki: ${imageUrl}
 
-👤 *Alıcı Bilgileri:*
+ *Alıcı Bilgileri:*
 • Ad: ${orderDetails.receiverName}
 • Telefon: ${orderDetails.receiverPhone}
 
-👤 *Gönderen Bilgileri:*
+ *Gönderen Bilgileri:*
 • Ad: ${orderDetails.senderName}
 • Telefon: ${orderDetails.senderPhone}
 
-📍 *Teslimat Bilgileri:*
+ *Teslimat Bilgileri:*
 • Adres: ${orderDetails.deliveryAddress}
 • Detaylı Adres: ${orderDetails.addressInfo}
 • Teslimat Saati: ${orderDetails.deliveryTime}
 
-${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}
+${orderDetails.note ? ` *Özel Not:*\n${orderDetails.note}\n\n` : ''}
 ━━━━━━━━━━━━━━━━━━━━
-Siparişimi onaylıyorum ✅`;
+Siparişimi onaylıyorum!`;
 
     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
