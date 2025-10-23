@@ -45,7 +45,8 @@ export default function Home({ onNavigate }: HomeProps) {
                 src="/ROSELLA_mainpage_new_2.png"
                 alt="ROSELLA"
                 loading="eager"
-                fetchpriority="high"
+                fetchPriority="high"
+                decoding="async"
                 className="mx-auto animate-logo-glow"
                 style={{
                   width: '580px',

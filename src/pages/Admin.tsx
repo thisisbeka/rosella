@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut, GripVertical } from 'lucide-react';
 import { supabase, Product, Category, ProductCategory } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
+import imageCompression from 'browser-image-compression';
 
 export default function Admin() {
   const { user, loading: authLoading, signIn, signOut } = useAuth();
@@ -91,13 +92,22 @@ export default function Admin() {
       let imageUrl = formData.image_url;
 
       if (imageFile) {
-        const fileExt = imageFile.name.split('.').pop();
+        const options = {
+          maxSizeMB: 0.5,
+          maxWidthOrHeight: 1920,
+          useWebWorker: true,
+          fileType: 'image/jpeg'
+        };
+
+        const compressedFile = await imageCompression(imageFile, options);
+
+        const fileExt = 'jpg';
         const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
         const filePath = `${fileName}`;
 
         const { error: uploadError } = await supabase.storage
           .from('product-images')
-          .upload(filePath, imageFile);
+          .upload(filePath, compressedFile);
 
         if (uploadError) throw uploadError;
 
