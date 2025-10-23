@@ -40,7 +40,7 @@ export default function Home({ onNavigate }: HomeProps) {
       <section className="relative flex items-center justify-center overflow-hidden" style={{ paddingTop: '15px', paddingBottom: '40px' }}>
         <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center">
-            <div className="animate-slide-up flex-shrink-0" style={{ marginBottom: '5px' }}>
+            <div className="animate-slide-up flex-shrink-0" style={{ marginBottom: '15px' }}>
               <img
                 src="/ROSELLA_mainpage_new_2.png"
                 alt="ROSELLA"
@@ -57,7 +57,7 @@ export default function Home({ onNavigate }: HomeProps) {
               />
             </div>
 
-            <p className="text-base md:text-lg text-amber-100 tracking-wide animate-slide-up-delay max-w-xl" style={{ marginBottom: '5px' }}>
+            <p className="text-base md:text-lg text-amber-100 tracking-wide animate-slide-up-delay max-w-xl" style={{ marginBottom: '15px' }}>
               "Her Şey Bir İnsanı Sevmekle Başlar…"
             </p>
 
