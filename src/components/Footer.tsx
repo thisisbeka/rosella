@@ -67,6 +67,17 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         <div className="mt-8 pt-8 border-t border-amber-500/20 text-center text-sm text-amber-100/60">
           <p>&copy; {new Date().getFullYear()} ROSELLA. Tüm hakları saklıdır.</p>
+          <p className="mt-2">
+            Bu web sitesi B&P medya & Digital agency tarafından tasarlanmıştır{' '}
+            <a
+              href="https://instagram.com/bpmedyam"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-amber-400 transition-colors"
+            >
+              @bpmedyam
+            </a>
+          </p>
         </div>
       </div>
 
