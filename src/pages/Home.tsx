@@ -3,6 +3,7 @@ import { Flower2, Gift, Calendar, Crown, Flower } from 'lucide-react';
 import { supabase, Product } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
 import { InteractiveHoverButton } from '../components/ui/interactive-hover-button';
+import HandwritingText from '../components/HandwritingText';
 
 interface HomeProps {
   onNavigate: (page: string, categorySlug?: string) => void;
@@ -38,9 +39,9 @@ export default function Home({ onNavigate }: HomeProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
       <section className="relative flex items-center justify-center overflow-hidden" style={{ paddingTop: '15px', paddingBottom: '40px' }}>
-        <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
-          <div className="flex flex-col items-center justify-center">
-            <div className="animate-slide-up flex-shrink-0" style={{ marginBottom: '30px' }}>
+        <div className="relative z-10 text-center px-4 w-full">
+          <div className="flex flex-col items-center justify-center" style={{ gap: '50px' }}>
+            <div className="animate-slide-up flex-shrink-0">
               <img
                 src="/ROSELLA_mainpage_new_2.png"
                 alt="ROSELLA"
@@ -57,9 +58,12 @@ export default function Home({ onNavigate }: HomeProps) {
               />
             </div>
 
-            <p className="text-base md:text-lg text-amber-100 tracking-wide animate-slide-up-delay max-w-xl" style={{ marginBottom: '30px' }}>
-              "Her Şey Bir İnsanı Sevmekle Başlar…"
-            </p>
+            <div className="animate-slide-up-delay">
+              <HandwritingText
+                text='"Her Şey Bir İnsanı Sevmekle Başlar…"'
+                className="max-w-2xl"
+              />
+            </div>
 
             <InteractiveHoverButton
               text="Katalog İncele"
