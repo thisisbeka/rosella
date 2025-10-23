@@ -60,7 +60,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
             <div className="animate-slide-up-delay">
               <HandwritingText
-                text='"Her Şey Bir İnsanı Sevmekle Başlar…"'
+                text='Her Şey Bir İnsanı Sevmekle Başlar…'
                 className="max-w-2xl"
               />
             </div>
