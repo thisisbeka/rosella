@@ -67,8 +67,7 @@ export default function Iletisim() {
                 </div>
                 <div>
                   <h3 className="text-base md:text-lg font-medium text-amber-100 mb-1">Çalışma Saatleri</h3>
-                  <p className="text-sm md:text-base text-amber-100/70">Pazartesi - Cumartesi: 09:00 - 19:00</p>
-                  <p className="text-sm md:text-base text-amber-100/70">Pazar: 10:00 - 18:00</p>
+                  <p className="text-sm md:text-base text-amber-100/70">Her gün: 09:00 - 21:30</p>
                 </div>
               </div>
             </div>
@@ -93,8 +92,7 @@ export default function Iletisim() {
                   Teslimat yapıyor musunuz?
                 </h3>
                 <p className="text-sm md:text-base text-amber-100/70 leading-relaxed">
-                  Evet, İstanbul genelinde aynı gün teslimat hizmeti sunuyoruz. Diğer şehirler için
-                  kargo ile gönderim yapılmaktadır.
+                  Evet, Türkiye'nin tüm illerine aynı gün teslimat hizmeti sunuyoruz.
                 </p>
               </div>
 
