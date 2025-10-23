@@ -37,7 +37,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
   return (
     <div className="min-h-screen">
-      <section className="relative flex items-center justify-center overflow-hidden py-16 md:py-20">
+      <section className="relative flex items-center justify-center overflow-hidden py-8">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
         </div>
 
@@ -61,7 +61,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </div>
           </div>
 
-          <p className="text-base md:text-lg text-amber-100 mb-6 md:mb-8 tracking-wide animate-slide-up-delay max-w-xl mt-4 md:mt-0">
+          <p className="text-base md:text-lg text-amber-100 mb-4 tracking-wide animate-slide-up-delay max-w-xl">
             "Her Şey Bir İnsanı Sevmekle Başlar…"
           </p>
 
@@ -75,7 +75,7 @@ export default function Home({ onNavigate }: HomeProps) {
       </section>
 
       {featuredProducts.length > 0 && (
-        <section className="py-12 px-4 bg-gradient-to-b from-black to-gray-900">
+        <section className="py-8 px-4 bg-gradient-to-b from-black to-gray-900">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-400 mb-8 md:mb-10 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
               Öne Çıkan Ürünler
