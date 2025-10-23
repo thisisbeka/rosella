@@ -49,7 +49,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 className="mx-auto animate-logo-glow"
                 style={{
                   width: '620px',
-                  maxWidth: '70vw',
+                  maxWidth: '90vw',
                   height: 'auto',
                   objectFit: 'contain',
                   willChange: 'transform'
