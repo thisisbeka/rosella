@@ -37,7 +37,7 @@ export default function Home({ onNavigate }: HomeProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
-      <section className="relative flex items-center justify-center overflow-hidden pt-[15px] md:-mt-[30px] pb-10">
+      <section className="relative flex items-center justify-center overflow-hidden pt-[15px] md:-mt-[60px] pb-10">
         <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center">
             <div className="animate-slide-up flex-shrink-0 -mb-[45px] md:-mb-20">
