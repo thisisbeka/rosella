@@ -48,7 +48,7 @@ export default function Home({ onNavigate }: HomeProps) {
                 fetchpriority="high"
                 className="mx-auto animate-logo-glow"
                 style={{
-                  width: '400px',
+                  width: '550px',
                   maxWidth: '70vw',
                   height: 'auto',
                   objectFit: 'contain',
