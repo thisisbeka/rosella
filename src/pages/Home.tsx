@@ -37,13 +37,13 @@ export default function Home({ onNavigate }: HomeProps) {
 
   return (
     <div className="min-h-screen">
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-8 md:pb-0">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
         </div>
 
         <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center">
-            <div className="animate-slide-up flex-shrink-0" style={{ marginBottom: '-40px' }}>
+            <div className="animate-slide-up flex-shrink-0" style={{ marginBottom: '0px' }}>
               <img
                 src="/ROSELLA_mainpage_new_2.png"
                 alt="ROSELLA"
@@ -61,7 +61,7 @@ export default function Home({ onNavigate }: HomeProps) {
             </div>
           </div>
 
-          <p className="text-base md:text-lg text-amber-100 mb-4 md:mb-8 tracking-wide animate-slide-up-delay max-w-xl">
+          <p className="text-base md:text-lg text-amber-100 mb-6 md:mb-8 tracking-wide animate-slide-up-delay max-w-xl mt-4 md:mt-0">
             "Her Şey Bir İnsanı Sevmekle Başlar…"
           </p>
 
@@ -75,9 +75,9 @@ export default function Home({ onNavigate }: HomeProps) {
       </section>
 
       {featuredProducts.length > 0 && (
-        <section className="py-6 md:py-12 px-4 bg-gradient-to-b from-black to-gray-900">
+        <section className="pt-8 pb-12 md:py-12 px-4 bg-gradient-to-b from-black to-gray-900">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-400 mb-10 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-400 mb-8 md:mb-10 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
               Öne Çıkan Ürünler
             </h2>
 
