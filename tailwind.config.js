@@ -4,6 +4,13 @@ export default {
   theme: {
     extend: {
       colors: {
+        border: 'rgba(251, 191, 36, 0.2)',
+        background: 'rgb(0, 0, 0)',
+        foreground: 'rgb(251, 191, 36)',
+        primary: {
+          DEFAULT: 'rgb(217, 119, 6)',
+          foreground: 'rgb(255, 255, 255)',
+        },
         amber: {
           50: '#FFFDF5',
           100: '#FFE08A',

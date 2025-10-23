@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Flower2, Gift, Calendar, Crown, Flower } from 'lucide-react';
 import { supabase, Product } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
+import { InteractiveHoverButton } from '../components/ui/interactive-hover-button';
 
 interface HomeProps {
   onNavigate: (page: string, categorySlug?: string) => void;
@@ -64,12 +65,11 @@ export default function Home({ onNavigate }: HomeProps) {
             "Her Şey Bir İnsanı Sevmekle Başlar…"
           </p>
 
-          <button
+          <InteractiveHoverButton
+            text="Katalog İncele"
             onClick={() => onNavigate('katalog')}
-            className="px-12 py-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-full text-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-amber-500/50 animate-slide-up-delay-2 will-change-transform"
-          >
-            Katalog İncele
-          </button>
+            className="px-12 py-4 w-auto bg-gradient-to-r from-amber-600 to-amber-500 text-white text-lg border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/50 animate-slide-up-delay-2 will-change-transform"
+          />
         </div>
 
       </section>
