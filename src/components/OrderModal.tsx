@@ -48,27 +48,31 @@ export default function OrderModal({ isOpen, onClose, productName, productPrice,
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+      className="fixed inset-0 z-[9999] bg-black/90 backdrop-blur-lg"
       onClick={onClose}
     >
-      <div
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-amber-500/30 shadow-2xl shadow-amber-500/20"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          className="sticky top-4 float-right mr-4 mt-4 p-2 bg-black/50 rounded-full text-amber-100 hover:text-amber-400 hover:bg-black/70 transition-all z-10"
-        >
-          <X className="w-6 h-6" />
-        </button>
+      <div className="fixed inset-0 overflow-y-auto">
+        <div className="min-h-full flex items-center justify-center p-0 md:p-4">
+          <div
+            className="relative w-full md:w-auto md:min-w-[600px] md:max-w-2xl h-full md:h-auto md:max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 via-black to-gray-900 md:rounded-3xl border-0 md:border md:border-amber-500/40 shadow-2xl md:shadow-amber-500/30"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 z-20 flex justify-end p-4 bg-gradient-to-b from-gray-900 to-transparent">
+              <button
+                onClick={onClose}
+                className="p-3 bg-black/70 rounded-full text-amber-100 hover:text-amber-400 hover:bg-black/90 transition-all hover:scale-110 shadow-lg"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
 
-        <div className="p-6 md:p-8">
+            <div className="px-6 pb-6 md:px-8 md:pb-8 -mt-4">
           <h2 className="text-2xl md:text-3xl font-bold text-amber-400 mb-2">Sipariş Detayları</h2>
           <p className="text-amber-100/70 mb-6">
             {productName} - {productPrice}
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label htmlFor="receiverName" className="block text-amber-100 font-medium mb-2">
                 Alıcı adı *
@@ -199,22 +203,24 @@ export default function OrderModal({ isOpen, onClose, productName, productPrice,
               </p>
             </div>
 
-            <div className="flex gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-6">
               <button
                 type="button"
                 onClick={onClose}
-                className="flex-1 px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-semibold transition-colors"
+                className="w-full sm:flex-1 px-6 py-4 bg-gray-700 hover:bg-gray-600 text-white rounded-xl font-semibold transition-all hover:scale-[1.02]"
               >
                 İptal
               </button>
               <button
                 type="submit"
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-lg font-semibold transition-all"
+                className="w-full sm:flex-1 px-6 py-4 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-xl font-semibold transition-all hover:scale-[1.02] hover:shadow-lg hover:shadow-amber-500/50"
               >
                 WhatsApp'a Gönder
               </button>
             </div>
           </form>
+        </div>
+          </div>
         </div>
       </div>
     </div>
