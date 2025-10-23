@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
 import Home from './pages/Home';
 import Katalog from './pages/Katalog';
 import CategoryPage from './pages/CategoryPage';
@@ -73,6 +74,7 @@ function App() {
         }} />
         <main>{renderPage()}</main>
         <Footer onNavigate={setCurrentPage} />
+        <WhatsAppButton />
       </div>
     </AuthProvider>
   );
