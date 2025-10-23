@@ -47,11 +47,17 @@ export default function OrderModal({ isOpen, onClose, productName, productPrice,
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-amber-500/30 shadow-2xl">
+    <div
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md"
+      onClick={onClose}
+    >
+      <div
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-gradient-to-br from-gray-900 to-black rounded-2xl border border-amber-500/30 shadow-2xl shadow-amber-500/20"
+        onClick={(e) => e.stopPropagation()}
+      >
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-amber-100 hover:text-amber-400 transition-colors z-10"
+          className="sticky top-4 float-right mr-4 mt-4 p-2 bg-black/50 rounded-full text-amber-100 hover:text-amber-400 hover:bg-black/70 transition-all z-10"
         >
           <X className="w-6 h-6" />
         </button>
