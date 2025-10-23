@@ -21,6 +21,7 @@ export interface Product {
   category_id: string;
   is_featured: boolean;
   discount_percentage: number | null;
+  display_order: number;
   created_at: string;
   updated_at: string;
 }

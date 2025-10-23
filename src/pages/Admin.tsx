@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut } from 'lucide-react';
+import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut, GripVertical } from 'lucide-react';
 import { supabase, Product, Category, ProductCategory } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -27,6 +27,7 @@ export default function Admin() {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [productCategories, setProductCategories] = useState<Record<string, string[]>>({});
+  const [draggedItem, setDraggedItem] = useState<Product | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -51,7 +52,7 @@ export default function Admin() {
   const loadData = async () => {
     try {
       const [productsResult, categoriesResult] = await Promise.all([
-        supabase.from('products').select('*').order('created_at', { ascending: false }),
+        supabase.from('products').select('*').order('display_order', { ascending: true }),
         supabase.from('categories').select('*').order('name'),
       ]);
 
@@ -136,9 +137,32 @@ export default function Admin() {
           .delete()
           .eq('product_id', productId);
       } else {
+        const { data: maxOrderProduct } = await supabase
+          .from('products')
+          .select('display_order')
+          .order('display_order', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+
+        const newDisplayOrder = maxOrderProduct ? maxOrderProduct.display_order + 1 : 0;
+
+        const { data: allProducts } = await supabase
+          .from('products')
+          .select('id, display_order')
+          .order('display_order', { ascending: true });
+
+        if (allProducts && allProducts.length > 0) {
+          for (let i = 0; i < allProducts.length; i++) {
+            await supabase
+              .from('products')
+              .update({ display_order: i + 1 })
+              .eq('id', allProducts[i].id);
+          }
+        }
+
         const { data: newProduct, error } = await supabase
           .from('products')
-          .insert([productData])
+          .insert([{ ...productData, display_order: 0 }])
           .select()
           .single();
 
@@ -225,6 +249,48 @@ export default function Admin() {
         ? prev.filter((id) => id !== categoryId)
         : [...prev, categoryId]
     );
+  };
+
+  const handleDragStart = (e: React.DragEvent, product: Product) => {
+    setDraggedItem(product);
+    e.dataTransfer.effectAllowed = 'move';
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+  };
+
+  const handleDrop = async (e: React.DragEvent, targetProduct: Product) => {
+    e.preventDefault();
+
+    if (!draggedItem || draggedItem.id === targetProduct.id) {
+      setDraggedItem(null);
+      return;
+    }
+
+    const draggedIndex = products.findIndex(p => p.id === draggedItem.id);
+    const targetIndex = products.findIndex(p => p.id === targetProduct.id);
+
+    const newProducts = [...products];
+    newProducts.splice(draggedIndex, 1);
+    newProducts.splice(targetIndex, 0, draggedItem);
+
+    setProducts(newProducts);
+
+    try {
+      for (let i = 0; i < newProducts.length; i++) {
+        await supabase
+          .from('products')
+          .update({ display_order: i })
+          .eq('id', newProducts[i].id);
+      }
+    } catch (error) {
+      console.error('Error updating order:', error);
+      await loadData();
+    }
+
+    setDraggedItem(null);
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -485,8 +551,15 @@ export default function Admin() {
           {products.map((product) => (
             <div
               key={product.id}
-              className="bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 overflow-hidden"
+              draggable
+              onDragStart={(e) => handleDragStart(e, product)}
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, product)}
+              className="bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 overflow-hidden cursor-move hover:border-amber-500/40 transition-all"
             >
+              <div className="absolute top-4 left-4 z-10 bg-black/50 p-2 rounded-lg backdrop-blur-sm">
+                <GripVertical className="text-amber-400" size={20} />
+              </div>
               <div className="aspect-square overflow-hidden">
                 <img
                   src={product.image_url}

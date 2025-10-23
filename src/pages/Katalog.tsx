@@ -32,7 +32,7 @@ export default function Katalog({ initialCategorySlug }: KatalogProps) {
   const loadData = async () => {
     try {
       const [productsResult, categoriesResult, productCategoriesResult] = await Promise.all([
-        supabase.from('products').select('*').order('created_at', { ascending: false }),
+        supabase.from('products').select('*').order('display_order', { ascending: true }),
         supabase.from('categories').select('*').order('name'),
         supabase.from('product_categories').select('*'),
       ]);

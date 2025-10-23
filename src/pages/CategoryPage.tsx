@@ -42,7 +42,7 @@ export default function CategoryPage({ categorySlug, title, description }: Categ
             .from('products')
             .select('*')
             .in('id', productIds)
-            .order('created_at', { ascending: false });
+            .order('display_order', { ascending: true });
 
           if (error) throw error;
           setProducts(data || []);
