@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Instagram, Shield } from 'lucide-react';
+import { Phone, Mail, MapPin, Instagram, Shield, Clock } from 'lucide-react';
 
 interface FooterProps {
   onNavigate?: (page: string) => void;
@@ -46,6 +46,10 @@ export default function Footer({ onNavigate }: FooterProps) {
                 >
                   Turgutalp, Mimar Sinan Cd. No:12, 16400 İnegöl/Bursa, Türkiye
                 </a>
+              </li>
+              <li className="flex items-center gap-3 text-sm">
+                <Clock size={18} className="text-amber-400" />
+                <span>Her gün: 09:00 - 21:30</span>
               </li>
             </ul>
           </div>
