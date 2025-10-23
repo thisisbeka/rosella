@@ -36,14 +36,11 @@ export default function Home({ onNavigate }: HomeProps) {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
       <section className="relative flex items-center justify-center overflow-hidden py-8">
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black">
-        </div>
-
         <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
-          <div className="flex flex-col items-center justify-center">
-            <div className="animate-slide-up flex-shrink-0" style={{ marginBottom: '0px' }}>
+          <div className="flex flex-col items-center justify-center mb-8">
+            <div className="animate-slide-up flex-shrink-0">
               <img
                 src="/ROSELLA_mainpage_new_2.png"
                 alt="ROSELLA"
@@ -59,23 +56,23 @@ export default function Home({ onNavigate }: HomeProps) {
                 }}
               />
             </div>
+
+            <p className="text-base md:text-lg text-amber-100 mb-4 tracking-wide animate-slide-up-delay max-w-xl mt-4">
+              "Her Şey Bir İnsanı Sevmekle Başlar…"
+            </p>
+
+            <InteractiveHoverButton
+              text="Katalog İncele"
+              onClick={() => onNavigate('katalog')}
+              className="px-12 py-4 w-auto bg-gradient-to-r from-amber-600 to-amber-500 text-white text-lg border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/50 animate-slide-up-delay-2 will-change-transform"
+            />
           </div>
-
-          <p className="text-base md:text-lg text-amber-100 mb-4 tracking-wide animate-slide-up-delay max-w-xl">
-            "Her Şey Bir İnsanı Sevmekle Başlar…"
-          </p>
-
-          <InteractiveHoverButton
-            text="Katalog İncele"
-            onClick={() => onNavigate('katalog')}
-            className="px-12 py-4 w-auto bg-gradient-to-r from-amber-600 to-amber-500 text-white text-lg border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/50 animate-slide-up-delay-2 will-change-transform"
-          />
         </div>
 
       </section>
 
       {featuredProducts.length > 0 && (
-        <section className="py-8 px-4 bg-gradient-to-b from-black to-gray-900">
+        <section className="py-8 px-4">
           <div className="max-w-7xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-400 mb-8 md:mb-10 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
               Öne Çıkan Ürünler
@@ -98,7 +95,7 @@ export default function Home({ onNavigate }: HomeProps) {
         </section>
       )}
 
-      <section className="py-16 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
+      <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-400 mb-12 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
             Hizmetlerimiz
