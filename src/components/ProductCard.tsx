@@ -113,7 +113,7 @@ ${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}━━�
         )}
 
         {categories.length > 0 && (
-          <div className="absolute top-2 right-2 flex flex-col gap-1 z-10">
+          <div className="absolute top-2 right-2 flex flex-col gap-1 z-10 transition-opacity duration-300 group-hover:opacity-0">
             {categories.slice(0, 2).map((category) => (
               <div
                 key={category.id}
