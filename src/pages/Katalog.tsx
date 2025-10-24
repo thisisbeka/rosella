@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase, Product, Category } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
+import ProductSchema from '../components/ProductSchema';
 
 const WHATSAPP_NUMBER = '902247770177';
 
@@ -73,6 +74,7 @@ export default function Katalog({ initialCategorySlug }: KatalogProps) {
 
   return (
     <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
+      <ProductSchema products={filteredProducts} />
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center text-amber-400 mb-8 sm:mb-12 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
           Katalog
