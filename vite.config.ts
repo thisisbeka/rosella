@@ -19,9 +19,21 @@ export default defineConfig({
         manualChunks: {
           'react-vendor': ['react', 'react-dom'],
           'supabase-vendor': ['@supabase/supabase-js'],
+          'ui-vendor': ['lucide-react', 'clsx', 'tailwind-merge'],
         },
       },
     },
     chunkSizeWarningLimit: 1000,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true,
+        passes: 2,
+      },
+      mangle: true,
+    },
+    cssMinify: true,
+    reportCompressedSize: false,
   },
 });

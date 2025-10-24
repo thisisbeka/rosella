@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import Home from './pages/Home';
-import Katalog from './pages/Katalog';
-import CategoryPage from './pages/CategoryPage';
-import Hakkimizda from './pages/Hakkimizda';
-import Iletisim from './pages/Iletisim';
-import Admin from './pages/Admin';
 import { AuthProvider } from './contexts/AuthContext';
+
+const Katalog = lazy(() => import('./pages/Katalog'));
+const CategoryPage = lazy(() => import('./pages/CategoryPage'));
+const Hakkimizda = lazy(() => import('./pages/Hakkimizda'));
+const Iletisim = lazy(() => import('./pages/Iletisim'));
+const Admin = lazy(() => import('./pages/Admin'));
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -72,7 +73,15 @@ function App() {
           setCurrentPage(page);
           setSelectedCategorySlug(categorySlug || null);
         }} />
-        <main>{renderPage()}</main>
+        <main>
+          <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-4 border-amber-500 border-t-transparent"></div>
+            </div>
+          }>
+            {renderPage()}
+          </Suspense>
+        </main>
         <Footer onNavigate={setCurrentPage} />
         <WhatsAppButton />
       </div>
