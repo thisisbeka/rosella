@@ -95,16 +95,16 @@ export default function Admin() {
 
       if (imageFiles.length > 0) {
         const options = {
-          maxSizeMB: 0.3,
+          maxSizeMB: 0.2,
           maxWidthOrHeight: 1200,
           useWebWorker: true,
-          fileType: 'image/jpeg',
-          initialQuality: 0.8
+          fileType: 'image/webp',
+          initialQuality: 0.85
         };
 
         for (const imageFile of imageFiles) {
           const compressedFile = await imageCompression(imageFile, options);
-          const fileExt = 'jpg';
+          const fileExt = 'webp';
           const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
           const filePath = `${fileName}`;
 

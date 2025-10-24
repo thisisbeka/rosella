@@ -111,16 +111,24 @@ ${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}━━�
         {!loadedImages.has(currentImageIndex) && (
           <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-black/40 animate-pulse" />
         )}
-        <img
-          src={images[currentImageIndex]}
-          alt={product.name}
-          loading="lazy"
-          decoding="async"
-          onLoad={handleImageLoad}
-          className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 will-change-transform ${
-            loadedImages.has(currentImageIndex) ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcSet={images[currentImageIndex]}
+          />
+          <img
+            src={images[currentImageIndex]}
+            alt={product.name}
+            width="400"
+            height="400"
+            loading="lazy"
+            decoding="async"
+            onLoad={handleImageLoad}
+            className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 will-change-transform ${
+              loadedImages.has(currentImageIndex) ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        </picture>
 
         {product.discount_percentage && (
           <div className="absolute top-2 left-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-2 py-1 rounded-lg shadow-lg font-semibold text-xs z-10 animate-pulse">

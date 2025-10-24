@@ -41,21 +41,29 @@ export default function Home({ onNavigate }: HomeProps) {
         <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
           <div className="flex flex-col items-center justify-center">
             <div className="animate-slide-up flex-shrink-0 -mb-[45px] md:-mb-[110px]">
-              <img
-                src="/ROSELLA_mainpage_new_2.png"
-                alt="ROSELLA"
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                className="mx-auto animate-logo-glow"
-                style={{
-                  width: '580px',
-                  maxWidth: '90vw',
-                  height: 'auto',
-                  objectFit: 'contain',
-                  willChange: 'transform'
-                }}
-              />
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet="/ROSELLA_mainpage_new_2.png"
+                />
+                <img
+                  src="/ROSELLA_mainpage_new_2.png"
+                  alt="ROSELLA"
+                  width="580"
+                  height="200"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="mx-auto animate-logo-glow"
+                  style={{
+                    width: '580px',
+                    maxWidth: '90vw',
+                    height: 'auto',
+                    objectFit: 'contain',
+                    willChange: 'transform'
+                  }}
+                />
+              </picture>
             </div>
 
             <p className="text-base md:text-lg text-amber-100 tracking-wide animate-slide-up-delay max-w-xl" style={{ marginBottom: '40px' }}>
