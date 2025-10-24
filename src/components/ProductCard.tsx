@@ -50,7 +50,12 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
   };
 
   const handleWhatsAppOrder = (orderDetails: OrderDetails) => {
-    const imageUrl = images[0].startsWith('http') ? images[0] : `${window.location.origin}${images[0]}`;
+    let imageUrl = images[0];
+    if (!imageUrl.startsWith('http')) {
+      imageUrl = `${window.location.origin}${imageUrl}`;
+    }
+    imageUrl = imageUrl.replace(/https?:\/\/.*?(https?:\/\/)/, '$1');
+
     const finalPrice = product.discount_percentage
       ? product.price * (1 - product.discount_percentage / 100)
       : product.price;
