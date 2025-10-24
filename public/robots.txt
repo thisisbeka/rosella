@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://rosellacicek.com/sitemap.xml
+Sitemap: https://inegolcicekci.com.tr/sitemap.xml
 
 User-agent: Googlebot
 Allow: /
