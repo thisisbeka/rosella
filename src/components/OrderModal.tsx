@@ -69,9 +69,16 @@ export default function OrderModal({ isOpen, onClose, productName, productPrice,
 
             <div className="px-6 pb-6 md:px-8 md:pb-8 -mt-4">
           <h2 className="text-2xl md:text-3xl font-bold text-amber-400 mb-2">Sipariş Detayları</h2>
-          <p className="text-amber-100/70 mb-6">
+          <p className="text-amber-100/70 mb-4">
             {productName} - {productPrice}
           </p>
+
+          <div className="mb-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
+            <h3 className="text-amber-400 font-semibold mb-2">Açıklama:</h3>
+            <p className="text-amber-100/80 text-sm leading-relaxed">
+              Çiçek aranjmanlarımızda kullanılan yan ürün ve malzemelerde (kurdele, kağıt, çakıl taşları, vazo vb.), mevsime ve stok durumuna göre değişiklikler yapılabilir. Bu tür durumlarda aynı kalitede farklı bir ürün kullanabilmekteyiz.
+            </p>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
