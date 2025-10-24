@@ -17,7 +17,7 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [categories, setCategories] = useState<CategoryInfo[]>([]);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
 
   const images = product.image_urls && product.image_urls.length > 0 ? product.image_urls : [product.image_url];
 
@@ -93,20 +93,22 @@ ${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}━━�
     ? product.price * (1 - product.discount_percentage / 100)
     : null;
 
+  const handleImageLoad = () => {
+    setLoadedImages((prev) => new Set(prev).add(currentImageIndex));
+  };
+
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
-    setImageLoaded(false);
   };
 
   const prevImage = () => {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-    setImageLoaded(false);
   };
 
   return (
     <div className="group relative bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform">
       <div className="aspect-square overflow-hidden relative bg-black/40">
-        {!imageLoaded && (
+        {!loadedImages.has(currentImageIndex) && (
           <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-black/40 animate-pulse" />
         )}
         <img
@@ -114,9 +116,9 @@ ${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}━━�
           alt={product.name}
           loading="lazy"
           decoding="async"
-          onLoad={() => setImageLoaded(true)}
+          onLoad={handleImageLoad}
           className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 will-change-transform ${
-            imageLoaded ? 'opacity-100' : 'opacity-0'
+            loadedImages.has(currentImageIndex) ? 'opacity-100' : 'opacity-0'
           }`}
         />
 
