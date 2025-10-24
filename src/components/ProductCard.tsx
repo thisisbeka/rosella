@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { Product } from '../lib/supabase';
+import { Product, supabase } from '../lib/supabase';
 import OrderModal, { OrderDetails } from './OrderModal';
 
 interface ProductCardProps {
@@ -8,11 +8,46 @@ interface ProductCardProps {
   whatsappNumber: string;
 }
 
+interface CategoryInfo {
+  id: string;
+  name: string;
+}
+
 export default function ProductCard({ product, whatsappNumber }: ProductCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [categories, setCategories] = useState<CategoryInfo[]>([]);
 
   const images = product.image_urls && product.image_urls.length > 0 ? product.image_urls : [product.image_url];
+
+  useEffect(() => {
+    loadCategories();
+  }, [product.id]);
+
+  const loadCategories = async () => {
+    try {
+      const { data: productCategories, error: pcError } = await supabase
+        .from('product_categories')
+        .select('category_id')
+        .eq('product_id', product.id);
+
+      if (pcError) throw pcError;
+
+      if (productCategories && productCategories.length > 0) {
+        const categoryIds = productCategories.map(pc => pc.category_id);
+
+        const { data: categoryData, error: catError } = await supabase
+          .from('categories')
+          .select('id, name')
+          .in('id', categoryIds);
+
+        if (catError) throw catError;
+        setCategories(categoryData || []);
+      }
+    } catch (error) {
+      console.error('Error loading categories:', error);
+    }
+  };
 
   const handleWhatsAppOrder = (orderDetails: OrderDetails) => {
     const imageUrl = `${window.location.origin}${images[0]}`;
@@ -70,9 +105,35 @@ ${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}━━�
           decoding="async"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 will-change-transform"
         />
-        {product.discount_percentage && (
-          <div className="absolute top-2 left-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-2 py-1 rounded-lg shadow-lg font-semibold text-xs z-10 animate-pulse">
-            %{product.discount_percentage} İNDİRİM
+
+        <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
+          {product.discount_percentage && (
+            <div className="bg-gradient-to-r from-red-600 to-red-500 text-white px-2 py-1 rounded-lg shadow-lg font-semibold text-xs animate-pulse">
+              %{product.discount_percentage} İNDİRİM
+            </div>
+          )}
+          {product.is_featured && (
+            <div className="bg-gradient-to-r from-amber-600 to-amber-500 text-white px-2 py-1 rounded-lg shadow-lg font-semibold text-xs">
+              Öne Çıkan
+            </div>
+          )}
+        </div>
+
+        {categories.length > 0 && (
+          <div className="absolute top-2 right-2 flex flex-col gap-1 z-10">
+            {categories.slice(0, 2).map((category) => (
+              <div
+                key={category.id}
+                className="bg-black/70 backdrop-blur-sm text-amber-300 px-2 py-1 rounded-lg shadow-lg text-xs font-medium border border-amber-500/30"
+              >
+                {category.name}
+              </div>
+            ))}
+            {categories.length > 2 && (
+              <div className="bg-black/70 backdrop-blur-sm text-amber-300 px-2 py-1 rounded-lg shadow-lg text-xs font-medium border border-amber-500/30">
+                +{categories.length - 2}
+              </div>
+            )}
           </div>
         )}
 
