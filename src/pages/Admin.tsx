@@ -95,10 +95,11 @@ export default function Admin() {
 
       if (imageFiles.length > 0) {
         const options = {
-          maxSizeMB: 0.5,
-          maxWidthOrHeight: 1920,
+          maxSizeMB: 0.3,
+          maxWidthOrHeight: 1200,
           useWebWorker: true,
-          fileType: 'image/jpeg'
+          fileType: 'image/jpeg',
+          initialQuality: 0.8
         };
 
         for (const imageFile of imageFiles) {
