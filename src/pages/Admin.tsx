@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut, GripVertical } from 'lucide-react';
+import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut, GripVertical, ChevronLeft, ChevronRight } from 'lucide-react';
 import { supabase, Product, Category, ProductCategory } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import imageCompression from 'browser-image-compression';
@@ -25,10 +25,12 @@ export default function Admin() {
     discount_percentage: '',
   });
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [productCategories, setProductCategories] = useState<Record<string, string[]>>({});
   const [draggedItem, setDraggedItem] = useState<Product | null>(null);
+  const [productImageIndex, setProductImageIndex] = useState<Record<string, number>>({});
 
   useEffect(() => {
     if (user) {
@@ -89,9 +91,9 @@ export default function Admin() {
     setIsUploading(true);
 
     try {
-      let imageUrl = formData.image_url;
+      let uploadedUrls: string[] = [...imageUrls];
 
-      if (imageFile) {
+      if (imageFiles.length > 0) {
         const options = {
           maxSizeMB: 0.5,
           maxWidthOrHeight: 1920,
@@ -99,23 +101,30 @@ export default function Admin() {
           fileType: 'image/jpeg'
         };
 
-        const compressedFile = await imageCompression(imageFile, options);
+        for (const imageFile of imageFiles) {
+          const compressedFile = await imageCompression(imageFile, options);
+          const fileExt = 'jpg';
+          const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+          const filePath = `${fileName}`;
 
-        const fileExt = 'jpg';
-        const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-        const filePath = `${fileName}`;
+          const { error: uploadError } = await supabase.storage
+            .from('product-images')
+            .upload(filePath, compressedFile);
 
-        const { error: uploadError } = await supabase.storage
-          .from('product-images')
-          .upload(filePath, compressedFile);
+          if (uploadError) throw uploadError;
 
-        if (uploadError) throw uploadError;
+          const { data: { publicUrl } } = supabase.storage
+            .from('product-images')
+            .getPublicUrl(filePath);
 
-        const { data: { publicUrl } } = supabase.storage
-          .from('product-images')
-          .getPublicUrl(filePath);
+          uploadedUrls.push(publicUrl);
+        }
+      }
 
-        imageUrl = publicUrl;
+      if (uploadedUrls.length === 0) {
+        alert('Lütfen en az bir resim yükleyin');
+        setIsUploading(false);
+        return;
       }
 
       const discountValue = formData.discount_percentage ? parseInt(formData.discount_percentage) : null;
@@ -124,7 +133,8 @@ export default function Admin() {
         name: formData.name,
         description: formData.description,
         price: parseFloat(formData.price),
-        image_url: imageUrl,
+        image_url: uploadedUrls[0],
+        image_urls: uploadedUrls,
         category_id: selectedCategories.length > 0 ? selectedCategories[0] : null,
         is_featured: formData.is_featured,
         discount_percentage: discountValue,
@@ -228,6 +238,7 @@ export default function Admin() {
       discount_percentage: product.discount_percentage ? product.discount_percentage.toString() : '',
     });
 
+    setImageUrls(product.image_urls || [product.image_url]);
     const productCats = await getProductCategories(product.id);
     setSelectedCategories(productCats);
     setShowForm(true);
@@ -244,7 +255,8 @@ export default function Admin() {
       discount_percentage: '',
     });
     setSelectedCategories([]);
-    setImageFile(null);
+    setImageFiles([]);
+    setImageUrls([]);
     setEditingProduct(null);
     setShowForm(false);
   };
@@ -314,6 +326,34 @@ export default function Admin() {
 
   const handleLogout = async () => {
     await signOut();
+  };
+
+  const removeImageUrl = (index: number) => {
+    setImageUrls(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const moveImageUp = (index: number) => {
+    if (index === 0) return;
+    const newUrls = [...imageUrls];
+    [newUrls[index - 1], newUrls[index]] = [newUrls[index], newUrls[index - 1]];
+    setImageUrls(newUrls);
+  };
+
+  const moveImageDown = (index: number) => {
+    if (index === imageUrls.length - 1) return;
+    const newUrls = [...imageUrls];
+    [newUrls[index], newUrls[index + 1]] = [newUrls[index + 1], newUrls[index]];
+    setImageUrls(newUrls);
+  };
+
+  const cycleProductImage = (productId: string, direction: 'prev' | 'next', imageCount: number) => {
+    setProductImageIndex(prev => {
+      const current = prev[productId] || 0;
+      let next = direction === 'next' ? current + 1 : current - 1;
+      if (next < 0) next = imageCount - 1;
+      if (next >= imageCount) next = 0;
+      return { ...prev, [productId]: next };
+    });
   };
 
   if (authLoading) {
@@ -449,39 +489,71 @@ export default function Admin() {
                 </div>
 
                 <div>
-                  <label className="block text-amber-100 mb-2">Ürün Resmi</label>
+                  <label className="block text-amber-100 mb-2">
+                    Ürün Resimleri {imageUrls.length > 0 && `(${imageUrls.length} resim)`}
+                  </label>
                   <div className="space-y-3">
                     <input
                       type="file"
                       accept="image/*"
+                      multiple
                       onChange={(e) => {
-                        const file = e.target.files?.[0];
-                        if (file) {
-                          setImageFile(file);
-                          setFormData({ ...formData, image_url: '' });
+                        const files = Array.from(e.target.files || []);
+                        if (files.length > 0) {
+                          setImageFiles(prev => [...prev, ...files]);
                         }
                       }}
                       className="w-full px-4 py-3 bg-black/50 border border-amber-500/30 rounded-lg text-amber-100 focus:outline-none focus:border-amber-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-amber-500/20 file:text-amber-400 hover:file:bg-amber-500/30 file:cursor-pointer"
                     />
-                    {imageFile && (
-                      <p className="text-sm text-amber-400">Seçili dosya: {imageFile.name}</p>
+
+                    {imageFiles.length > 0 && (
+                      <div className="text-sm text-amber-400 space-y-1">
+                        <p className="font-medium">Yeni resimler ({imageFiles.length}):</p>
+                        {imageFiles.map((file, index) => (
+                          <p key={index} className="text-amber-300">• {file.name}</p>
+                        ))}
+                      </div>
                     )}
-                    <div className="flex items-center gap-2">
-                      <div className="flex-1 h-px bg-amber-500/30"></div>
-                      <span className="text-amber-100/50 text-sm">veya</span>
-                      <div className="flex-1 h-px bg-amber-500/30"></div>
-                    </div>
-                    <input
-                      type="url"
-                      placeholder="Resim URL'si girin"
-                      value={formData.image_url}
-                      onChange={(e) => {
-                        setFormData({ ...formData, image_url: e.target.value });
-                        setImageFile(null);
-                      }}
-                      className="w-full px-4 py-3 bg-black/50 border border-amber-500/30 rounded-lg text-amber-100 focus:outline-none focus:border-amber-500"
-                      disabled={!!imageFile}
-                    />
+
+                    {imageUrls.length > 0 && (
+                      <div className="space-y-2">
+                        <p className="text-sm text-amber-400 font-medium">
+                          Mevcut resimler (ilk resim ana görsel):
+                        </p>
+                        {imageUrls.map((url, index) => (
+                          <div key={index} className="flex items-center gap-2 bg-black/50 p-2 rounded-lg">
+                            <img src={url} alt={`Image ${index + 1}`} className="w-16 h-16 object-cover rounded" />
+                            <span className="flex-1 text-amber-100 text-sm truncate">
+                              {index === 0 && <span className="text-green-400 font-bold mr-2">★ ANA</span>}
+                              Resim {index + 1}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => moveImageUp(index)}
+                              disabled={index === 0}
+                              className="px-2 py-1 bg-amber-500/20 text-amber-400 rounded disabled:opacity-30 disabled:cursor-not-allowed hover:bg-amber-500/30"
+                            >
+                              ↑
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => moveImageDown(index)}
+                              disabled={index === imageUrls.length - 1}
+                              className="px-2 py-1 bg-amber-500/20 text-amber-400 rounded disabled:opacity-30 disabled:cursor-not-allowed hover:bg-amber-500/30"
+                            >
+                              ↓
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => removeImageUrl(index)}
+                              className="px-2 py-1 bg-red-500/20 text-red-400 rounded hover:bg-red-500/30"
+                            >
+                              <X size={16} />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </div>
 
@@ -558,92 +630,130 @@ export default function Admin() {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
-            <div
-              key={product.id}
-              draggable
-              onDragStart={(e) => handleDragStart(e, product)}
-              onDragOver={handleDragOver}
-              onDrop={(e) => handleDrop(e, product)}
-              className="bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 overflow-hidden cursor-move hover:border-amber-500/40 transition-all"
-            >
-              <div className="absolute top-4 left-4 z-10 bg-black/50 p-2 rounded-lg backdrop-blur-sm">
-                <GripVertical className="text-amber-400" size={20} />
-              </div>
-              <div className="aspect-square overflow-hidden">
-                <img
-                  src={product.image_url}
-                  alt={product.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+          {products.map((product) => {
+            const images = product.image_urls && product.image_urls.length > 0 ? product.image_urls : [product.image_url];
+            const currentImageIndex = productImageIndex[product.id] || 0;
+            const currentImage = images[currentImageIndex];
 
-              <div className="p-6">
-                <div className="flex items-start justify-between mb-2">
-                  <h3 className="text-xl font-semibold text-amber-100 flex-1">
-                    {product.name}
-                  </h3>
-                  {product.is_featured && (
-                    <span className="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded">
-                      Öne Çıkan
-                    </span>
-                  )}
+            return (
+              <div
+                key={product.id}
+                draggable
+                onDragStart={(e) => handleDragStart(e, product)}
+                onDragOver={handleDragOver}
+                onDrop={(e) => handleDrop(e, product)}
+                className="bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 overflow-hidden cursor-move hover:border-amber-500/40 transition-all"
+              >
+                <div className="absolute top-4 left-4 z-10 bg-black/50 p-2 rounded-lg backdrop-blur-sm">
+                  <GripVertical className="text-amber-400" size={20} />
                 </div>
-
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {productCategories[product.id]?.length > 0 ? (
-                    productCategories[product.id].map((catId) => (
-                      <span
-                        key={catId}
-                        className="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded"
+                <div className="aspect-square overflow-hidden relative group">
+                  <img
+                    src={currentImage}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                  {images.length > 1 && (
+                    <>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          cycleProductImage(product.id, 'prev', images.length);
+                        }}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
                       >
-                        {getCategoryName(catId)}
-                      </span>
-                    ))
-                  ) : (
-                    <span className="text-sm text-amber-100/70">Kategori Yok</span>
+                        <ChevronLeft size={20} />
+                      </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          cycleProductImage(product.id, 'next', images.length);
+                        }}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-10"
+                      >
+                        <ChevronRight size={20} />
+                      </button>
+                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+                        {images.map((_, index) => (
+                          <div
+                            key={index}
+                            className={`w-2 h-2 rounded-full transition-all ${
+                              index === currentImageIndex ? 'bg-amber-400 w-4' : 'bg-white/50'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </>
                   )}
                 </div>
 
-                {product.discount_percentage ? (
-                  <div className="mb-4">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-lg text-amber-100/50 line-through">
-                        {product.price.toLocaleString('tr-TR')} ₺
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-2">
+                    <h3 className="text-xl font-semibold text-amber-100 flex-1">
+                      {product.name}
+                    </h3>
+                    {product.is_featured && (
+                      <span className="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded">
+                        Öne Çıkan
                       </span>
-                      <span className="px-2 py-1 bg-red-500/20 text-red-400 text-xs font-bold rounded">
-                        {product.discount_percentage}% İNDİRİM
-                      </span>
-                    </div>
-                    <p className="text-2xl font-bold text-amber-400">
-                      {(product.price * (1 - product.discount_percentage / 100)).toLocaleString('tr-TR')} ₺
-                    </p>
+                    )}
                   </div>
-                ) : (
-                  <p className="text-2xl font-bold text-amber-400 mb-4">
-                    {product.price.toLocaleString('tr-TR')} ₺
-                  </p>
-                )}
 
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleEdit(product)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 rounded-lg transition-all duration-300"
-                  >
-                    <Edit2 size={16} />
-                    Düzenle
-                  </button>
-                  <button
-                    onClick={() => handleDelete(product.id)}
-                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-all duration-300"
-                  >
-                    <Trash2 size={16} />
-                    Sil
-                  </button>
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {productCategories[product.id]?.length > 0 ? (
+                      productCategories[product.id].map((catId) => (
+                        <span
+                          key={catId}
+                          className="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs rounded"
+                        >
+                          {getCategoryName(catId)}
+                        </span>
+                      ))
+                    ) : (
+                      <span className="text-sm text-amber-100/70">Kategori Yok</span>
+                    )}
+                  </div>
+
+                  {product.discount_percentage ? (
+                    <div className="mb-4">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-lg text-amber-100/50 line-through">
+                          {product.price.toLocaleString('tr-TR')} ₺
+                        </span>
+                        <span className="px-2 py-1 bg-red-500/20 text-red-400 text-xs font-bold rounded">
+                          {product.discount_percentage}% İNDİRİM
+                        </span>
+                      </div>
+                      <p className="text-2xl font-bold text-amber-400">
+                        {(product.price * (1 - product.discount_percentage / 100)).toLocaleString('tr-TR')} ₺
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-2xl font-bold text-amber-400 mb-4">
+                      {product.price.toLocaleString('tr-TR')} ₺
+                    </p>
+                  )}
+
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleEdit(product)}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-amber-500/20 hover:bg-amber-500/30 text-amber-400 rounded-lg transition-all duration-300"
+                    >
+                      <Edit2 size={16} />
+                      Düzenle
+                    </button>
+                    <button
+                      onClick={() => handleDelete(product.id)}
+                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-all duration-300"
+                    >
+                      <Trash2 size={16} />
+                      Sil
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

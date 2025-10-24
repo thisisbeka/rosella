@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product } from '../lib/supabase';
 import OrderModal, { OrderDetails } from './OrderModal';
 
@@ -9,9 +10,12 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, whatsappNumber }: ProductCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const images = product.image_urls && product.image_urls.length > 0 ? product.image_urls : [product.image_url];
 
   const handleWhatsAppOrder = (orderDetails: OrderDetails) => {
-    const imageUrl = `${window.location.origin}${product.image_url}`;
+    const imageUrl = `${window.location.origin}${images[0]}`;
     const finalPrice = product.discount_percentage
       ? product.price * (1 - product.discount_percentage / 100)
       : product.price;
@@ -48,11 +52,19 @@ ${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}━━�
     ? product.price * (1 - product.discount_percentage / 100)
     : null;
 
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
   return (
     <div className="group relative bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl overflow-hidden border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform">
       <div className="aspect-square overflow-hidden relative">
         <img
-          src={product.image_url}
+          src={images[currentImageIndex]}
           alt={product.name}
           loading="lazy"
           decoding="async"
@@ -63,6 +75,48 @@ ${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}━━�
             %{product.discount_percentage} İNDİRİM
           </div>
         )}
+
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                prevImage();
+              }}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-20"
+              aria-label="Previous image"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage();
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 z-20"
+              aria-label="Next image"
+            >
+              <ChevronRight size={20} />
+            </button>
+
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+              {images.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentImageIndex(index);
+                  }}
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentImageIndex ? 'bg-amber-400 w-4' : 'bg-white/50 w-2'
+                  }`}
+                  aria-label={`Go to image ${index + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       </div>
 

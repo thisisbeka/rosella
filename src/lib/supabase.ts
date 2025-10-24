@@ -18,6 +18,7 @@ export interface Product {
   description: string;
   price: number;
   image_url: string;
+  image_urls: string[];
   category_id: string;
   is_featured: boolean;
   discount_percentage: number | null;
