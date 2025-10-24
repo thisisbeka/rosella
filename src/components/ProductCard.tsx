@@ -106,18 +106,11 @@ ${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}━━�
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 will-change-transform"
         />
 
-        <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
-          {product.discount_percentage && (
-            <div className="bg-gradient-to-r from-red-600 to-red-500 text-white px-2 py-1 rounded-lg shadow-lg font-semibold text-xs animate-pulse">
-              %{product.discount_percentage} İNDİRİM
-            </div>
-          )}
-          {product.is_featured && (
-            <div className="bg-gradient-to-r from-amber-600 to-amber-500 text-white px-2 py-1 rounded-lg shadow-lg font-semibold text-xs">
-              Öne Çıkan
-            </div>
-          )}
-        </div>
+        {product.discount_percentage && (
+          <div className="absolute top-2 left-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-2 py-1 rounded-lg shadow-lg font-semibold text-xs z-10 animate-pulse">
+            %{product.discount_percentage} İNDİRİM
+          </div>
+        )}
 
         {categories.length > 0 && (
           <div className="absolute top-2 right-2 flex flex-col gap-1 z-10">
