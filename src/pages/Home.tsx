@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Flower2, Gift, Calendar, Crown, Flower } from 'lucide-react';
+import { Flower2, Gift, Calendar, Crown, Flower, Car } from 'lucide-react';
 import { supabase, Product } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
 import { InteractiveHoverButton } from '../components/ui/interactive-hover-button';
@@ -157,12 +157,23 @@ export default function Home({ onNavigate }: HomeProps) {
 
             <button
               onClick={() => onNavigate('katalog', 'celenk')}
-              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 col-span-2 md:col-span-1 will-change-transform"
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
             >
               <Flower className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çelenk</h3>
               <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
                 Açılış & Düğün & Özel günleriniz & Veda törenleriniz için anlamlı çelenk düzenlemeleri
+              </p>
+            </button>
+
+            <button
+              onClick={() => onNavigate('katalog', 'arac-susleme')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
+            >
+              <Car className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Araç Süsleme</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                Düğün ve özel günleriniz için şık araç süslemeleri
               </p>
             </button>
           </div>
