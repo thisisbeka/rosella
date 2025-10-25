@@ -162,6 +162,9 @@ export default function Home({ onNavigate }: HomeProps) {
               <Flower className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
               <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çelenk</h3>
               <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                Açılış & Düğün & Özel günleriniz için
+              </p>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed mt-2">
                 Veda törenleriniz için anlamlı çelenк düzenlemeleri
               </p>
             </button>
