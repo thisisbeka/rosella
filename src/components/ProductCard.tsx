@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Truck } from 'lucide-react';
 import { Product, supabase } from '../lib/supabase';
 import OrderModal, { OrderDetails } from './OrderModal';
 
@@ -210,6 +210,11 @@ ${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}━━�
             </p>
           </div>
         )}
+
+        <div className="mb-3 flex items-center gap-2 text-green-400">
+          <Truck className="w-4 h-4 sm:w-5 sm:h-5" />
+          <span className="text-xs sm:text-sm font-medium">Aynı Gün Teslimat</span>
+        </div>
 
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           {product.discount_percentage ? (
