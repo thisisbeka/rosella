@@ -83,11 +83,10 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
       {isMobileMenuOpen && (
         <div className="lg:hidden px-4 sm:px-6 lg:px-8 mt-3 space-y-2 animate-slide-down">
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             <div
               key={item.page}
-              className="max-w-7xl mx-auto animate-mobile-item"
-              style={{ animationDelay: `${index * 50}ms` }}
+              className="max-w-7xl mx-auto"
             >
               <button
                 onClick={() => {
