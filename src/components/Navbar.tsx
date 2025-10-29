@@ -83,10 +83,11 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
 
       {isMobileMenuOpen && (
         <div className="lg:hidden px-4 sm:px-6 lg:px-8 mt-3 space-y-2 animate-slide-down">
-          {navItems.map((item) => (
+          {navItems.map((item, index) => (
             <div
               key={item.page}
-              className="max-w-7xl mx-auto"
+              className="max-w-7xl mx-auto animate-mobile-item"
+              style={{ animationDelay: `${index * 50}ms` }}
             >
               <button
                 onClick={() => {
@@ -102,9 +103,9 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   WebkitBackdropFilter: 'blur(40px) saturate(180%)',
                 }}
               >
-                <div className="flex justify-center items-center h-16 px-6">
+                <div className="flex justify-center items-center h-14 px-6">
                   <span
-                    className={`font-semibold text-lg tracking-wide transition-colors duration-300 ${
+                    className={`font-medium text-base tracking-wide transition-colors duration-300 ${
                       currentPage === item.page
                         ? 'text-amber-400'
                         : 'text-amber-100 hover:text-amber-300'
