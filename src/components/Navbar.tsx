@@ -82,81 +82,42 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
       </div>
 
       {isMobileMenuOpen && (
-        <>
-          <div
-            className="fixed inset-0 lg:hidden bg-black/50 animate-mobile-overlay"
-            onClick={() => setIsMobileMenuOpen(false)}
-            style={{ zIndex: 100 }}
-          />
-
-          <div
-            className="fixed top-4 right-4 left-4 lg:hidden animate-slide-in"
-            style={{ zIndex: 101 }}
-          >
+        <div className="lg:hidden px-4 sm:px-6 lg:px-8 mt-3 space-y-2 animate-slide-down">
+          {navItems.map((item, index) => (
             <div
-              className="rounded-3xl border shadow-2xl shadow-black/50 overflow-hidden"
-              style={{
-                background: 'rgba(0, 0, 0, 0.85)',
-                backdropFilter: 'blur(40px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(40px) saturate(180%)',
-                borderColor: 'rgba(251, 191, 36, 0.3)',
-              }}
+              key={item.page}
+              className="max-w-7xl mx-auto animate-mobile-item"
+              style={{ animationDelay: `${index * 50}ms` }}
             >
-              <div className="flex justify-between items-center h-16 px-5 border-b border-amber-500/20">
-                <img
-                  src="/ROSELLA_mainpage_new_2.png"
-                  alt="ROSELLA"
-                  className="h-12 w-auto object-contain"
-                />
-                <button
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-amber-400 hover:text-red-400 transition-all duration-300 hover:rotate-90 p-2"
-                >
-                  <X size={24} strokeWidth={2.5} />
-                </button>
-              </div>
-
-              <div className="p-4 space-y-3 max-h-[70vh] overflow-y-auto">
-                {navItems.map((item, index) => (
-                  <button
-                    key={item.page}
-                    onClick={() => {
-                      onNavigate(item.page);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full group relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] animate-mobile-item"
-                    style={{
-                      animationDelay: `${index * 50}ms`,
-                      background: currentPage === item.page
-                        ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.2) 0%, rgba(217, 119, 6, 0.2) 100%)'
-                        : 'rgba(0, 0, 0, 0.4)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: currentPage === item.page
-                        ? '1px solid rgba(251, 191, 36, 0.5)'
-                        : '1px solid rgba(251, 191, 36, 0.2)',
-                      boxShadow: currentPage === item.page
-                        ? '0 4px 20px rgba(251, 191, 36, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
-                        : '0 2px 10px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                    }}
+              <button
+                onClick={() => {
+                  onNavigate(item.page);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`w-full transition-all duration-300 rounded-full border ${
+                  currentPage === item.page
+                    ? 'bg-black/40 backdrop-blur-[40px] backdrop-saturate-[180%] shadow-xl shadow-black/40 border-amber-400/40'
+                    : 'bg-black/25 backdrop-blur-[40px] backdrop-saturate-[180%] shadow-lg shadow-black/30 border-white/15 hover:bg-black/35 hover:border-amber-400/25'
+                }`}
+                style={{
+                  WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+                }}
+              >
+                <div className="flex justify-center items-center h-14 px-6">
+                  <span
+                    className={`font-medium text-base tracking-wide transition-colors duration-300 ${
+                      currentPage === item.page
+                        ? 'text-amber-400'
+                        : 'text-amber-100 hover:text-amber-300'
+                    }`}
                   >
-                    <div className="relative flex items-center justify-center px-5 py-4">
-                      <span
-                        className={`font-semibold text-base tracking-wide transition-colors duration-300 ${
-                          currentPage === item.page
-                            ? 'text-amber-400'
-                            : 'text-amber-100 group-hover:text-amber-300'
-                        }`}
-                      >
-                        {item.name}
-                      </span>
-                    </div>
-                  </button>
-                ))}
-              </div>
+                    {item.name}
+                  </span>
+                </div>
+              </button>
             </div>
-          </div>
-        </>
+          ))}
+        </div>
       )}
     </nav>
   );
