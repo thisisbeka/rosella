@@ -1,108 +1,131 @@
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send } from 'lucide-react';
 
 export default function Iletisim() {
-  const whatsappNumber = '905466002211';
-
-  const handleWhatsAppClick = () => {
-    const message = 'Merhaba, ROSELLA hakkında bilgi almak istiyorum.';
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+  const handleWhatsApp = () => {
+    const message = 'Merhaba, bilgi almak istiyorum.';
+    window.open(`https://wa.me/902247770177?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-black/98 to-black pt-32 pb-20 px-4">
+    <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
       <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold text-center mb-4 text-amber-400 luxury-serif">
+        <h1 className="text-4xl md:text-6xl font-bold text-center text-amber-400 mb-16 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
           İletişim
         </h1>
-        <p className="text-center text-amber-100/70 mb-12 text-lg">
-          Bizimle iletişime geçin, size yardımcı olmaktan mutluluk duyarız
-        </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="space-y-6">
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-amber-500/30 transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="bg-amber-500/20 p-3 rounded-xl">
-                  <Phone className="w-6 h-6 text-amber-400" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
+          <div className="bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 p-6 md:p-10">
+            <h2 className="text-xl md:text-2xl font-semibold text-amber-400 mb-6 md:mb-8">
+              Bize Ulaşın
+            </h2>
+
+            <div className="space-y-4 md:space-y-6">
+              <div className="flex items-start gap-3 md:gap-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                  <Phone className="w-5 h-5 md:w-6 md:h-6 text-amber-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-amber-400 mb-2">Telefon</h3>
-                  <a
-                    href={`tel:+${whatsappNumber}`}
-                    className="text-amber-100/80 hover:text-amber-300 transition-colors"
-                  >
-                    +90 546 600 22 11
+                  <h3 className="text-base md:text-lg font-medium text-amber-100 mb-1">Telefon</h3>
+                  <a href="tel:+902247770177" className="text-sm md:text-base text-amber-100/70 hover:text-amber-400 transition-colors">
+                    0224 777 01 77
                   </a>
                 </div>
               </div>
-            </div>
 
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-amber-500/30 transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="bg-amber-500/20 p-3 rounded-xl">
-                  <Mail className="w-6 h-6 text-amber-400" />
+              <div className="flex items-start gap-3 md:gap-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                  <Mail className="w-5 h-5 md:w-6 md:h-6 text-amber-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-amber-400 mb-2">E-posta</h3>
-                  <a
-                    href="mailto:info@rosella.com"
-                    className="text-amber-100/80 hover:text-amber-300 transition-colors"
-                  >
-                    info@rosella.com
+                  <h3 className="text-base md:text-lg font-medium text-amber-100 mb-1">E-posta</h3>
+                  <a href="mailto:rosellacicek@gmail.com" className="text-sm md:text-base text-amber-100/70 hover:text-amber-400 transition-colors break-all">
+                    rosellacicek@gmail.com
                   </a>
                 </div>
               </div>
-            </div>
 
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-amber-500/30 transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="bg-amber-500/20 p-3 rounded-xl">
-                  <MapPin className="w-6 h-6 text-amber-400" />
+              <div className="flex items-start gap-3 md:gap-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                  <MapPin className="w-5 h-5 md:w-6 md:h-6 text-amber-400" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-amber-400 mb-2">Adres</h3>
-                  <p className="text-amber-100/80">
-                    Merkez Mahallesi<br />
-                    Atatürk Caddesi No: 123<br />
-                    İstanbul, Türkiye
-                  </p>
+                  <h3 className="text-base md:text-lg font-medium text-amber-100 mb-1">Adres</h3>
+                  <a
+                    href="https://www.google.com/maps/search/?api=1&query=Turgutalp,+Mimar+Sinan+Cd.+No:12,+16400+İnegöl/Bursa,+Türkiye"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm md:text-base text-amber-100/70 hover:text-amber-400 transition-colors"
+                  >
+                    Turgutalp, Mimar Sinan Cd. No:12, 16400 İnegöl/Bursa, Türkiye
+                  </a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 md:gap-4">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-amber-500/10 flex items-center justify-center flex-shrink-0">
+                  <Clock className="w-5 h-5 md:w-6 md:h-6 text-amber-400" />
+                </div>
+                <div>
+                  <h3 className="text-base md:text-lg font-medium text-amber-100 mb-1">Çalışma Saatleri</h3>
+                  <p className="text-sm md:text-base text-amber-100/70">Her gün: 09:00 - 21:30</p>
                 </div>
               </div>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-amber-500/30 transition-all duration-300">
-              <div className="flex items-start gap-4">
-                <div className="bg-amber-500/20 p-3 rounded-xl">
-                  <Clock className="w-6 h-6 text-amber-400" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-amber-400 mb-2">Çalışma Saatleri</h3>
-                  <div className="text-amber-100/80 space-y-1">
-                    <p>Pazartesi - Cumartesi: 09:00 - 20:00</p>
-                    <p>Pazar: 10:00 - 18:00</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-            <h3 className="text-2xl font-semibold text-amber-400 mb-6">
-              Bize Mesaj Gönderin
-            </h3>
-            <p className="text-amber-100/80 mb-6">
-              WhatsApp üzerinden bize ulaşabilir, sorularınızı sorabilir ve sipariş verebilirsiniz.
-            </p>
             <button
-              onClick={handleWhatsAppClick}
-              className="w-full px-6 py-4 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white rounded-2xl font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 flex items-center justify-center gap-3"
+              onClick={handleWhatsApp}
+              className="mt-6 md:mt-8 w-full px-4 md:px-6 py-3 md:py-4 bg-gradient-to-r from-green-600 to-green-500 hover:from-green-500 hover:to-green-400 text-white rounded-lg font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 flex items-center justify-center gap-2 text-sm md:text-base"
             >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
-              </svg>
+              <Send className="w-4 h-4 md:w-5 md:h-5" />
               WhatsApp ile İletişime Geç
             </button>
+          </div>
+
+          <div className="bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 p-6 md:p-10">
+            <h2 className="text-xl md:text-2xl font-semibold text-amber-400 mb-6 md:mb-8">
+              Sıkça Sorulan Sorular
+            </h2>
+
+            <div className="space-y-4 md:space-y-6">
+              <div>
+                <h3 className="text-base md:text-lg font-medium text-amber-100 mb-2">
+                  Teslimat yapıyor musunuz?
+                </h3>
+                <p className="text-sm md:text-base text-amber-100/70 leading-relaxed">
+                  Evet, Türkiye'nin tüm illerine aynı gün teslimat hizmeti sunuyoruz.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-base md:text-lg font-medium text-amber-100 mb-2">
+                  Özel tasarım yapabiliyor musunuz?
+                </h3>
+                <p className="text-sm md:text-base text-amber-100/70 leading-relaxed">
+                  Tabii ki! Her müşterimizin isteğine özel tasarımlar hazırlıyoruz. WhatsApp
+                  üzerinden bizimle iletişime geçerek detayları paylaşabilirsiniz.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-base md:text-lg font-medium text-amber-100 mb-2">
+                  Organizasyon hizmetleriniz nelerdir?
+                </h3>
+                <p className="text-sm md:text-base text-amber-100/70 leading-relaxed">
+                  Düğün, nişan, doğum günü ve kurumsal etkinlikler için çiçek düzenleme ve dekorasyon
+                  hizmeti sunuyoruz. Profesyonel ekibimiz tüm detayları sizin için planlar.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="text-base md:text-lg font-medium text-amber-100 mb-2">
+                  Nasıl sipariş verebilirim?
+                </h3>
+                <p className="text-sm md:text-base text-amber-100/70 leading-relaxed">
+                  Ürün sayfalarındaki WhatsApp butonuna tıklayarak doğrudan sipariş verebilir veya
+                  bizi arayarak telefon üzerinden sipariş oluşturabilirsiniz.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

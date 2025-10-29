@@ -1,21 +1,18 @@
-import { useState, useEffect } from 'react';
-import { WavyBackground } from '../components/ui/wavy-background';
-import { InteractiveHoverButton } from '../components/ui/interactive-hover-button';
-import ProductCard from '../components/ProductCard';
-import ProductSchema from '../components/ProductSchema';
+import { useEffect, useState } from 'react';
+import { Flower2, Gift, Calendar, Crown, Flower, Car } from 'lucide-react';
 import { supabase, Product } from '../lib/supabase';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import ProductCard from '../components/ProductCard';
+import { InteractiveHoverButton } from '../components/ui/interactive-hover-button';
 
 interface HomeProps {
   onNavigate: (page: string, categorySlug?: string) => void;
 }
 
+const WHATSAPP_NUMBER = '902247770177';
+
 export default function Home({ onNavigate }: HomeProps) {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-
-  const whatsappNumber = '905466002211';
 
   useEffect(() => {
     loadFeaturedProducts();
@@ -23,12 +20,11 @@ export default function Home({ onNavigate }: HomeProps) {
 
   const loadFeaturedProducts = async () => {
     try {
-      setIsLoading(true);
       const { data, error } = await supabase
         .from('products')
         .select('*')
         .eq('is_featured', true)
-        .order('display_order', { ascending: true });
+        .limit(6);
 
       if (error) throw error;
       setFeaturedProducts(data || []);
@@ -39,155 +35,158 @@ export default function Home({ onNavigate }: HomeProps) {
     }
   };
 
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % featuredProducts.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + featuredProducts.length) % featuredProducts.length);
-  };
-
   return (
-    <div className="relative">
-      <WavyBackground className="min-h-screen flex items-center justify-center px-4">
-        <div className="relative z-10 text-center max-w-5xl mx-auto pt-32 pb-20">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-6 sm:mb-8 text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 animate-fade-in luxury-serif">
-            ROSELLA
-          </h1>
+    <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
+      <section className="relative flex items-center justify-center overflow-hidden pt-[15px] md:-mt-[60px] pb-10">
+        <div className="relative z-10 text-center px-4 w-full flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center">
+            <div className="animate-slide-up flex-shrink-0 -mb-[45px] md:-mb-[110px]">
+              <picture>
+                <source
+                  type="image/webp"
+                  srcSet="/ROSELLA_mainpage_new_2.png"
+                />
+                <img
+                  src="/ROSELLA_mainpage_new_2.png"
+                  alt="ROSELLA"
+                  width="580"
+                  height="200"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                  className="mx-auto animate-logo-glow"
+                  style={{
+                    width: '580px',
+                    maxWidth: '90vw',
+                    height: 'auto',
+                    objectFit: 'contain',
+                    willChange: 'transform'
+                  }}
+                />
+              </picture>
+            </div>
 
-          <p className="text-xl sm:text-2xl md:text-3xl mb-8 sm:mb-12 text-amber-100/90 animate-slide-up luxury-serif">
-            Her Anınıza Zarafet Katın
-          </p>
+            <p className="text-base md:text-lg text-amber-100 tracking-wide animate-slide-up-delay max-w-xl" style={{ marginBottom: '40px' }}>
+              "Her Şey Bir İnsanı Sevmekle Başlar…"
+            </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up-delay">
             <InteractiveHoverButton
-              text="Katalog"
+              text="Katalog İncele"
               onClick={() => onNavigate('katalog')}
-            />
-            <InteractiveHoverButton
-              text="İletişim"
-              onClick={() => onNavigate('iletisim')}
+              className="px-12 py-4 w-auto bg-gradient-to-r from-amber-600 to-amber-500 text-white text-lg border-amber-500/50 hover:shadow-2xl hover:shadow-amber-500/50 animate-slide-up-delay-2 will-change-transform"
             />
           </div>
         </div>
-      </WavyBackground>
 
-      {!isLoading && featuredProducts.length > 0 && (
-        <section className="py-20 px-4 bg-gradient-to-b from-black via-black/95 to-black">
+      </section>
+
+      {featuredProducts.length > 0 && (
+        <section className="py-8 px-4">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-amber-400 luxury-serif">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-400 mb-8 md:mb-10 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
               Öne Çıkan Ürünler
             </h2>
-            <p className="text-center text-amber-100/70 mb-12 text-lg">
-              Sizin için özenle seçtiklerimiz
-            </p>
 
-            <div className="relative">
-              {featuredProducts.length > 3 && (
-                <>
-                  <button
-                    onClick={prevSlide}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-black/70 hover:bg-black/90 text-amber-400 p-3 rounded-full transition-all duration-300 hover:scale-110 hidden md:block"
-                    aria-label="Previous products"
-                  >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    onClick={nextSlide}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-black/70 hover:bg-black/90 text-amber-400 p-3 rounded-full transition-all duration-300 hover:scale-110 hidden md:block"
-                    aria-label="Next products"
-                  >
-                    <ChevronRight size={24} />
-                  </button>
-                </>
-              )}
-
-              <div className="overflow-hidden">
-                <div
-                  className="flex transition-transform duration-500 ease-out gap-6"
-                  style={{
-                    transform: `translateX(-${currentIndex * (100 / Math.min(featuredProducts.length, 3))}%)`,
-                  }}
-                >
-                  {featuredProducts.map((product) => (
-                    <div
-                      key={product.id}
-                      className="flex-shrink-0 w-full md:w-[calc(33.333%-1rem)]"
-                    >
-                      <ProductCard product={product} whatsappNumber={whatsappNumber} />
-                      <ProductSchema product={product} />
-                    </div>
-                  ))}
-                </div>
+            {isLoading ? (
+              <div className="text-center text-amber-100">Yükleniyor...</div>
+            ) : (
+              <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                {featuredProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    whatsappNumber={WHATSAPP_NUMBER}
+                  />
+                ))}
               </div>
-
-              {featuredProducts.length > 3 && (
-                <div className="flex justify-center gap-2 mt-8">
-                  {Array.from({ length: Math.max(0, featuredProducts.length - 2) }).map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentIndex(index)}
-                      className={`h-2 rounded-full transition-all ${
-                        index === currentIndex ? 'bg-amber-400 w-8' : 'bg-amber-400/30 w-2'
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
+            )}
           </div>
         </section>
       )}
 
-      <section className="py-20 px-4 bg-gradient-to-b from-black to-black/95">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-amber-400 luxury-serif">
-            Kategoriler
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-400 mb-12 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
+            Hizmetlerimiz
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                title: 'Çiçekler',
-                slug: 'cicekler',
-                description: 'Taze ve zarif çiçek aranjmanları',
-                image: '/img2.jpg',
-              },
-              {
-                title: 'Çikolata',
-                slug: 'cikolata',
-                description: 'Özel çikolata hediyeleri',
-                image: '/img3.jpg',
-              },
-              {
-                title: 'Organizasyon',
-                slug: 'organizasyon',
-                description: 'Özel günleriniz için hizmet',
-                image: '/img4.jpg',
-              },
-            ].map((category) => (
-              <button
-                key={category.slug}
-                onClick={() => onNavigate(category.slug)}
-                className="group relative overflow-hidden rounded-2xl aspect-[4/5] hover:scale-105 transition-all duration-500"
-              >
-                <img
-                  src={category.image}
-                  alt={category.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent group-hover:from-black/90 group-hover:via-black/60 transition-all duration-500" />
-                <div className="absolute inset-0 flex flex-col justify-end p-8">
-                  <h3 className="text-3xl font-bold text-amber-400 mb-2 luxury-serif group-hover:text-amber-300 transition-colors">
-                    {category.title}
-                  </h3>
-                  <p className="text-amber-100/80 group-hover:text-amber-100 transition-colors">
-                    {category.description}
-                  </p>
-                </div>
-              </button>
-            ))}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            <button
+              onClick={() => onNavigate('cicekler')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
+            >
+              <Flower2 className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çiçekler</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                Her anınıza özel, taze ve zarif çiçek aranjmanları
+              </p>
+            </button>
+
+            <button
+              onClick={() => onNavigate('katalog', 'cikolata')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
+            >
+              <Gift className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çikolata</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                Özel günleriniz için lezzetli çikolata hediyeleri
+              </p>
+            </button>
+
+            <button
+              onClick={() => onNavigate('katalog', 'teraryum')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
+            >
+              <Gift className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Teraryum</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                Doğal ve zarif teraryum aranjmanları
+              </p>
+            </button>
+
+            <button
+              onClick={() => onNavigate('katalog', 'organizasyon')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
+            >
+              <Calendar className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Organizasyon</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                Düğün, nişan ve özel etkinlikleriniz için profesyonel hizmet
+              </p>
+            </button>
+
+            <button
+              onClick={() => onNavigate('katalog', 'vip-cicekler')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
+            >
+              <Crown className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Vip Çiçekler</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                En seçkin ve prestijli çiçek aranjmanları
+              </p>
+            </button>
+
+            <button
+              onClick={() => onNavigate('katalog', 'celenk')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
+            >
+              <Flower className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çelenk</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                Açılış & Düğün & Özel günleriniz & Veda törenleriniz için anlamlı çelenk düzenlemeleri
+              </p>
+            </button>
+
+            <button
+              onClick={() => onNavigate('katalog', 'arac-susleme')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
+            >
+              <Car className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Araç Süsleme</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                Düğün ve özel günleriniz için şık araç süslemeleri
+              </p>
+            </button>
           </div>
         </div>
       </section>

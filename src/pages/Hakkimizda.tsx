@@ -1,49 +1,169 @@
+import { useState } from 'react';
+import { Heart, Award, Users, Sparkles, Star, Clock, Shield, Flower2, ChevronDown } from 'lucide-react';
+
 export default function Hakkimizda() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-black/98 to-black pt-32 pb-20 px-4">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold text-center mb-12 text-amber-400 luxury-serif">
+    <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="text-3xl md:text-5xl font-bold text-center text-amber-400 mb-12 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
           Hakkımızda
         </h1>
 
-        <div className="space-y-8 text-amber-100/80 text-lg leading-relaxed">
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-            <h2 className="text-2xl font-semibold text-amber-400 mb-4">ROSELLA Hikayemiz</h2>
-            <p>
-              ROSELLA olarak, her özel anınıza değer katmak için buradayız. Yılların deneyimiyle,
-              çiçek, çikolata ve özel organizasyon hizmetlerinde uzmanlaştık.
-            </p>
+        <div className="relative mb-16">
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-500/10 via-amber-400/5 to-amber-500/10 blur-3xl"></div>
+          <div className="relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-xl rounded-3xl border border-amber-500/30 p-8 md:p-12 shadow-2xl shadow-amber-500/20">
+            <div className="flex items-center justify-center mb-6">
+              <Flower2 className="w-12 h-12 md:w-14 md:h-14 text-amber-400 animate-pulse" />
+            </div>
+            <h2 className="text-2xl md:text-3xl font-bold text-center text-amber-400 mb-6" style={{fontFamily: 'Cinzel, serif'}}>
+              Her Şey Bir İnsanı Sevmekle Başlar…
+            </h2>
+            <div className="space-y-4 text-center max-w-3xl mx-auto">
+              <p className="text-base md:text-lg text-amber-100/90 leading-relaxed">
+                ROSELLA olarak, her özel anınızı unutulmaz kılmak için çiçeklerin ve hediye
+                seçeneklerinin büyüsünü sizlerle buluşturuyoruz. Zarafet, kalite ve özgünlük
+                ilkelerimizle hareket ederek, her müşterimize özel tasarımlar sunuyoruz.
+              </p>
+
+              <div className={`space-y-4 overflow-hidden transition-all duration-500 ${isExpanded ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                <p className="text-sm md:text-base text-amber-100/80 leading-relaxed">
+                  Çiçeklerimiz, teraryumlarımız, çikolatalarımız ve organizasyon hizmetlerimizle
+                  sevdiklerinize en özel hediyeyi vermenizi sağlıyoruz. Her ürünümüz özenle seçilmiş
+                  ve kaliteli malzemelerle hazırlanmıştır.
+                </p>
+                <p className="text-sm md:text-base text-amber-100/80 leading-relaxed">
+                  Düğünlerinizden nişanlarınıza, doğum günlerinizden özel günlerinize kadar her
+                  organizasyonunuzda yanınızdayız. Hayalinizdeki etkinliği gerçekleştirmek için
+                  profesyonel ekibimizle hizmetinizdeyiz.
+                </p>
+              </div>
+
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 transition-colors duration-300 font-medium mt-2"
+              >
+                <span className="text-sm md:text-base">{isExpanded ? 'Daha Az' : 'Daha Fazla'}</span>
+                <ChevronDown className={`w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-amber-400 mb-8" style={{fontFamily: 'Cinzel, serif'}}>
+          Değerlerimiz
+        </h2>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-16">
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
+            <div className="relative">
+              <Heart className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Tutkuyla</h3>
+              <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">Her işimizi sevgiyle yapıyoruz</p>
+            </div>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-            <h2 className="text-2xl font-semibold text-amber-400 mb-4">Misyonumuz</h2>
-            <p>
-              Müşterilerimizin en değerli anlarını unutulmaz kılmak ve onlara en kaliteli ürün ve
-              hizmeti sunmak bizim önceliğimizdir. Her siparişe özen gösterir, taze ve kaliteli
-              ürünlerle sizlere ulaşırız.
-            </p>
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
+            <div className="relative">
+              <Award className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Kalite</h3>
+              <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">En iyi ürünleri seçiyoruz</p>
+            </div>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-            <h2 className="text-2xl font-semibold text-amber-400 mb-4">Hizmetlerimiz</h2>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Taze çiçek aranjmanları ve buketler</li>
-              <li>Özel günler için çikolata hediyeleri</li>
-              <li>Düğün, nişan ve doğum günü organizasyonları</li>
-              <li>Kurumsal etkinlik dekorasyonları</li>
-              <li>Aynı gün teslimat hizmeti</li>
-            </ul>
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
+            <div className="relative">
+              <Users className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Müşteri Odaklı</h3>
+              <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">Memnuniyetiniz önceliğimiz</p>
+            </div>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-            <h2 className="text-2xl font-semibold text-amber-400 mb-4">Neden ROSELLA?</h2>
-            <ul className="list-disc list-inside space-y-2">
-              <li>Yıllara dayanan tecrübe ve uzmanlık</li>
-              <li>Taze ve kaliteli ürünler</li>
-              <li>Hızlı ve güvenilir teslimat</li>
-              <li>Müşteri memnuniyeti odaklı hizmet</li>
-              <li>Uygun fiyatlar ve özel fırsatlar</li>
-            </ul>
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-4 md:p-6 text-center hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
+            <div className="relative">
+              <Sparkles className="w-10 h-10 md:w-12 md:h-12 text-amber-400 mx-auto mb-3 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Özgünlük</h3>
+              <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">Benzersiz tasarımlar</p>
+            </div>
+          </div>
+        </div>
+
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-amber-400 mb-8" style={{fontFamily: 'Cinzel, serif'}}>
+          Neden Bizi Seçmelisiniz?
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
+            <div className="relative flex gap-4 md:gap-5">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+                  <Star className="w-6 h-6 md:w-7 md:h-7 text-amber-400" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Uzman Ekip</h3>
+                <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">
+                  Yılların deneyimiyle alanında uzman ekibimiz, her detayı kusursuz bir şekilde hazırlar ve sizin için en özel tasarımları yaratır.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
+            <div className="relative flex gap-4 md:gap-5">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+                  <Clock className="w-6 h-6 md:w-7 md:h-7 text-amber-400" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Hızlı Teslimat</h3>
+                <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">
+                  Siparişlerinizi özenle hazırlıyor ve belirlenen sürede teslim ediyoruz. Acil siparişleriniz için özel çözümlerimiz mevcuttur.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
+            <div className="relative flex gap-4 md:gap-5">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+                  <Shield className="w-6 h-6 md:w-7 md:h-7 text-amber-400" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Güvenilir Hizmet</h3>
+                <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">
+                  Müşteri memnuniyeti bizim en büyük önceliğimizdir. Her siparişinizde güvenilir ve kaliteli hizmet garantisi sunuyoruz.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="group relative bg-gradient-to-br from-black/90 to-black/70 backdrop-blur-sm rounded-xl border border-amber-500/20 p-5 md:p-6 hover:border-amber-500/60 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/30 will-change-transform">
+            <div className="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-amber-500/0 group-hover:from-amber-500/5 group-hover:to-amber-500/10 rounded-xl transition-all duration-500"></div>
+            <div className="relative flex gap-4 md:gap-5">
+              <div className="flex-shrink-0">
+                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-amber-500/10 flex items-center justify-center border border-amber-500/30">
+                  <Flower2 className="w-6 h-6 md:w-7 md:h-7 text-amber-400" />
+                </div>
+              </div>
+              <div>
+                <h3 className="text-lg md:text-xl font-bold text-amber-100 mb-2" style={{fontFamily: 'Cinzel, serif'}}>Taze Ürünler</h3>
+                <p className="text-xs md:text-sm text-amber-100/70 leading-relaxed">
+                  Çiçeklerimiz her gün taze olarak tedarik edilir ve özel saklama koşullarında muhafaza edilerek size ulaştırılır.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

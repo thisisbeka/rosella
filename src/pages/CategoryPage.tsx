@@ -1,7 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { supabase, Product } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
-import ProductSchema from '../components/ProductSchema';
-import { supabase, Product, Category } from '../lib/supabase';
 
 interface CategoryPageProps {
   categorySlug: string | string[];
@@ -9,54 +8,47 @@ interface CategoryPageProps {
   description: string;
 }
 
+const WHATSAPP_NUMBER = '902247770177';
+
 export default function CategoryPage({ categorySlug, title, description }: CategoryPageProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const whatsappNumber = '905466002211';
 
   useEffect(() => {
     loadProducts();
   }, [categorySlug]);
 
   const loadProducts = async () => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       const slugs = Array.isArray(categorySlug) ? categorySlug : [categorySlug];
 
-      const { data: categoriesData, error: catError } = await supabase
+      const { data: categories } = await supabase
         .from('categories')
         .select('id')
         .in('slug', slugs);
 
-      if (catError) throw catError;
+      if (categories && categories.length > 0) {
+        const categoryIds = categories.map(cat => cat.id);
 
-      if (categoriesData && categoriesData.length > 0) {
-        const categoryIds = categoriesData.map(c => c.id);
-
-        const { data: productCategories, error: pcError } = await supabase
+        const { data: productCategories } = await supabase
           .from('product_categories')
           .select('product_id')
           .in('category_id', categoryIds);
 
-        if (pcError) throw pcError;
-
-        const productIds = productCategories?.map(pc => pc.product_id) || [];
-
-        if (productIds.length > 0) {
-          const { data: productsData, error: prodError } = await supabase
+        if (productCategories && productCategories.length > 0) {
+          const productIds = productCategories.map(pc => pc.product_id);
+          const { data, error } = await supabase
             .from('products')
             .select('*')
             .in('id', productIds)
             .order('display_order', { ascending: true });
 
-          if (prodError) throw prodError;
-          setProducts(productsData || []);
+          if (error) throw error;
+          setProducts(data || []);
         } else {
           setProducts([]);
         }
-      } else {
-        setProducts([]);
       }
     } catch (error) {
       console.error('Error loading products:', error);
@@ -66,30 +58,31 @@ export default function CategoryPage({ categorySlug, title, description }: Categ
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-black/98 to-black pt-32 pb-20 px-4">
+    <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold text-center mb-4 text-amber-400 luxury-serif">
-          {title}
-        </h1>
-        <p className="text-center text-amber-100/70 mb-12 text-lg">
-          {description}
-        </p>
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-6xl font-bold text-amber-400 mb-6 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
+            {title}
+          </h1>
+          <p className="text-xl text-amber-100/80 max-w-2xl mx-auto leading-relaxed">
+            {description}
+          </p>
+        </div>
 
         {isLoading ? (
-          <div className="flex justify-center items-center min-h-[400px]">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-amber-500 border-t-transparent"></div>
-          </div>
+          <div className="text-center text-amber-100 text-lg sm:text-xl">Yükleniyor...</div>
         ) : products.length === 0 ? (
-          <div className="text-center text-amber-100/70 py-20">
-            <p className="text-xl">Bu kategoride henüz ürün bulunmamaktadır.</p>
+          <div className="text-center text-amber-100/70 text-lg sm:text-xl">
+            Bu kategoride henüz ürün bulunmamaktadır.
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {products.map((product) => (
-              <div key={product.id}>
-                <ProductCard product={product} whatsappNumber={whatsappNumber} />
-                <ProductSchema product={product} />
-              </div>
+              <ProductCard
+                key={product.id}
+                product={product}
+                whatsappNumber={WHATSAPP_NUMBER}
+              />
             ))}
           </div>
         )}

@@ -5,6 +5,13 @@ const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  created_at: string;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -12,17 +19,16 @@ export interface Product {
   price: number;
   image_url: string;
   image_urls: string[];
-  category_id: string | null;
+  category_id: string;
   is_featured: boolean;
-  created_at: string;
-  updated_at: string;
   discount_percentage: number | null;
   display_order: number;
+  created_at: string;
+  updated_at: string;
 }
 
-export interface Category {
-  id: string;
-  name: string;
-  slug: string;
+export interface ProductCategory {
+  product_id: string;
+  category_id: string;
   created_at: string;
 }

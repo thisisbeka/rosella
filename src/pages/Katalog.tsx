@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { supabase, Product, Category } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
 import ProductSchema from '../components/ProductSchema';
-import { supabase, Product, Category } from '../lib/supabase';
+
+const WHATSAPP_NUMBER = '902247770177';
 
 interface KatalogProps {
   initialCategorySlug?: string | null;
@@ -10,79 +12,81 @@ interface KatalogProps {
 export default function Katalog({ initialCategorySlug }: KatalogProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(initialCategorySlug || null);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [isLoading, setIsLoading] = useState(true);
 
-  const whatsappNumber = '905466002211';
+  useEffect(() => {
+    loadData();
+  }, []);
 
   useEffect(() => {
-    loadCategories();
-    loadProducts();
-  }, [selectedCategory]);
-
-  const loadCategories = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('categories')
-        .select('*')
-        .order('name');
-
-      if (error) throw error;
-      setCategories(data || []);
-    } catch (error) {
-      console.error('Error loading categories:', error);
-    }
-  };
-
-  const loadProducts = async () => {
-    try {
-      setIsLoading(true);
-      let query = supabase
-        .from('products')
-        .select('*')
-        .order('display_order', { ascending: true });
-
-      if (selectedCategory) {
-        const categoryData = categories.find(c => c.slug === selectedCategory);
-        if (categoryData) {
-          const { data: productCategories } = await supabase
-            .from('product_categories')
-            .select('product_id')
-            .eq('category_id', categoryData.id);
-
-          const productIds = productCategories?.map(pc => pc.product_id) || [];
-          query = query.in('id', productIds);
-        }
+    if (initialCategorySlug && categories.length > 0) {
+      const category = categories.find(c => c.slug === initialCategorySlug);
+      if (category) {
+        setSelectedCategory(category.id);
+      } else if (initialCategorySlug === 'all') {
+        setSelectedCategory('all');
       }
+    }
+  }, [initialCategorySlug, categories]);
 
-      const { data, error } = await query;
+  const loadData = async () => {
+    try {
+      const [productsResult, categoriesResult, productCategoriesResult] = await Promise.all([
+        supabase.from('products').select('*').order('display_order', { ascending: true }),
+        supabase.from('categories').select('*').order('name'),
+        supabase.from('product_categories').select('*'),
+      ]);
 
-      if (error) throw error;
-      setProducts(data || []);
+      if (productsResult.error) throw productsResult.error;
+      if (categoriesResult.error) throw categoriesResult.error;
+      if (productCategoriesResult.error) throw productCategoriesResult.error;
+
+      setProducts(productsResult.data || []);
+      setCategories(categoriesResult.data || []);
+
+      const productCategoryMap: Record<string, string[]> = {};
+      (productCategoriesResult.data || []).forEach((pc: any) => {
+        if (!productCategoryMap[pc.product_id]) {
+          productCategoryMap[pc.product_id] = [];
+        }
+        productCategoryMap[pc.product_id].push(pc.category_id);
+      });
+      setProductCategoryMap(productCategoryMap);
     } catch (error) {
-      console.error('Error loading products:', error);
+      console.error('Error loading data:', error);
     } finally {
       setIsLoading(false);
     }
   };
 
+  const [productCategoryMap, setProductCategoryMap] = useState<Record<string, string[]>>({});
+
+  const filteredProducts =
+    selectedCategory === 'all'
+      ? products
+      : selectedCategory === 'discount'
+      ? products.filter((p) => p.discount_percentage && p.discount_percentage > 0)
+      : products.filter((p) => {
+          const categoryIds = productCategoryMap[p.id] || [];
+          return categoryIds.includes(selectedCategory);
+        });
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black via-black/98 to-black pt-32 pb-20 px-4">
+    <div className="min-h-screen pt-28 pb-20 px-4 bg-gradient-to-b from-black via-gray-900 to-black">
+      <ProductSchema products={filteredProducts} />
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold text-center mb-4 text-amber-400 luxury-serif">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-center text-amber-400 mb-8 sm:mb-12 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
           Katalog
         </h1>
-        <p className="text-center text-amber-100/70 mb-12 text-lg">
-          Tüm ürünlerimizi keşfedin
-        </p>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-4 mb-8 sm:mb-12">
           <button
-            onClick={() => setSelectedCategory(null)}
-            className={`px-6 py-2 rounded-full transition-all duration-300 ${
-              selectedCategory === null
-                ? 'bg-amber-500 text-black font-semibold shadow-lg shadow-amber-500/50'
-                : 'bg-white/10 text-amber-100 hover:bg-white/20'
+            onClick={() => setSelectedCategory('all')}
+            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 ${
+              selectedCategory === 'all'
+                ? 'bg-gradient-to-r from-amber-600 to-amber-500 text-white shadow-lg shadow-amber-500/50'
+                : 'bg-black/60 text-amber-100 border border-amber-500/30 hover:border-amber-500/60'
             }`}
           >
             Tümü
@@ -90,33 +94,42 @@ export default function Katalog({ initialCategorySlug }: KatalogProps) {
           {categories.map((category) => (
             <button
               key={category.id}
-              onClick={() => setSelectedCategory(category.slug)}
-              className={`px-6 py-2 rounded-full transition-all duration-300 ${
-                selectedCategory === category.slug
-                  ? 'bg-amber-500 text-black font-semibold shadow-lg shadow-amber-500/50'
-                  : 'bg-white/10 text-amber-100 hover:bg-white/20'
+              onClick={() => setSelectedCategory(category.id)}
+              className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 ${
+                selectedCategory === category.id
+                  ? 'bg-gradient-to-r from-amber-600 to-amber-500 text-white shadow-lg shadow-amber-500/50'
+                  : 'bg-black/60 text-amber-100 border border-amber-500/30 hover:border-amber-500/60'
               }`}
             >
               {category.name}
             </button>
           ))}
+          <button
+            onClick={() => setSelectedCategory('discount')}
+            className={`px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium text-sm sm:text-base transition-all duration-300 ${
+              selectedCategory === 'discount'
+                ? 'bg-gradient-to-r from-red-600 to-red-500 text-white shadow-lg shadow-red-500/50'
+                : 'bg-black/60 text-red-100 border border-red-500/30 hover:border-red-500/60'
+            }`}
+          >
+            İndirimli Ürünler
+          </button>
         </div>
 
         {isLoading ? (
-          <div className="flex justify-center items-center min-h-[400px]">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-amber-500 border-t-transparent"></div>
-          </div>
-        ) : products.length === 0 ? (
-          <div className="text-center text-amber-100/70 py-20">
-            <p className="text-xl">Bu kategoride henüz ürün bulunmamaktadır.</p>
+          <div className="text-center text-amber-100 text-lg sm:text-xl">Yükleniyor...</div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="text-center text-amber-100/70 text-lg sm:text-xl">
+            Bu kategoride henüz ürün bulunmamaktadır.
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <div key={product.id}>
-                <ProductCard product={product} whatsappNumber={whatsappNumber} />
-                <ProductSchema product={product} />
-              </div>
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
+            {filteredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                whatsappNumber={WHATSAPP_NUMBER}
+              />
             ))}
           </div>
         )}
