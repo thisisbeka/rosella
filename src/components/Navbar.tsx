@@ -84,58 +84,45 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
       {isMobileMenuOpen && (
         <>
           <div
-            className="fixed inset-0 lg:hidden animate-mobile-overlay"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm lg:hidden z-40 animate-fadeIn"
             onClick={() => setIsMobileMenuOpen(false)}
+          />
+
+          <div
+            className={`fixed top-4 right-4 left-4 lg:hidden z-50 max-w-md mx-auto transition-all duration-300 ease-out ${
+              isMobileMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+            }`}
             style={{
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 100,
-              background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(15, 10, 5, 0.95) 100%)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
+              animation: 'slideDown 0.3s ease-out',
             }}
           >
             <div
-              className="absolute inset-0 opacity-[0.02]"
+              className="rounded-3xl border shadow-2xl overflow-hidden"
               style={{
-                backgroundImage: `
-                  linear-gradient(rgba(251, 191, 36, 0.1) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(251, 191, 36, 0.1) 1px, transparent 1px)
-                `,
-                backgroundSize: '50px 50px',
+                background: isScrolled
+                  ? 'rgba(0, 0, 0, 0.3)'
+                  : 'rgba(0, 0, 0, 0.2)',
+                backdropFilter: 'blur(40px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+                borderColor: 'rgba(255, 255, 255, 0.2)',
+                boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
               }}
-            />
-            <div
-              className="absolute inset-0 opacity-[0.03] animate-gradient-shift"
-              style={{
-                background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%)',
-              }}
-            />
-          </div>
-
-          <div
-            className="fixed inset-0 lg:hidden overflow-y-auto"
-            style={{ zIndex: 101 }}
-            onClick={(e) => e.target === e.currentTarget && setIsMobileMenuOpen(false)}
-          >
-            <div className="min-h-full flex flex-col p-4 pt-6">
-              <div className="flex justify-between items-center mb-8 animate-mobile-header">
+            >
+              <div className="flex justify-between items-center px-6 py-4 border-b border-white/10">
                 <img
                   src="/ROSELLA_mainpage_new_2.png"
                   alt="ROSELLA"
-                  className="h-14 w-auto object-contain"
+                  className="h-12 w-auto object-contain"
                 />
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-amber-400 hover:text-red-400 transition-all duration-300 hover:rotate-90 hover:scale-110 p-2 rounded-full hover:bg-red-500/10"
+                  className="text-amber-400 hover:text-amber-300 transition-colors p-2"
                 >
-                  <X size={28} strokeWidth={2.5} />
+                  <X size={24} />
                 </button>
               </div>
 
-              <div className="flex-1 flex flex-col justify-center space-y-3 pb-20">
+              <div className="p-4 space-y-2">
                 {navItems.map((item, index) => (
                   <button
                     key={item.page}
@@ -143,42 +130,16 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                       onNavigate(item.page);
                       setIsMobileMenuOpen(false);
                     }}
-                    className="group relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] animate-mobile-item"
+                    className={`w-full px-6 py-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] ${
+                      currentPage === item.page
+                        ? 'bg-amber-500/20 border border-amber-500/40 text-amber-400 shadow-lg shadow-amber-500/20'
+                        : 'bg-white/5 border border-white/10 text-amber-100 hover:bg-white/10 hover:border-amber-500/30'
+                    }`}
                     style={{
-                      animationDelay: `${index * 100}ms`,
-                      background: currentPage === item.page
-                        ? 'linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(217, 119, 6, 0.15) 100%)'
-                        : 'rgba(255, 255, 255, 0.05)',
-                      backdropFilter: 'blur(10px)',
-                      WebkitBackdropFilter: 'blur(10px)',
-                      border: currentPage === item.page
-                        ? '1px solid rgba(251, 191, 36, 0.4)'
-                        : '1px solid rgba(255, 255, 255, 0.1)',
-                      boxShadow: currentPage === item.page
-                        ? '0 8px 32px rgba(251, 191, 36, 0.15)'
-                        : '0 4px 16px rgba(0, 0, 0, 0.2)',
+                      animation: `fadeInUp 0.3s ease-out ${index * 0.05}s both`,
                     }}
                   >
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-shimmer" />
-                    <div className="relative flex items-center justify-between px-6 py-5">
-                      <span
-                        className={`font-semibold text-lg tracking-wide transition-colors duration-300 ${
-                          currentPage === item.page
-                            ? 'text-amber-400'
-                            : 'text-amber-100 group-hover:text-amber-300'
-                        }`}
-                      >
-                        {item.name}
-                      </span>
-                      <ChevronRight
-                        size={20}
-                        className={`transition-all duration-300 group-hover:translate-x-1 ${
-                          currentPage === item.page
-                            ? 'text-amber-400'
-                            : 'text-amber-100/50 group-hover:text-amber-400'
-                        }`}
-                      />
-                    </div>
+                    <span className="font-medium tracking-wide">{item.name}</span>
                   </button>
                 ))}
               </div>
