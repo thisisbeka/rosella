@@ -103,9 +103,9 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                   WebkitBackdropFilter: 'blur(40px) saturate(180%)',
                 }}
               >
-                <div className="flex justify-center items-center h-14 px-6">
+                <div className="flex justify-center items-center h-16 px-6">
                   <span
-                    className={`font-medium text-base tracking-wide transition-colors duration-300 ${
+                    className={`font-semibold text-lg tracking-wide transition-colors duration-300 ${
                       currentPage === item.page
                         ? 'text-amber-400'
                         : 'text-amber-100 hover:text-amber-300'
