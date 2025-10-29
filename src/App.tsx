@@ -40,8 +40,8 @@ function App() {
         return (
           <CategoryPage
             categorySlug="cikolata"
-            title="Çikolata & Teraryum"
-            description="Özel günleriniz için unutulmaz hediye seçenekleri"
+            title="Çikolata"
+            description="Özel günleriniz için lezzetli çikolata hediyeleri"
           />
         );
       case 'organizasyon':
