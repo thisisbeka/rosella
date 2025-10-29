@@ -123,13 +123,24 @@ export default function Home({ onNavigate }: HomeProps) {
             </button>
 
             <button
-              onClick={() => onNavigate('katalog', 'all')}
+              onClick={() => onNavigate('katalog', 'cikolata')}
               className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
             >
               <Gift className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
-              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çikolata & Teraryum</h3>
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Çikolata</h3>
               <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
-                Özel günleriniz için unutulmaz hediye seçenekleri
+                Özel günleriniz için lezzetli çikolata hediyeleri
+              </p>
+            </button>
+
+            <button
+              onClick={() => onNavigate('katalog', 'teraryum')}
+              className="group p-6 sm:p-8 bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20 will-change-transform"
+            >
+              <Gift className="w-12 h-12 sm:w-16 sm:h-16 text-amber-400 mx-auto mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 animate-logo-glow" />
+              <h3 className="text-xl sm:text-2xl font-semibold text-amber-100 mb-2 sm:mb-4">Teraryum</h3>
+              <p className="text-sm sm:text-base text-amber-100/70 leading-relaxed">
+                Doğal ve zarif teraryum aranjmanları
               </p>
             </button>
 
