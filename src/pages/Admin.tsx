@@ -1,16 +1,20 @@
 import { useEffect, useState } from 'react';
-import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut, GripVertical, ChevronLeft, ChevronRight } from 'lucide-react';
-import { supabase, Product, Category, ProductCategory } from '../lib/supabase';
+import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut, GripVertical, ChevronLeft, ChevronRight, Package, MessageSquare } from 'lucide-react';
+import { supabase, Product, Category, ProductCategory, Testimonial } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import imageCompression from 'browser-image-compression';
+import TestimonialManagement from '../components/TestimonialManagement';
 
 export default function Admin() {
   const { user, loading: authLoading, signIn, signOut } = useAuth();
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [showTestimonialForm, setShowTestimonialForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editingTestimonial, setEditingTestimonial] = useState<Testimonial | null>(null);
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -31,6 +35,16 @@ export default function Admin() {
   const [productCategories, setProductCategories] = useState<Record<string, string[]>>({});
   const [draggedItem, setDraggedItem] = useState<Product | null>(null);
   const [productImageIndex, setProductImageIndex] = useState<Record<string, number>>({});
+  const [testimonialFormData, setTestimonialFormData] = useState({
+    customer_name: '',
+    customer_title: '',
+    rating: 5,
+    comment: '',
+    image_url: '',
+    is_active: true,
+    display_order: 0,
+  });
+  const [activeTab, setActiveTab] = useState<'products' | 'testimonials'>('products');
 
   useEffect(() => {
     if (user) {
@@ -54,16 +68,19 @@ export default function Admin() {
 
   const loadData = async () => {
     try {
-      const [productsResult, categoriesResult] = await Promise.all([
+      const [productsResult, categoriesResult, testimonialsResult] = await Promise.all([
         supabase.from('products').select('*').order('display_order', { ascending: true }),
         supabase.from('categories').select('*').order('name'),
+        supabase.from('testimonials').select('*').order('display_order', { ascending: true }),
       ]);
 
       if (productsResult.error) throw productsResult.error;
       if (categoriesResult.error) throw categoriesResult.error;
+      if (testimonialsResult.error) throw testimonialsResult.error;
 
       setProducts(productsResult.data || []);
       setCategories(categoriesResult.data || []);
+      setTestimonials(testimonialsResult.data || []);
     } catch (error) {
       console.error('Error loading data:', error);
     } finally {
@@ -423,7 +440,42 @@ export default function Admin() {
           <h1 className="text-4xl md:text-5xl font-bold text-amber-400 tracking-wide">
             Admin Paneli
           </h1>
-          <div className="flex gap-3">
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 px-6 py-3 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 rounded-lg font-medium transition-all duration-300"
+          >
+            <LogOut size={20} />
+            Çıkış
+          </button>
+        </div>
+
+        <div className="flex gap-4 mb-8 border-b border-amber-500/20">
+          <button
+            onClick={() => setActiveTab('products')}
+            className={`flex items-center gap-2 px-6 py-3 font-medium transition-all duration-300 ${
+              activeTab === 'products'
+                ? 'text-amber-400 border-b-2 border-amber-400'
+                : 'text-amber-100/70 hover:text-amber-100'
+            }`}
+          >
+            <Package size={20} />
+            Ürünler
+          </button>
+          <button
+            onClick={() => setActiveTab('testimonials')}
+            className={`flex items-center gap-2 px-6 py-3 font-medium transition-all duration-300 ${
+              activeTab === 'testimonials'
+                ? 'text-amber-400 border-b-2 border-amber-400'
+                : 'text-amber-100/70 hover:text-amber-100'
+            }`}
+          >
+            <MessageSquare size={20} />
+            Müşteri Yorumları
+          </button>
+        </div>
+
+        {activeTab === 'products' && (
+          <div className="mb-8">
             <button
               onClick={() => setShowForm(true)}
               className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-lg font-medium transition-all duration-300 hover:scale-105"
@@ -431,15 +483,8 @@ export default function Admin() {
               <Plus size={20} />
               Yeni Ürün
             </button>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 px-6 py-3 bg-red-500/20 hover:bg-red-500/30 text-red-400 border border-red-500/30 rounded-lg font-medium transition-all duration-300"
-            >
-              <LogOut size={20} />
-              Çıkış
-            </button>
           </div>
-        </div>
+        )}
 
         {showForm && (
           <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
@@ -630,8 +675,9 @@ export default function Admin() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => {
+        {activeTab === 'products' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product) => {
             const images = product.image_urls && product.image_urls.length > 0 ? product.image_urls : [product.image_url];
             const currentImageIndex = productImageIndex[product.id] || 0;
             const currentImage = images[currentImageIndex];
@@ -755,7 +801,15 @@ export default function Admin() {
               </div>
             );
           })}
-        </div>
+          </div>
+        )}
+
+        {activeTab === 'testimonials' && (
+          <TestimonialManagement
+            testimonials={testimonials}
+            onUpdate={loadData}
+          />
+        )}
       </div>
     </div>
   );

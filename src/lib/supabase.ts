@@ -32,3 +32,16 @@ export interface ProductCategory {
   category_id: string;
   created_at: string;
 }
+
+export interface Testimonial {
+  id: string;
+  customer_name: string;
+  customer_title: string;
+  rating: number;
+  comment: string;
+  image_url: string;
+  is_active: boolean;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+}

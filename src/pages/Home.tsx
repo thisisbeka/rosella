@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Flower2, Gift, Calendar, Crown, Flower, Car } from 'lucide-react';
-import { supabase, Product } from '../lib/supabase';
+import { supabase, Product, Testimonial } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
 import { InteractiveHoverButton } from '../components/ui/interactive-hover-button';
+import TestimonialsCarousel from '../components/TestimonialsCarousel';
 
 interface HomeProps {
   onNavigate: (page: string, categorySlug?: string) => void;
@@ -12,10 +13,12 @@ const WHATSAPP_NUMBER = '902247770177';
 
 export default function Home({ onNavigate }: HomeProps) {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     loadFeaturedProducts();
+    loadTestimonials();
   }, []);
 
   const loadFeaturedProducts = async () => {
@@ -32,6 +35,21 @@ export default function Home({ onNavigate }: HomeProps) {
       console.error('Error loading featured products:', error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const loadTestimonials = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('testimonials')
+        .select('*')
+        .eq('is_active', true)
+        .order('display_order', { ascending: true });
+
+      if (error) throw error;
+      setTestimonials(data || []);
+    } catch (error) {
+      console.error('Error loading testimonials:', error);
     }
   };
 
@@ -190,6 +208,17 @@ export default function Home({ onNavigate }: HomeProps) {
           </div>
         </div>
       </section>
+
+      {testimonials.length > 0 && (
+        <section className="py-16 px-4">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-amber-400 mb-12 tracking-wide" style={{fontFamily: 'Cinzel, serif'}}>
+              Müşteri Yorumları
+            </h2>
+            <TestimonialsCarousel testimonials={testimonials} />
+          </div>
+        </section>
+      )}
     </div>
   );
 }
