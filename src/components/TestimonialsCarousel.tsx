@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Star, ExternalLink } from 'lucide-react';
+
+interface ReviewPhoto {
+  reference: string;
+  width: number;
+  height: number;
+}
 
 interface Testimonial {
   id: string;
@@ -9,6 +15,10 @@ interface Testimonial {
   comment: string;
   image_url: string;
   display_order: number;
+  relative_time?: string;
+  author_url?: string;
+  review_photos?: ReviewPhoto[];
+  source?: string;
 }
 
 interface TestimonialsCarouselProps {
@@ -83,13 +93,44 @@ export default function TestimonialsCarousel({ testimonials }: TestimonialsCarou
             "{currentTestimonial.comment}"
           </p>
 
+          {currentTestimonial.review_photos && currentTestimonial.review_photos.length > 0 && (
+            <div className="flex gap-2 mb-6 overflow-x-auto max-w-full">
+              {currentTestimonial.review_photos.slice(0, 3).map((photo, idx) => (
+                <div key={idx} className="flex-shrink-0">
+                  <img
+                    src={`https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=${photo.reference}&key=${import.meta.env.VITE_GOOGLE_PLACES_API_KEY || 'AIzaSyCRAmIZZke-_HuS2Iipa9khGdKcWsylqkY'}`}
+                    alt={`Review photo ${idx + 1}`}
+                    className="h-24 w-auto rounded-lg border border-amber-500/30"
+                  />
+                </div>
+              ))}
+            </div>
+          )}
+
           <div>
-            <h4 className="text-xl font-semibold text-amber-400">
-              {currentTestimonial.customer_name}
-            </h4>
+            {currentTestimonial.author_url ? (
+              <a
+                href={currentTestimonial.author_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xl font-semibold text-amber-400 hover:text-amber-300 transition-colors"
+              >
+                {currentTestimonial.customer_name}
+                <ExternalLink size={16} />
+              </a>
+            ) : (
+              <h4 className="text-xl font-semibold text-amber-400">
+                {currentTestimonial.customer_name}
+              </h4>
+            )}
             {currentTestimonial.customer_title && (
               <p className="text-sm text-amber-100/70 mt-1">
                 {currentTestimonial.customer_title}
+              </p>
+            )}
+            {currentTestimonial.relative_time && (
+              <p className="text-xs text-amber-100/50 mt-2">
+                {currentTestimonial.relative_time}
               </p>
             )}
           </div>

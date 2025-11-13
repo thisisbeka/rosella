@@ -33,6 +33,12 @@ export interface ProductCategory {
   created_at: string;
 }
 
+export interface ReviewPhoto {
+  reference: string;
+  width: number;
+  height: number;
+}
+
 export interface Testimonial {
   id: string;
   customer_name: string;
@@ -44,4 +50,8 @@ export interface Testimonial {
   display_order: number;
   created_at: string;
   updated_at: string;
+  relative_time?: string;
+  author_url?: string;
+  review_photos?: ReviewPhoto[];
+  source?: string;
 }

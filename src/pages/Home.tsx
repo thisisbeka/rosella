@@ -40,16 +40,44 @@ export default function Home({ onNavigate }: HomeProps) {
 
   const loadTestimonials = async () => {
     try {
-      const { data, error } = await supabase
-        .from('testimonials')
-        .select('*')
-        .eq('is_active', true)
-        .order('display_order', { ascending: true });
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/fetch-google-reviews`;
 
-      if (error) throw error;
-      setTestimonials(data || []);
+      const response = await fetch(apiUrl, {
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch Google reviews');
+      }
+
+      const data = await response.json();
+
+      if (data.reviews && data.reviews.length > 0) {
+        const formattedReviews = data.reviews.map((review: any, index: number) => ({
+          id: `google-${index}`,
+          customer_name: review.customer_name,
+          customer_title: '',
+          rating: review.rating,
+          comment: review.comment,
+          image_url: review.image_url,
+          is_active: true,
+          display_order: index,
+          created_at: review.created_at,
+          updated_at: review.created_at,
+          relative_time: review.relative_time,
+          author_url: review.author_url,
+          review_photos: review.photos,
+          source: 'google',
+        }));
+
+        setTestimonials(formattedReviews);
+      }
     } catch (error) {
       console.error('Error loading testimonials:', error);
+      setTestimonials([]);
     }
   };
 
