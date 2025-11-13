@@ -26,6 +26,23 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
     loadCategories();
   }, [product.id]);
 
+  useEffect(() => {
+    if (images.length > 1) {
+      const nextIndex = (currentImageIndex + 1) % images.length;
+      const prevIndex = (currentImageIndex - 1 + images.length) % images.length;
+
+      [nextIndex, prevIndex].forEach(index => {
+        if (!loadedImages.has(index)) {
+          const img = new Image();
+          img.src = images[index];
+          img.onload = () => {
+            setLoadedImages((prev) => new Set(prev).add(index));
+          };
+        }
+      });
+    }
+  }, [currentImageIndex, images]);
+
   const loadCategories = async () => {
     try {
       const { data: productCategories, error: pcError } = await supabase
