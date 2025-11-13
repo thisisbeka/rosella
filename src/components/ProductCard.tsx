@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Truck } from 'lucide-react';
-import { Product, supabase } from '../lib/supabase';
+import { Product, supabase, getOptimizedImageUrl } from '../lib/supabase';
 import OrderModal, { OrderDetails } from './OrderModal';
 
 interface ProductCardProps {
@@ -19,7 +19,8 @@ export default function ProductCard({ product, whatsappNumber }: ProductCardProp
   const [categories, setCategories] = useState<CategoryInfo[]>([]);
   const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
 
-  const images = product.image_urls && product.image_urls.length > 0 ? product.image_urls : [product.image_url];
+  const rawImages = product.image_urls && product.image_urls.length > 0 ? product.image_urls : [product.image_url];
+  const images = rawImages.map(url => getOptimizedImageUrl(url, 600, 80));
 
   useEffect(() => {
     loadCategories();
@@ -111,24 +112,18 @@ ${orderDetails.note ? `📝 *Özel Not:*\n${orderDetails.note}\n\n` : ''}━━�
         {!loadedImages.has(currentImageIndex) && (
           <div className="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-black/40 animate-pulse" />
         )}
-        <picture>
-          <source
-            type="image/webp"
-            srcSet={images[currentImageIndex]}
-          />
-          <img
-            src={images[currentImageIndex]}
-            alt={product.name}
-            width="400"
-            height="400"
-            loading="lazy"
-            decoding="async"
-            onLoad={handleImageLoad}
-            className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 will-change-transform ${
-              loadedImages.has(currentImageIndex) ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
-        </picture>
+        <img
+          src={images[currentImageIndex]}
+          alt={product.name}
+          width="600"
+          height="600"
+          loading="lazy"
+          decoding="async"
+          onLoad={handleImageLoad}
+          className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-110 will-change-transform ${
+            loadedImages.has(currentImageIndex) ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
 
         {product.discount_percentage && (
           <div className="absolute top-2 left-2 bg-gradient-to-r from-red-600 to-red-500 text-white px-2 py-1 rounded-lg shadow-lg font-semibold text-xs z-10 animate-pulse">

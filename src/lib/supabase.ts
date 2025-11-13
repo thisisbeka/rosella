@@ -55,3 +55,15 @@ export interface Testimonial {
   review_photos?: ReviewPhoto[];
   source?: string;
 }
+
+export function getOptimizedImageUrl(url: string, width: number = 800, quality: number = 75): string {
+  if (!url || !url.includes('supabase.co/storage')) {
+    return url;
+  }
+
+  const urlObj = new URL(url);
+  urlObj.searchParams.set('width', width.toString());
+  urlObj.searchParams.set('quality', quality.toString());
+
+  return urlObj.toString();
+}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Flower2, Gift, Calendar, Crown, Flower, Car } from 'lucide-react';
-import { supabase, Product, Testimonial } from '../lib/supabase';
+import { supabase, Product, Testimonial, getOptimizedImageUrl } from '../lib/supabase';
 import ProductCard from '../components/ProductCard';
 import { InteractiveHoverButton } from '../components/ui/interactive-hover-button';
 import TestimonialsCarousel from '../components/TestimonialsCarousel';
@@ -30,7 +30,22 @@ export default function Home({ onNavigate }: HomeProps) {
         .limit(6);
 
       if (error) throw error;
-      setFeaturedProducts(data || []);
+      const products = data || [];
+      setFeaturedProducts(products);
+
+      if (products.length > 0) {
+        products.slice(0, 3).forEach((product) => {
+          const imageUrl = product.image_urls?.[0] || product.image_url;
+          if (imageUrl) {
+            const optimizedUrl = getOptimizedImageUrl(imageUrl, 600, 80);
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = optimizedUrl;
+            document.head.appendChild(link);
+          }
+        });
+      }
     } catch (error) {
       console.error('Error loading featured products:', error);
     } finally {
