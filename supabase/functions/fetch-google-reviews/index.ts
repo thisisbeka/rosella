@@ -14,6 +14,8 @@ interface GoogleReview {
   rating: number;
   relative_time_description: string;
   text: string;
+  original_language?: string;
+  translated?: boolean;
   time: number;
   photos?: Array<{
     height: number;
@@ -50,7 +52,7 @@ Deno.serve(async (req: Request) => {
       throw new Error("Google Place ID not configured");
     }
 
-    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews&key=${apiKey}`;
+    const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews&language=tr&key=${apiKey}`;
 
     const response = await fetch(url);
     
