@@ -48,38 +48,38 @@ export default function AnnouncementBanner() {
 
   return (
     <div
-      className="relative px-4 py-6 md:py-8 shadow-lg animate-slideDown"
+      className="relative px-4 py-4 md:py-6 shadow-2xl animate-slideDown mt-20 md:mt-24"
       style={{
         backgroundColor: banner.background_color,
         color: banner.text_color,
       }}
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-5xl mx-auto relative">
         <button
           onClick={handleDismiss}
-          className="absolute top-2 right-2 p-2 rounded-full hover:bg-black/20 transition-colors"
+          className="absolute -top-1 right-0 md:right-2 p-2 rounded-full hover:bg-black/20 transition-colors z-10"
           aria-label="Kapat"
         >
-          <X className="w-5 h-5" />
+          <X className="w-5 h-5 md:w-6 md:h-6" />
         </button>
 
-        <div className="text-center space-y-4 pr-8">
+        <div className="text-center space-y-3 md:space-y-4 pr-10">
           {banner.title && (
-            <h3 className="text-xl md:text-2xl font-bold">
+            <h3 className="text-lg md:text-2xl font-bold">
               {banner.title}
             </h3>
           )}
 
-          <p className="text-base md:text-lg leading-relaxed max-w-4xl mx-auto">
+          <p className="text-sm md:text-lg leading-relaxed max-w-3xl mx-auto">
             {banner.message}
           </p>
 
           {banner.show_whatsapp_button && banner.whatsapp_number && (
             <button
               onClick={handleWhatsApp}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg"
+              className="inline-flex items-center gap-2 px-4 md:px-6 py-2 md:py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg text-sm md:text-base"
             >
-              <MessageCircle className="w-5 h-5" />
+              <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
               WhatsApp ile İletişim: +90 {banner.whatsapp_number.slice(2, 5)} {banner.whatsapp_number.slice(5, 8)} {banner.whatsapp_number.slice(8, 10)} {banner.whatsapp_number.slice(10)}
             </button>
           )}
