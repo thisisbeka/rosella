@@ -47,53 +47,50 @@ export default function AnnouncementBanner() {
   if (!banner || !isVisible) return null;
 
   return (
-    <>
-      <div className="h-20 md:h-24" style={{ backgroundColor: banner.background_color }}></div>
+    <div className="px-4 sm:px-6 lg:px-8 mt-3">
       <div
-        className="relative px-4 py-4 md:py-6 shadow-2xl animate-slideDown"
+        className="relative max-w-7xl mx-auto rounded-full border border-white/10 shadow-xl py-2 px-6 animate-slideDown"
         style={{
           backgroundColor: banner.background_color,
           color: banner.text_color,
         }}
       >
-        <div className="max-w-5xl mx-auto relative">
-          <button
-            onClick={handleDismiss}
-            className="absolute -top-1 right-0 md:right-2 p-2 rounded-full hover:bg-black/20 transition-colors z-10"
-            aria-label="Kapat"
-          >
-            <X className="w-5 h-5 md:w-6 md:h-6" />
-          </button>
+        <button
+          onClick={handleDismiss}
+          className="absolute top-1/2 -translate-y-1/2 right-3 p-1.5 rounded-full hover:bg-black/20 transition-colors"
+          aria-label="Kapat"
+        >
+          <X className="w-4 h-4" />
+        </button>
 
-          <div className="text-center space-y-3 md:space-y-4 pr-10">
-            {banner.title && (
-              <h3 className="text-lg md:text-2xl font-bold">
-                {banner.title}
-              </h3>
-            )}
-
-            <p className="text-sm md:text-lg leading-relaxed max-w-3xl mx-auto">
-              {banner.message}
+        <div className="text-center pr-8">
+          {banner.title && banner.message ? (
+            <p className="text-sm md:text-base font-medium">
+              <span className="font-bold">{banner.title}:</span> {banner.message}
             </p>
-          </div>
+          ) : (
+            <p className="text-sm md:text-base font-medium">
+              {banner.title || banner.message}
+            </p>
+          )}
         </div>
-
-        <style>{`
-          @keyframes slideDown {
-            from {
-              transform: translateY(-100%);
-              opacity: 0;
-            }
-            to {
-              transform: translateY(0);
-              opacity: 1;
-            }
-          }
-          .animate-slideDown {
-            animation: slideDown 0.5s ease-out;
-          }
-        `}</style>
       </div>
-    </>
+
+      <style>{`
+        @keyframes slideDown {
+          from {
+            transform: translateY(-100%);
+            opacity: 0;
+          }
+          to {
+            transform: translateY(0);
+            opacity: 1;
+          }
+        }
+        .animate-slideDown {
+          animation: slideDown 0.5s ease-out;
+        }
+      `}</style>
+    </div>
   );
 }

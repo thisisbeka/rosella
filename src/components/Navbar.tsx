@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ChevronRight } from 'lucide-react';
+import AnnouncementBanner from './AnnouncementBanner';
 
 interface NavbarProps {
   currentPage: string;
@@ -29,30 +30,31 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
   ];
 
   return (
-    <nav className="fixed top-0 w-full z-50 px-4 sm:px-6 lg:px-8 pt-4">
-      <div
-        className={`max-w-7xl mx-auto transition-all duration-500 rounded-full border ${
-          isScrolled
-            ? 'bg-black/30 backdrop-blur-[40px] backdrop-saturate-[180%] shadow-2xl shadow-black/50 border-white/20'
-            : 'bg-black/20 backdrop-blur-[60px] backdrop-saturate-[180%] border-white/10 shadow-xl shadow-black/30'
-        }`}
-        style={{
-          WebkitBackdropFilter: isScrolled ? 'blur(40px) saturate(180%)' : 'blur(60px) saturate(180%)',
-        }}
-      >
-        <div className="flex justify-between items-center h-20 px-6 lg:px-8">
-          <button
-            onClick={() => onNavigate('home')}
-            className="hover:opacity-80 transition-opacity duration-300"
-          >
-            <img
-              src="/ROSELLA_mainpage_new_2.png"
-              alt="ROSELLA"
-              loading="eager"
-              fetchpriority="high"
-              className="h-16 w-auto object-contain"
-            />
-          </button>
+    <>
+      <nav className="fixed top-0 w-full z-50 px-4 sm:px-6 lg:px-8 pt-4">
+        <div
+          className={`max-w-7xl mx-auto transition-all duration-500 rounded-full border ${
+            isScrolled
+              ? 'bg-black/30 backdrop-blur-[40px] backdrop-saturate-[180%] shadow-2xl shadow-black/50 border-white/20'
+              : 'bg-black/20 backdrop-blur-[60px] backdrop-saturate-[180%] border-white/10 shadow-xl shadow-black/30'
+          }`}
+          style={{
+            WebkitBackdropFilter: isScrolled ? 'blur(40px) saturate(180%)' : 'blur(60px) saturate(180%)',
+          }}
+        >
+          <div className="flex justify-between items-center h-20 px-6 lg:px-8">
+            <button
+              onClick={() => onNavigate('home')}
+              className="hover:opacity-80 transition-opacity duration-300"
+            >
+              <img
+                src="/ROSELLA_mainpage_new_2.png"
+                alt="ROSELLA"
+                loading="eager"
+                fetchpriority="high"
+                className="h-16 w-auto object-contain"
+              />
+            </button>
 
           <ul className="hidden lg:flex gap-8 text-base">
             {navItems.map((item) => (
@@ -80,6 +82,8 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           </button>
         </div>
       </div>
+
+      <AnnouncementBanner />
 
       {isMobileMenuOpen && (
         <div className="lg:hidden px-4 sm:px-6 lg:px-8 mt-3 space-y-2 animate-slide-down">
@@ -119,6 +123,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           ))}
         </div>
       )}
-    </nav>
+      </nav>
+    </>
   );
 }
