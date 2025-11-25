@@ -70,7 +70,7 @@ export default function AnnouncementBanner() {
           className="absolute inset-0 rounded-2xl"
         />
         <div
-          className="relative rounded-2xl shadow-2xl p-6 backdrop-blur-md"
+          className="relative rounded-2xl shadow-2xl p-12 backdrop-blur-md"
           style={{
             backgroundColor: banner.background_color,
             color: banner.text_color,
@@ -78,20 +78,20 @@ export default function AnnouncementBanner() {
         >
           <button
             onClick={handleDismiss}
-            className="absolute top-3 right-3 p-2 rounded-full hover:bg-black/30 transition-colors z-10"
+            className="absolute top-4 right-4 p-2 rounded-full hover:bg-black/30 transition-colors z-10"
             aria-label="Kapat"
           >
-            <X className="w-5 h-5" />
+            <X className="w-6 h-6" />
           </button>
 
-          <div className="text-center pr-10">
+          <div className="text-center pr-12">
             {banner.title && banner.message ? (
               <div>
-                <h3 className="text-lg sm:text-xl font-bold mb-2">{banner.title}</h3>
-                <p className="text-sm sm:text-base">{banner.message}</p>
+                <h3 className="text-2xl sm:text-3xl font-bold mb-4">{banner.title}</h3>
+                <p className="text-base sm:text-xl">{banner.message}</p>
               </div>
             ) : (
-              <p className="text-base sm:text-lg font-semibold">
+              <p className="text-xl sm:text-2xl font-semibold">
                 {banner.title || banner.message}
               </p>
             )}
