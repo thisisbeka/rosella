@@ -70,7 +70,7 @@ export default function AnnouncementBanner() {
           className="absolute inset-0 rounded-2xl"
         />
         <div
-          className="relative rounded-2xl shadow-2xl p-12 backdrop-blur-md"
+          className="relative rounded-2xl shadow-2xl p-12 backdrop-blur-md flex items-center justify-center"
           style={{
             backgroundColor: banner.background_color,
             color: banner.text_color,
@@ -84,14 +84,14 @@ export default function AnnouncementBanner() {
             <X className="w-6 h-6" />
           </button>
 
-          <div className="text-center pr-12">
+          <div className="text-center w-full px-4">
             {banner.title && banner.message ? (
-              <div>
-                <h3 className="text-2xl sm:text-3xl font-bold mb-4">{banner.title}</h3>
-                <p className="text-base sm:text-xl">{banner.message}</p>
+              <div className="space-y-2">
+                <h3 className="text-2xl sm:text-3xl font-bold leading-tight">{banner.title}</h3>
+                <p className="text-base sm:text-xl leading-snug">{banner.message}</p>
               </div>
             ) : (
-              <p className="text-xl sm:text-2xl font-semibold">
+              <p className="text-xl sm:text-2xl font-semibold leading-tight">
                 {banner.title || banner.message}
               </p>
             )}
