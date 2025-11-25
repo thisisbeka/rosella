@@ -56,6 +56,19 @@ export interface Testimonial {
   source?: string;
 }
 
+export interface Banner {
+  id: string;
+  title: string;
+  message: string;
+  is_active: boolean;
+  show_whatsapp_button: boolean;
+  whatsapp_number: string;
+  background_color: string;
+  text_color: string;
+  created_at: string;
+  updated_at: string;
+}
+
 export function getOptimizedImageUrl(url: string, width: number = 800, quality: number = 75): string {
   if (!url || !url.includes('supabase.co/storage')) {
     return url;

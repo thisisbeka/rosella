@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut, GripVertical, ChevronLeft, ChevronRight, Package, MessageSquare } from 'lucide-react';
+import { Plus, Trash2, CreditCard as Edit2, X, Check, LogOut, GripVertical, ChevronLeft, ChevronRight, Package, MessageSquare, Megaphone } from 'lucide-react';
 import { supabase, Product, Category, ProductCategory, Testimonial } from '../lib/supabase';
 import { useAuth } from '../contexts/AuthContext';
 import imageCompression from 'browser-image-compression';
 import TestimonialManagement from '../components/TestimonialManagement';
+import BannerManagement from '../components/BannerManagement';
 
 export default function Admin() {
   const { user, loading: authLoading, signIn, signOut } = useAuth();
@@ -44,7 +45,7 @@ export default function Admin() {
     is_active: true,
     display_order: 0,
   });
-  const [activeTab, setActiveTab] = useState<'products' | 'testimonials'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'testimonials' | 'banners'>('products');
 
   useEffect(() => {
     if (user) {
@@ -449,10 +450,10 @@ export default function Admin() {
           </button>
         </div>
 
-        <div className="flex gap-4 mb-8 border-b border-amber-500/20">
+        <div className="flex gap-4 mb-8 border-b border-amber-500/20 overflow-x-auto">
           <button
             onClick={() => setActiveTab('products')}
-            className={`flex items-center gap-2 px-6 py-3 font-medium transition-all duration-300 ${
+            className={`flex items-center gap-2 px-6 py-3 font-medium transition-all duration-300 whitespace-nowrap ${
               activeTab === 'products'
                 ? 'text-amber-400 border-b-2 border-amber-400'
                 : 'text-amber-100/70 hover:text-amber-100'
@@ -463,7 +464,7 @@ export default function Admin() {
           </button>
           <button
             onClick={() => setActiveTab('testimonials')}
-            className={`flex items-center gap-2 px-6 py-3 font-medium transition-all duration-300 ${
+            className={`flex items-center gap-2 px-6 py-3 font-medium transition-all duration-300 whitespace-nowrap ${
               activeTab === 'testimonials'
                 ? 'text-amber-400 border-b-2 border-amber-400'
                 : 'text-amber-100/70 hover:text-amber-100'
@@ -471,6 +472,17 @@ export default function Admin() {
           >
             <MessageSquare size={20} />
             Müşteri Yorumları
+          </button>
+          <button
+            onClick={() => setActiveTab('banners')}
+            className={`flex items-center gap-2 px-6 py-3 font-medium transition-all duration-300 whitespace-nowrap ${
+              activeTab === 'banners'
+                ? 'text-amber-400 border-b-2 border-amber-400'
+                : 'text-amber-100/70 hover:text-amber-100'
+            }`}
+          >
+            <Megaphone size={20} />
+            Banner Yönetimi
           </button>
         </div>
 
@@ -809,6 +821,10 @@ export default function Admin() {
             testimonials={testimonials}
             onUpdate={loadData}
           />
+        )}
+
+        {activeTab === 'banners' && (
+          <BannerManagement />
         )}
       </div>
     </div>
