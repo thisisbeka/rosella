@@ -47,9 +47,9 @@ export default function AnnouncementBanner() {
   if (!banner || !isVisible) return null;
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 mt-3">
+    <div className="px-4 sm:px-6 lg:px-8 mt-2">
       <div
-        className="relative max-w-7xl mx-auto rounded-full border border-white/10 shadow-xl py-2 px-6 animate-slideDown"
+        className="relative max-w-7xl mx-auto rounded-full border border-white/10 shadow-xl py-1.5 px-4 sm:px-6 animate-slideDown"
         style={{
           backgroundColor: banner.background_color,
           color: banner.text_color,
@@ -57,19 +57,19 @@ export default function AnnouncementBanner() {
       >
         <button
           onClick={handleDismiss}
-          className="absolute top-1/2 -translate-y-1/2 right-3 p-1.5 rounded-full hover:bg-black/20 transition-colors"
+          className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-3 p-1 sm:p-1.5 rounded-full hover:bg-black/20 transition-colors"
           aria-label="Kapat"
         >
-          <X className="w-4 h-4" />
+          <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </button>
 
-        <div className="text-center pr-8">
+        <div className="text-center pr-6 sm:pr-8">
           {banner.title && banner.message ? (
-            <p className="text-sm md:text-base font-medium">
+            <p className="text-xs sm:text-sm md:text-base font-medium leading-tight">
               <span className="font-bold">{banner.title}:</span> {banner.message}
             </p>
           ) : (
-            <p className="text-sm md:text-base font-medium">
+            <p className="text-xs sm:text-sm md:text-base font-medium leading-tight">
               {banner.title || banner.message}
             </p>
           )}
