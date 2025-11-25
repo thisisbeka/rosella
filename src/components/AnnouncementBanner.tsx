@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import { supabase, Banner } from '../lib/supabase';
+import { PulsingBorder } from '@paper-design/shaders-react';
 
 export default function AnnouncementBanner() {
   const [banner, setBanner] = useState<Banner | null>(null);
@@ -48,31 +49,52 @@ export default function AnnouncementBanner() {
 
   return (
     <div className="px-4 sm:px-6 lg:px-8 mt-2">
-      <div
-        className="relative max-w-7xl mx-auto rounded-full border border-white/10 shadow-xl py-1.5 px-4 sm:px-6 animate-slideDown"
-        style={{
-          backgroundColor: banner.background_color,
-          color: banner.text_color,
-        }}
-      >
-        <button
-          onClick={handleDismiss}
-          className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-3 p-1 sm:p-1.5 rounded-full hover:bg-black/20 transition-colors"
-          aria-label="Kapat"
+      <div className="relative max-w-7xl mx-auto animate-slideDown">
+        <PulsingBorder
+          speed={1}
+          roundness={0.5}
+          thickness={0.15}
+          softness={0.75}
+          intensity={0.3}
+          bloom={0.25}
+          spots={3}
+          spotSize={0.5}
+          pulse={0.25}
+          smoke={0.3}
+          smokeSize={0.6}
+          scale={0.6}
+          rotation={0}
+          aspectRatio="auto"
+          colors={['#FFD700', '#FFA500', '#FF8C00']}
+          colorBack="#00000000"
+          className="absolute inset-0 rounded-full pointer-events-none"
+        />
+        <div
+          className="relative rounded-full shadow-xl py-1.5 px-4 sm:px-6 overflow-hidden"
+          style={{
+            backgroundColor: banner.background_color,
+            color: banner.text_color,
+          }}
         >
-          <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-        </button>
+          <button
+            onClick={handleDismiss}
+            className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-3 p-1 sm:p-1.5 rounded-full hover:bg-black/20 transition-colors z-10"
+            aria-label="Kapat"
+          >
+            <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          </button>
 
-        <div className="text-center pr-6 sm:pr-8">
-          {banner.title && banner.message ? (
-            <p className="text-xs sm:text-sm md:text-base font-medium leading-tight">
-              <span className="font-bold">{banner.title}:</span> {banner.message}
-            </p>
-          ) : (
-            <p className="text-xs sm:text-sm md:text-base font-medium leading-tight">
-              {banner.title || banner.message}
-            </p>
-          )}
+          <div className="text-center pr-6 sm:pr-8">
+            {banner.title && banner.message ? (
+              <p className="text-xs sm:text-sm md:text-base font-medium leading-tight">
+                <span className="font-bold">{banner.title}:</span> {banner.message}
+              </p>
+            ) : (
+              <p className="text-xs sm:text-sm md:text-base font-medium leading-tight">
+                {banner.title || banner.message}
+              </p>
+            )}
+          </div>
         </div>
       </div>
 
