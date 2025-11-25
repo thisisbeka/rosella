@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, ChevronRight } from 'lucide-react';
-import AnnouncementBanner from './AnnouncementBanner';
 
 interface NavbarProps {
   currentPage: string;
@@ -82,8 +81,6 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
           </button>
         </div>
       </div>
-
-      <AnnouncementBanner />
 
       {isMobileMenuOpen && (
         <div className="lg:hidden px-4 sm:px-6 lg:px-8 mt-3 space-y-2 animate-slide-down">

@@ -48,54 +48,53 @@ export default function AnnouncementBanner() {
   if (!banner || !isVisible) return null;
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8 py-2 relative z-50">
-      <div className="relative max-w-7xl mx-auto animate-slideDown">
-        <div className="relative p-[2px]">
-          <PulsingBorder
-            speed={1}
-            roundness={0.5}
-            thickness={0.25}
-            softness={0.5}
-            intensity={0.8}
-            bloom={0.6}
-            spots={5}
-            spotSize={0.5}
-            pulse={0.4}
-            smoke={0.5}
-            smokeSize={0.6}
-            scale={1}
-            rotation={0}
-            aspectRatio="auto"
-            colors={['#FFD700', '#FFA500', '#FF8C00']}
-            colorBack="#00000000"
-            className="absolute inset-0 rounded-full"
-          />
-          <div
-            className="relative rounded-full shadow-xl py-2 px-4 sm:px-6"
-            style={{
-              backgroundColor: banner.background_color,
-              color: banner.text_color,
-            }}
+    <div className="fixed top-32 left-1/2 -translate-x-1/2 z-[100] w-[90vw] max-w-2xl px-4 animate-slideDown">
+      <div className="relative p-[3px]">
+        <PulsingBorder
+          speed={1}
+          roundness={0.1}
+          thickness={0.3}
+          softness={0.5}
+          intensity={0.9}
+          bloom={0.7}
+          spots={6}
+          spotSize={0.5}
+          pulse={0.5}
+          smoke={0.6}
+          smokeSize={0.6}
+          scale={1}
+          rotation={0}
+          aspectRatio="auto"
+          colors={['#FFD700', '#FFA500', '#FF8C00']}
+          colorBack="#00000000"
+          className="absolute inset-0 rounded-2xl"
+        />
+        <div
+          className="relative rounded-2xl shadow-2xl p-6 backdrop-blur-md"
+          style={{
+            backgroundColor: banner.background_color,
+            color: banner.text_color,
+          }}
+        >
+          <button
+            onClick={handleDismiss}
+            className="absolute top-3 right-3 p-2 rounded-full hover:bg-black/30 transition-colors z-10"
+            aria-label="Kapat"
           >
-            <button
-              onClick={handleDismiss}
-              className="absolute top-1/2 -translate-y-1/2 right-2 sm:right-3 p-1 sm:p-1.5 rounded-full hover:bg-black/20 transition-colors z-10"
-              aria-label="Kapat"
-            >
-              <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            </button>
+            <X className="w-5 h-5" />
+          </button>
 
-            <div className="text-center pr-6 sm:pr-8">
-              {banner.title && banner.message ? (
-                <p className="text-xs sm:text-sm md:text-base font-medium leading-tight">
-                  <span className="font-bold">{banner.title}:</span> {banner.message}
-                </p>
-              ) : (
-                <p className="text-xs sm:text-sm md:text-base font-medium leading-tight">
-                  {banner.title || banner.message}
-                </p>
-              )}
-            </div>
+          <div className="text-center pr-10">
+            {banner.title && banner.message ? (
+              <div>
+                <h3 className="text-lg sm:text-xl font-bold mb-2">{banner.title}</h3>
+                <p className="text-sm sm:text-base">{banner.message}</p>
+              </div>
+            ) : (
+              <p className="text-base sm:text-lg font-semibold">
+                {banner.title || banner.message}
+              </p>
+            )}
           </div>
         </div>
       </div>
