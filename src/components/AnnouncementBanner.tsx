@@ -48,9 +48,9 @@ export default function AnnouncementBanner() {
   if (!banner || !isVisible) return null;
 
   return (
-    <div className="px-4 sm:px-6 lg:px-8 mt-2">
+    <div className="w-full px-4 sm:px-6 lg:px-8 py-2 relative z-50">
       <div className="relative max-w-7xl mx-auto animate-slideDown">
-        <div className="relative p-[3px]">
+        <div className="relative p-[2px]">
           <PulsingBorder
             speed={1}
             roundness={0.5}
@@ -71,7 +71,7 @@ export default function AnnouncementBanner() {
             className="absolute inset-0 rounded-full"
           />
           <div
-            className="relative rounded-full shadow-xl py-1.5 px-4 sm:px-6"
+            className="relative rounded-full shadow-xl py-2 px-4 sm:px-6"
             style={{
               backgroundColor: banner.background_color,
               color: banner.text_color,

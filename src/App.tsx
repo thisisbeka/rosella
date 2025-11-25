@@ -2,6 +2,7 @@ import { useState, useEffect, lazy, Suspense } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import AnnouncementBanner from './components/AnnouncementBanner';
 import Home from './pages/Home';
 import { AuthProvider } from './contexts/AuthContext';
 
@@ -73,6 +74,7 @@ function App() {
           setCurrentPage(page);
           setSelectedCategorySlug(categorySlug || null);
         }} />
+        <AnnouncementBanner />
         <main>
           <Suspense fallback={
             <div className="min-h-screen flex items-center justify-center">
