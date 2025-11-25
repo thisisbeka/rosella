@@ -24,8 +24,7 @@ export default function AnnouncementBanner() {
       if (error) throw error;
       if (data) {
         setBanner(data);
-        const dismissed = sessionStorage.getItem(`banner-dismissed-${data.id}`);
-        setIsVisible(!dismissed);
+        setIsVisible(true);
       }
     } catch (error) {
       console.error('Error loading banner:', error);
@@ -33,9 +32,6 @@ export default function AnnouncementBanner() {
   };
 
   const handleDismiss = () => {
-    if (banner) {
-      sessionStorage.setItem(`banner-dismissed-${banner.id}`, 'true');
-    }
     setIsVisible(false);
   };
 
